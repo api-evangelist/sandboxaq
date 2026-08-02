@@ -1,23 +1,197 @@
 aid: sandboxaq
 name: SandboxAQ
-description: 'SandboxAQ is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'SandboxAQ (SB Technology, Inc.) builds Large Quantitative Models (LQMs) — AI systems that
+  fuse physics, chemistry and proprietary scientific data — and ships them as commercial platforms with
+  public developer surfaces. Three product lines carry callable APIs: AQtive Guard, a cryptography and
+  non-human-identity posture-management platform (built on the Cryptosense analyzer) exposing a GraphQL
+  API at /api/v2 plus a fleet of language and network sensors; Flint AI, an AI-agent security platform
+  whose Platform API is a documented OpenAPI 3.0.3 contract over an inventory graph of agents, models,
+  tools and MCP servers, paired with the flintai CLI and a Python guardrails SDK; and the SandboxAQ MCP
+  Server, a per-tenant OAuth-protected Model Context Protocol endpoint that exposes the AQCat adsorption
+  and AQPotency proteochemometric potency models as tools for LLM clients.'
+image: https://cdn.prod.website-files.com/622a3cfaa89636b753810f04/623911fca65004cb868ec3ec_SandboxAQ-social-share.jpg
 url: https://raw.githubusercontent.com/api-evangelist/sandboxaq/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
-apis: []
+- Artificial Intelligence
+- Security
+- Cryptography
+- Post-Quantum Cryptography
+- Agents
+- Model Context Protocol
+- Simulation
+- Drug Discovery
+- Materials Science
+- AI Security
+- Quantum
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: sandboxaq:flint-ai-platform-api
+  name: Flint AI Platform API
+  description: 'The Flint AI Platform API gives programmatic access to everything the Flint AI Platform
+    discovers about an organization''s AI estate: the agents found in code, the models, tools and MCP
+    servers they use, the assets and locations behind them, and the issues and rules that apply. The
+    inventory is modelled as a graph, and every entity exposes an edge endpoint so callers can traverse
+    from an agent to its models, or from a model back to the agents that call it. Authentication is a
+    bearer token created under Settings > API Keys; most paths are scoped to a tenant and a workspace.'
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - AI Security
+  - Agents
+  - Inventory
+  - Governance
+  - Model Context Protocol
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-flint-ai-platform-openapi.json
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: Overlay
+    url: overlays/sandboxaq-flint-ai-platform-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:aqtive-guard-api
+  name: AQtive Guard API
+  description: 'AQtive Guard is SandboxAQ''s cryptography and non-human-identity management platform,
+    built on the Cryptosense analyzer it acquired. Its API is GraphQL, served at /api/v2 and authenticated
+    with an API-KEY header. The published schema covers projects, traces, analysis reports, cryptographic
+    instances, keys, certificates, ciphersuites, TLS and SSH handshakes, scans, rules, vulnerabilities and
+    slots, plus mutations for the Jira, ServiceNow, CrowdStrike, Tanium and Venafi integrations. Sensors
+    (Java, Python, .NET, OpenSSL and PKCS#11 tracers, filesystem and bytecode scanners, a network analyzer)
+    feed traces into it, and the cs-api CLI wraps the upload-and-analyze flow.'
+  humanURL: https://aqtiveguard.sandboxaq.com/docs/api/
+  baseURL: https://aqtiveguard.sandboxaq.com/api/v2
+  tags:
+  - Cryptography
+  - Security
+  - Post-Quantum Cryptography
+  - Certificates
+  - Non-Human Identity
+  properties:
+  - type: GraphQL
+    url: graphql/sandboxaq-aqtive-guard.graphql
+  - type: Documentation
+    url: https://aqtiveguard.sandboxaq.com/docs/
+  - type: APIReference
+    url: https://aqtiveguard.sandboxaq.com/docs/api/reference/
+  - type: GettingStarted
+    url: https://aqtiveguard.sandboxaq.com/docs/getting-started/
+  - type: ChangeLog
+    url: https://aqtiveguard.sandboxaq.com/docs/changelog/
+  - type: CLI
+    url: cli/sandboxaq-cli.yml
+- aid: sandboxaq:mcp-server
+  name: SandboxAQ MCP Server
+  description: 'A fully managed, per-tenant Model Context Protocol server that exposes SandboxAQ''s
+    proprietary scientific AI models as callable tools inside Claude and other MCP clients. It carries
+    the aqcat tool (dense adsorption energy screening powered by the AQCat25-EV2 machine-learning
+    potential) and the four AQPotency tools (single-pair potency prediction, library screening, panel
+    scanning and selectivity) built on a proteochemometric model. Transport is Streamable HTTP;
+    authentication is OAuth only — no static API keys are issued or accepted.'
+  humanURL: https://docs.aisim.sandboxaq.com/mcp
+  baseURL: https://mcp.{tenant}.aisim.sandboxaq.com
+  tags:
+  - Model Context Protocol
+  - Agents
+  - Simulation
+  - Drug Discovery
+  - Materials Science
+  properties:
+  - type: MCPServer
+    url: mcp/sandboxaq-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/sandboxaq-tool-crosswalk.yml
+  - type: Documentation
+    url: https://docs.aisim.sandboxaq.com/mcp
 common:
+- type: AgenticAccess
+  url: agentic-access/sandboxaq-agentic-access.yml
+- type: DomainSecurity
+  url: security/sandboxaq-domain-security.yml
 - type: Website
+  url: https://www.sandboxaq.com/
+- type: DeveloperPortal
+  url: https://docs.flintai.dev/
+- type: Documentation
+  url: https://docs.flintai.dev/
+- type: APIReference
+  url: https://docs.flintai.dev/flintai/api-reference/index
+- type: GettingStarted
+  url: https://docs.flintai.dev/flintai/cli/guides/scan-quickstart
+- type: Blog
+  url: https://www.sandboxaq.com/blog
+- type: GitHubOrganization
+  url: https://github.com/sandbox-quantum
+- type: Support
+  url: https://docs.aisim.sandboxaq.com/contact
+- type: SignUp
+  url: https://www.sandboxaq.com/
+- type: TermsOfService
+  url: https://www.sandboxaq.com/legal/terms-conditions
+- type: PrivacyPolicy
+  url: https://www.sandboxaq.com/legal/privacy-policy
+- type: Products
+  url: https://www.sandboxaq.com/products
+- type: SecondaryMarket
   url: https://www.hiive.com/securities/sandboxaq-stock
+- type: OpenAPI
+  url: openapi/sandboxaq-flint-ai-platform-openapi.json
+- type: GraphQL
+  url: graphql/sandboxaq-aqtive-guard.graphql
+- type: Protobuf
+  url: grpc/sandboxaq-sandwich-sandwich.proto
+- type: AgentCard
+  url: a2a/sandboxaq-a2a.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/sandboxaq-llms.txt
+- type: MCPServer
+  url: mcp/sandboxaq-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/sandboxaq-tool-crosswalk.yml
+- type: Packages
+  url: packages/sandboxaq-packages.yml
+- type: SDKs
+  url: packages/sandboxaq-packages.yml
+- type: CLI
+  url: cli/sandboxaq-cli.yml
+- type: WellKnown
+  url: well-known/sandboxaq-well-known.yml
+- type: Conventions
+  url: conventions/sandboxaq-conventions.yml
+- type: Conformance
+  url: conformance/sandboxaq-conformance.yml
+- type: ErrorCatalog
+  url: errors/sandboxaq-problem-types.yml
+- type: Authentication
+  url: authentication/sandboxaq-authentication.yml
+- type: Lifecycle
+  url: lifecycle/sandboxaq-lifecycle.yml
+- type: ChangeLog
+  url: changelog/sandboxaq-changelog.yml
+- type: DataModel
+  url: data-model/sandboxaq-data-model.yml
+- type: Overlay
+  url: overlays/sandboxaq-flint-ai-platform-overlay.yaml
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 39
+  pass: local-v1

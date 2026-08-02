@@ -1,0 +1,61 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Flint AI Platform API
+  version: 1.0.0
+extends: openapi/sandboxaq-flint-ai-platform-openapi.json
+x-provenance:
+  generated: '2026-08-02'
+  method: generated
+  source: 'Derived from the harvested spec at https://docs.flintai.dev/flintai/api-reference/openapi.json
+    plus the artifacts in this repo. The original spec is never mutated — these are API Evangelist
+    annotations applied on top of it.'
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: sandboxaq
+    x-apievangelist-product: Flint AI
+    x-apievangelist-harvested: '2026-08-02'
+    x-apievangelist-spec-source: https://docs.flintai.dev/flintai/api-reference/openapi.json
+    x-apievangelist-artifacts:
+      authentication: authentication/sandboxaq-authentication.yml
+      conventions: conventions/sandboxaq-conventions.yml
+      errors: errors/sandboxaq-problem-types.yml
+      data_model: data-model/sandboxaq-data-model.yml
+      lifecycle: lifecycle/sandboxaq-lifecycle.yml
+      conformance: conformance/sandboxaq-conformance.yml
+      agentic_access: agentic-access/sandboxaq-agentic-access.yml
+      packages: packages/sandboxaq-packages.yml
+      cli: cli/sandboxaq-cli.yml
+- target: $.info
+  description: 'The published spec declares no top-level `security`, so the BearerAuth scheme is defined
+    but never applied. Every operation in fact requires it — all 55 declare a 401 response. Recorded as
+    an annotation rather than a mutation.'
+  update:
+    x-apievangelist-security-note: 'components.securitySchemes.BearerAuth is declared but no operation
+      or root-level security requirement applies it, while all 55 operations declare a 401 Unauthorized
+      response. Callers must send Authorization: Bearer <token> on every request.'
+- target: $.info
+  update:
+    x-apievangelist-error-format: 'custom (common.RequestError: code + message) — not RFC 9457
+      application/problem+json'
+    x-apievangelist-pagination: 'cursor + page_size, returning engine_output.EngineDataPage with a
+      tabular header/rows body'
+    x-apievangelist-idempotency: 'none — no Idempotency-Key parameter appears in the spec and no
+      retry-safe write contract is documented'
+- target: $.servers
+  description: 'Annotate the per-instance server variable so agent tooling knows the {instance}
+    placeholder must be replaced with the customer subdomain before any call.'
+  update:
+  - description: Flint AI Platform (per-tenant instance)
+    url: https://{instance}.flintai.dev/api/v1
+    x-apievangelist-note: '{instance} is the customer subdomain issued at provisioning; the default
+      value "your-instance" in the spec is a placeholder and does not resolve.'
+    variables:
+      instance:
+        default: your-instance
+        description: Your Flint AI instance subdomain
+- target: $.components.securitySchemes.BearerAuth
+  update:
+    x-apievangelist-token-issuance: 'Create a token in the Platform console under Settings > API Keys.
+      The token is displayed once at creation.'
+    x-apievangelist-header-example: 'Authorization: Bearer $FLINTAI_TOKEN'

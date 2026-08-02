@@ -1,0 +1,115 @@
+generated: '2026-08-02'
+method: derived
+source: mcp/sandboxaq-mcp.yml + openapi/sandboxaq-flint-ai-platform-openapi.json + graphql/sandboxaq-aqtive-guard.graphql
+description: 'Crosswalk binding SandboxAQ''s agent-facing MCP tools to the machine-readable contracts in
+  this repo. The headline finding is a HARD SURFACE SPLIT: SandboxAQ''s three public API surfaces belong
+  to three different products and share no operations. The MCP server (aisim / scientific simulation)
+  exposes tools with NO public REST or GraphQL equivalent; the Flint AI Platform OpenAPI (AI-agent
+  security) exposes 55 operations with NO MCP tool; the AQtive Guard GraphQL schema (cryptography
+  posture) exposes 79 root fields with NO MCP tool. This is a genuine divergence, recorded rather than
+  papered over — there is no operation in any spec that backs an MCP tool, so crosswalk[] is empty by
+  observation, not by omission.'
+surfaces:
+  openapi:
+    file: openapi/sandboxaq-flint-ai-platform-openapi.json
+    product: Flint AI Platform
+    base_url: https://{instance}.flintai.dev/api/v1
+    operations: 55
+    gated: false
+    note: Spec is publicly served at https://docs.flintai.dev/flintai/api-reference/openapi.json; calling
+      it requires a bearer token issued per instance.
+  graphql:
+    file: graphql/sandboxaq-aqtive-guard.graphql
+    product: AQtive Guard
+    endpoint: https://aqtiveguard.sandboxaq.com/api/v2
+    root_fields: 79
+    queries: 6
+    mutations: 73
+    gated: true
+    gated_evidence: 'POST {__schema{queryType{name}}} to https://aqtiveguard.sandboxaq.com/api/v2 returns
+      HTTP 400 {"errors":["You must supply an `API-KEY` header in your request"]} — introspection is
+      auth-gated. The SDL in graphql/ is transcribed from the provider''s own published schema reference
+      at https://aqtiveguard.sandboxaq.com/docs/api/reference/, not from a live introspection.'
+  mcp:
+    file: mcp/sandboxaq-mcp.yml
+    product: SandboxAQ MCP Server (AI Simulation)
+    url: https://mcp.{tenant}.aisim.sandboxaq.com
+    tools: 5
+    helper_tools: 4
+    gated: true
+    gated_evidence: 'The endpoint is per-tenant and OAuth-only (no static API keys are issued or
+      accepted), so there is no anonymous host against which to POST tools/list. Tool names, parameters
+      and limits are transcribed from https://docs.aisim.sandboxaq.com/aqcat and /aqpotency.'
+crosswalk: []
+crosswalk_note: 'Zero bindings. No MCP tool in mcp/sandboxaq-mcp.yml maps to any operationId in the
+  Flint AI OpenAPI or any root field in the AQtive Guard GraphQL schema — they are different products
+  with different data cores.'
+mcp_only:
+- tool: aqcat
+  reason: 'Backed by the AQCat25-EV2 machine-learning potential on SandboxAQ-managed GPU infrastructure.
+    No public REST or GraphQL operation exposes adsorption-energy screening; the MCP server is the only
+    documented public interface to this model.'
+- tool: AqpotencyPotency
+  reason: BioSim proteochemometric potency model. No public REST/GraphQL equivalent published.
+- tool: AqpotencyScreen
+  reason: 'Library-vs-target screening built on an upload-session flow (upload_files with
+    purpose=aqpotency_screen). No public REST/GraphQL equivalent published.'
+- tool: AqpotencyScan
+  reason: Reverse screening against curated panels bundled in the container image. No public
+    REST/GraphQL equivalent published.
+- tool: AqpotencySelectivity
+  reason: On-target vs off-target selectivity ratios. No public REST/GraphQL equivalent published.
+- tool: check_job_status
+  reason: Job-lifecycle helper for the async MCP tools. Not exposed as a public REST operation.
+- tool: get_job_results
+  reason: Job-lifecycle helper for the async MCP tools. Not exposed as a public REST operation.
+- tool: upload_files
+  reason: Upload-session helper for AqpotencyScreen. Not exposed as a public REST operation.
+- tool: upload_local_files
+  reason: Local-path upload helper for AqpotencyScreen. Not exposed as a public REST operation.
+rest_only:
+- capability: AI agent inventory (aispm-agents)
+  operations: [GetAllAispmAgents, GetAispmAgentDetails, GetAISPMAgentEdges]
+- capability: AI model inventory (aispm-models)
+  operations: [GetAllAispmModels, GetAispmModelDetails, GetAISPMModelEdges]
+- capability: Agent tool inventory (aispm-tools)
+  operations: [GetAllAispmTools, GetAispmToolDetails, GetAISPMToolEdges]
+- capability: MCP server inventory (aispm-mcp-servers)
+  operations: [GetAllAispmMcpServers, GetAispmMcpServerDetails, GetAISPMMcpServerEdges]
+- capability: Runtime LLM interactions and sessions
+  operations: [GetAllAispmLlmInteractions, GetAispmLlmInteractionDetails, GetAispmLlmSessions]
+- capability: Guardrail outcome analytics
+  operations: [GetAispmGuardrailCategories, GetAispmGuardrailInteractionCounts, GetAispmGuardrailOutcomes]
+- capability: Dashboards and histograms
+  operations: [GetSummaryAispmDashboard, GetHistogramsAispm]
+- capability: Assets and locations
+  operations: [GetAllAssets, GetAssetDetails, GetAssetEdges, GetAllLocations, GetLocationEdges]
+- capability: Findings (issues and instances)
+  operations: [GetAllIssues, GetIssuesIndex, GetIssueSingle, GetIssueObjects, GetIssueObjectDetails,
+    GetIssueObjectDetail, GetIssueDetails, GetIssueInstances, GetInstanceDetailsV2]
+- capability: Rules
+  operations: [GetAllRules, GetRule, GetRuleInstances, GetStaticRules, GetExternalRules]
+- capability: Scans
+  operations: [GetAllCurrentScans, GetAllScansForAsset, GetSensorsUsed]
+- capability: Client storage (the only write surface in the spec)
+  operations: [PutClientStorageTenant, PutClientStorageTenantUser, PutClientStorageTenantWorkspace,
+    PutClientStorageUser, DeleteClientStorageTenant, DeleteClientStorageTenantUser,
+    DeleteClientStorageTenantWorkspace, DeleteClientStorageUser, GetClientStorageTenant,
+    GetClientStorageTenantUser, GetClientStorageTenantWorkspace, GetClientStorageUser]
+- capability: View export
+  operations: [ExportView]
+graphql_only:
+- capability: Cryptographic analysis (AQtive Guard)
+  root_fields: [analyze, createProject, createTrace, createSlot, generateTraceUploadPost, queueStatus,
+    analyzerRules, traceTypes, viewer, version]
+  note: 'AQtive Guard exposes 6 queries and 73 mutations. None has an MCP tool or a REST operation in
+    this repo. Full schema in graphql/sandboxaq-aqtive-guard.graphql.'
+coverage:
+  tools_named: 9
+  tools_bound_to_rest: 0
+  mcp_only: 9
+  rest_operations_total: 55
+  rest_operations_with_a_tool: 0
+  graphql_root_fields_total: 79
+  graphql_root_fields_with_a_tool: 0
+  surfaces_sharing_a_data_core: 0

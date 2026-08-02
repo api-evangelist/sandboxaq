@@ -1,0 +1,91 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/sandboxaq-flint-ai-platform-openapi.json
+format: custom
+format_note: 'The Flint AI Platform API does NOT use RFC 9457 application/problem+json. Every 4xx/5xx
+  response is served as application/json carrying the common.RequestError object: {code: integer, message:
+  string}, both required.'
+envelope:
+  media_type: application/json
+  schema: common.RequestError
+  fields:
+  - name: code
+    type: integer
+    example: 400
+  - name: message
+    type: string
+    example: Invalid request
+problems:
+- status: 400
+  title: Bad request
+  schema: common.RequestError
+  media_type: application/json
+  operations_declaring_it: 36
+  example_operations:
+  - DeleteClientStorageTenant
+  - DeleteClientStorageTenantUser
+  - DeleteClientStorageTenantWorkspace
+  - DeleteClientStorageUser
+  - ExportView
+- status: 401
+  title: Unauthorized
+  schema: common.RequestError
+  media_type: application/json
+  operations_declaring_it: 55
+  example_operations:
+  - DeleteClientStorageTenant
+  - DeleteClientStorageTenantUser
+  - DeleteClientStorageTenantWorkspace
+  - DeleteClientStorageUser
+  - ExportView
+- status: 403
+  title: Forbidden
+  schema: common.RequestError
+  media_type: application/json
+  operations_declaring_it: 28
+  example_operations:
+  - DeleteClientStorageTenant
+  - DeleteClientStorageTenantUser
+  - DeleteClientStorageTenantWorkspace
+  - GetAispmAgentDetails
+  - GetAispmLlmInteractionDetails
+- status: 404
+  title: Not Found
+  schema: common.RequestError
+  media_type: application/json
+  operations_declaring_it: 36
+  example_operations:
+  - DeleteClientStorageTenant
+  - DeleteClientStorageTenantUser
+  - DeleteClientStorageTenantWorkspace
+  - DeleteClientStorageUser
+  - ExportView
+- status: 500
+  title: Failed to schedule the view export.
+  schema: common.RequestError
+  media_type: application/json
+  operations_declaring_it: 45
+  example_operations:
+  - DeleteClientStorageTenant
+  - DeleteClientStorageTenantUser
+  - DeleteClientStorageTenantWorkspace
+  - DeleteClientStorageUser
+  - ExportView
+coverage:
+  operations_total: 55
+  operations_with_401: 55
+  operations_with_400: 36
+  operations_with_403: 28
+  operations_with_404: 36
+  operations_with_500: 45
+other_surfaces:
+- surface: AQtive Guard GraphQL
+  format: GraphQL errors array
+  example: '{"errors":["You must supply an `API-KEY` header in your request"]}'
+  observed_http_status: 400
+  source: live POST to https://aqtiveguard.sandboxaq.com/api/v2 without an API-KEY header
+- surface: SandboxAQ MCP Server
+  format: MCP ToolError
+  note: Requests exceeding the published caps (10,000 SMILES, 16 MB upload, 5 placements) are rejected
+    with a ToolError. Rate-limit responses carry no Retry-After header.
+  source: https://docs.aisim.sandboxaq.com/aqpotency

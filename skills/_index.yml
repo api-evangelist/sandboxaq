@@ -1,0 +1,37 @@
+generated: '2026-08-02'
+method: searched
+source: 'One skill harvested verbatim from the provider — https://docs.flintai.dev/.well-known/agent-skills/flint/skill.md,
+  advertised by the A2A Agent Card at https://docs.flintai.dev/.well-known/agent-card.json — plus one
+  skill generated from openapi/sandboxaq-flint-ai-platform-openapi.json. Every operationId in the
+  generated skill was verified verbatim against the spec.'
+skills:
+- file: sandboxaq-flint.md
+  name: Flint
+  method: searched
+  source: https://docs.flintai.dev/.well-known/agent-skills/flint/skill.md
+  http_status: 200
+  description: 'Provider-authored skill. Use when scanning AI agent code for security vulnerabilities,
+    evaluating agent behavior at runtime, discovering agents in codebases, or monitoring agent sessions
+    in production.'
+  api: cli/sandboxaq-cli.yml
+  surface: Flint AI CLI + Flint AI Platform
+  note: Saved verbatim. Not edited.
+- file: sandboxaq-audit-ai-inventory.md
+  name: Audit an AI agent inventory with the Flint AI Platform API
+  method: generated
+  description: 'Walk a tenant''s discovered AI estate — agents, the models, tools and MCP servers they
+    use, and the issues raised against them — using the inventory graph, then pull the rule behind any
+    finding.'
+  api: openapi/sandboxaq-flint-ai-platform-openapi.json
+  operations: [GetSummaryAispmDashboard, GetAllAispmAgents, GetAispmAgentDetails, GetAISPMAgentEdges,
+    GetAllAispmMcpServers, GetAispmMcpServerDetails, GetAllAispmTools, GetAispmToolDetails,
+    GetIssuesIndex, GetIssueObjects, GetIssueInstances, GetInstanceDetailsV2, GetRule, GetStaticRules,
+    GetExternalRules]
+not_generated:
+- surface: AQtive Guard GraphQL API
+  reason: 'Agent Skills in this pipeline are grounded in OpenAPI operationIds. The AQtive Guard surface
+    is GraphQL and its introspection endpoint is auth-gated, so no skill was generated rather than
+    inventing a call shape.'
+- surface: SandboxAQ MCP Server
+  reason: 'The MCP server is itself the agent surface — its tools carry their own descriptions and are
+    catalogued in mcp/sandboxaq-mcp.yml. A skill wrapping it would restate the tool docs.'

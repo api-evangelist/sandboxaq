@@ -1,0 +1,84 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.flintai.dev/flintai/cli/resources/changelog + https://aqtiveguard.sandboxaq.com/docs/changelog/
+description: 'SandboxAQ publishes dated changelogs for two products. Flint AI CLI uses semver with
+  explicit Added/Changed/Fixed sections and flags breaking changes inline. AQtive Guard uses calendar
+  versioning (YY.MM.PATCH). Recent window only — the live changelogs remain the source of truth. No
+  changelog is published for the Flint AI Platform API itself or for the SandboxAQ MCP Server.'
+changelogs:
+- product: Flint AI CLI
+  url: https://docs.flintai.dev/flintai/cli/resources/changelog
+  scheme: semver
+  current_version: 1.1.1
+  current_date: '2026-07-27'
+  breaking_changes_flagged: true
+  entries:
+  - version: 1.1.1
+    date: '2026-07-27'
+    breaking: false
+    summary: Documentation-only release. No changes to CLI behavior, commands or options.
+    fixed:
+    - Corrected documentation links — README links now point to migrated documentation paths.
+  - version: 1.1.0
+    date: '2026-07-15'
+    breaking: true
+    summary: Machine-readable output and broader Python support.
+    added:
+    - '--format {json,sarif} on flintai scan and flintai eval run (-f short form); json stays the default.'
+    - SARIF 2.1.0 output for GitHub code scanning and other SARIF-aware workflows.
+    - Versioned eval output — machine-readable eval results carry a schema version.
+    changed:
+    - Python 3.11 or later, lowered from 3.13.
+    - 'BREAKING: default output filenames follow the chosen format — scan writes scan_<timestamp>.<format>
+      (renamed from results_<timestamp>.json) and eval writes eval_<timestamp>.<format>.'
+  - version: 1.0.1
+    date: '2026-06-30'
+    breaking: false
+    summary: Evaluation reliability and setup fixes.
+    changed:
+    - Built-in detector behaviour tightened; structured JSON judge output now required for key
+      adversarial checks.
+    - Clearer virtual-environment setup and example-agent instructions.
+  - version: 1.0.0
+    date: '2026-06-18'
+    breaking: false
+    summary: Initial public release of Flint AI CLI.
+    added:
+    - flintai scan — AI-powered static analysis of Python agent code, mapped to the OWASP Top 10 for
+      Agentic Applications and scored with CVSS severity.
+    - flintai eval — runtime behavioural evaluation of running agents using adversarial and functional
+      tests.
+    - Built-in evaluation content for OWASP LLM risks, with detector and model configuration.
+    - Framework auto-detection for supported agent frameworks.
+- product: AQtive Guard
+  url: https://aqtiveguard.sandboxaq.com/docs/changelog/
+  scheme: calendar (YY.MM.PATCH)
+  current_version: 26.07.1
+  current_date: '2026-07-24'
+  entries:
+  - {version: 26.07.1, date: '2026-07-24', summary: 'Fixed OpenSSL linkage problems and corrected a
+      version display showing "dev-local".'}
+  - {version: 26.07.0, date: '2026-07-21', summary: 'Resolved deployment issues from incompatible
+      cryptography wheel selection; fixed pagination problems.'}
+  - {version: 26.05.0, date: '2026-05-19', summary: Documentation updates and maintenance.}
+  - {version: 26.04.0, date: '2026-04-16', summary: Dependency refresh with no change to overall security
+      posture.}
+  - {version: 26.01.0, date: '2026-01-16', summary: 'Introduced database migration tooling and bigint ID
+      conversion for the instances table.'}
+  - {version: 25.11.0, date: '2025-11-10', summary: Disabled the bigint migration for subsequent release
+      cycles.}
+  - {version: 25.10.1, date: '2025-10-27', summary: Improved performance of the bigint database migration.}
+  - {version: 25.10.0, date: '2025-10-13', summary: 'Migrated database ID columns to bigint to prevent
+      overflow errors.'}
+  - {version: 25.09.1, date: '2025-09-25', summary: 'Added database health monitoring; improved
+      vulnerability-statistics query performance.'}
+  - {version: 25.09.0, date: '2025-09-22', summary: 'Enhanced storage scalability for host scan reports
+      (superseded by 25.09.1).'}
+  sensor_changelogs_note: 'Each AQtive Guard sensor (Java, Python, .NET, OpenSSL and PKCS#11 tracers,
+    filesystem and bytecode scanners, network analyzer) and each integration carries its own changelog
+    section under https://aqtiveguard.sandboxaq.com/docs/sensors/ and /docs/integrations/.'
+not_published:
+- {product: Flint AI Platform API, note: 'No API-level changelog; info.version is pinned at 1.0.0.'}
+- {product: SandboxAQ MCP Server, note: 'No changelog or version identifier published. Documentation
+    pages carry an "Updated <Month Year>" stamp only (MCP page updated March 2026, AQCat April 2026,
+    AQPotency June 2026).'}

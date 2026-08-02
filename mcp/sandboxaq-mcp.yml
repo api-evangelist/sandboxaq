@@ -1,0 +1,182 @@
+generated: '2026-08-02'
+method: searched
+status: published
+source: https://docs.aisim.sandboxaq.com/mcp
+docs:
+  overview: https://docs.aisim.sandboxaq.com/mcp
+  aqcat: https://docs.aisim.sandboxaq.com/aqcat
+  aqpotency: https://docs.aisim.sandboxaq.com/aqpotency
+server:
+  name: sandboxaq-mcp
+  transport: http
+  protocol: Streamable HTTP
+  url: https://mcp.{tenant}.aisim.sandboxaq.com
+  url_note: 'Per-tenant. The tenant-specific server URL is issued at sign-up and follows the published
+    pattern https://mcp.{tenant}.aisim.sandboxaq.com. There is no shared anonymous endpoint, so
+    tools/list could not be introspected live — the tool inventory below is transcribed from the
+    provider''s own published tool reference, not guessed.'
+  provisioning: https://www.sandboxaq.com/
+  enterprise_contact: mcp-prod@sandboxaq.com
+authentication:
+  scheme: oauth2
+  methods:
+  - email + password (SandboxAQ account)
+  - Google social login
+  - enterprise SSO via the customer identity provider (optional, configured in the platform console)
+  api_keys_accepted: false
+  api_keys_note: 'SandboxAQ does not issue or accept static API keys for the MCP server; authentication
+    is OAuth-based only.'
+clients:
+  documented:
+  - name: Claude Desktop
+    config_key: url
+    config_file: claude_desktop_config.json
+  - name: Claude Code
+    config_key: url
+    config_file: .mcp.json or ~/.claude.json
+    note: Connecting the transport and authenticating are separate steps; run /mcp then Authenticate.
+  - name: Gemini CLI
+    config_key: httpUrl
+    config_file: ~/.gemini/settings.json
+  - name: Antigravity
+    config_key: serverUrl
+    config_file: ~/.gemini/config/mcp_config.json
+  any_mcp_client: true
+tools:
+- name: aqcat
+  family: ChemSim
+  status: GA
+  description: 'Fully automated dense adsorption energy screening. Returns the lowest binding energy
+    across placements — with per-placement convergence status — for a given bulk material, adsorbate and
+    crystal facet. Powered by the AQCat25-EV2 machine-learning potential.'
+  side_effects: none (read-only inference operation)
+  execution: async job (poll for completion)
+  input_schema_source: https://docs.aisim.sandboxaq.com/aqcat
+  parameters:
+  - name: system_parameters.bulk_composition_contains
+    type: string
+    description: 'Hyphen-delimited element string, e.g. "Co-Ni", "Fe", "Pt-Ru". Contains-match, not exact
+      stoichiometry.'
+  - name: system_parameters.bulk_src_ids
+    type: array
+    description: Materials Project IDs, e.g. "mp-30". Alternative to a composition string.
+  - name: system_parameters.bulk_ids
+    type: array
+    description: Internal crystal-database integer indices. Alternative to a composition string.
+  - name: system_parameters.adsorbates
+    type: array
+    description: 'SMILES with a * binding atom, e.g. "*N2", "*CO", "*OH", "*H". 87 adsorbates supported.'
+  - name: system_parameters.facets
+    type: array
+    description: 'Miller indices as an integer list or comma-separated string, e.g. [1,1,1] or "1,1,0".'
+  - name: workflow_parameters.max_steps
+    type: integer
+    description: Maximum optimization steps per placement (100 per placement / 500 total).
+  - name: workflow_parameters.placements
+    type: integer
+    description: Number of adsorbate placements to evaluate (hard cap 5).
+  response_fields:
+  - {name: job_id, type: string}
+  - {name: status, type: string}
+  - {name: is_terminal, type: boolean}
+  - {name: progress_message, type: string}
+  - {name: "predictions[].combo_key", type: string}
+  - {name: "predictions[].placement_idx", type: integer}
+  - {name: "predictions[].energy", type: float, unit: eV}
+  - {name: "predictions[].max_force", type: float, unit: eV/A}
+  - {name: "predictions[].is_relaxed", type: boolean}
+  - {name: "predictions[].is_spin_off", type: boolean}
+  - {name: "predictions[].is_low_fi", type: boolean}
+  - {name: "predictions[].traj_file", type: string}
+  - {name: "predictions[].atoms", type: "object|null", note: reserved for a future release, currently null}
+- name: AqpotencyPotency
+  family: BioSim
+  status: GA (Q2 2026 launch)
+  description: Predict pIC50 potency for a single protein-ligand pair from a UniProt accession and a
+    ligand SMILES string. Bulk submission is not supported.
+  execution: async job (returns job_id in 1-2s; poll check_job_status then get_job_results)
+  input_schema_source: https://docs.aisim.sandboxaq.com/aqpotency
+  parameters:
+  - {name: smiles, required: true, type: string, description: A single SMILES string for the query ligand}
+  - {name: uniprot_id, required: true, type: string, description: 'UniProt accession for the target. Raw
+      protein sequences are not accepted.'}
+- name: AqpotencyScreen
+  family: BioSim
+  description: Score an uploaded SMILES library (up to 10,000 SMILES) against a single target for virtual
+    screening. Results are returned sorted by potency_mean descending.
+  execution: async job
+  parameters:
+  - {name: upload_session_id, required: true, type: string, description: 'Session ID returned by
+      upload_files/upload_local_files with purpose=aqpotency_screen. File must be .smi or .csv with a
+      case-sensitive SMILES column.'}
+  - {name: uniprot_id, required: true, type: string, description: UniProt accession for the target}
+  - {name: limit, required: false, type: integer, description: 'Optional cap on rows returned when
+      fetching results; the tool docstrings suggest limit=25.'}
+- name: AqpotencyScan
+  family: BioSim
+  description: Screen one ligand against a curated target panel for reverse screening and off-target
+    triage. Panels are bundled in the container image — no external API calls at runtime.
+  execution: async job
+  parameters:
+  - {name: smiles, required: true, type: string, description: The query ligand (single SMILES string)}
+  - {name: panel, required: true, type: enum, enum: [bowes_safety_panel, human_kinome, proteome]}
+- name: AqpotencySelectivity
+  family: BioSim
+  description: Compute on-target vs off-target potency and fold_selectivity for one ligand against one
+    on-target and a list of off-targets.
+  execution: async job
+  parameters:
+  - {name: smiles, required: true, type: string, description: The query ligand (single SMILES string)}
+  - {name: target_uniprot_id, required: true, type: string, description: UniProt accession of the on-target}
+  - {name: off_target_uniprot_ids, required: true, type: array, description: 'Off-target UniProt
+      accessions. Must contain at least one entry, all distinct, none equal to target_uniprot_id.'}
+job_lifecycle:
+  description: 'All AQPotency tools (and aqcat) are asynchronous and job-backed. Every call returns a
+    job_id; poll check_job_status until is_terminal is true, then call get_job_results.'
+  helper_tools:
+  - {name: check_job_status, description: 'Poll a submitted job. Returns status, is_terminal,
+      progress_message and a recommended poll_after_seconds interval.'}
+  - {name: get_job_results, description: Fetch the predictions list for a terminal job.}
+  - {name: upload_files, description: 'Upload a compound library ahead of AqpotencyScreen with
+      purpose=aqpotency_screen; returns an upload_session_id.'}
+  - {name: upload_local_files, description: Local-path variant of upload_files.}
+  helper_tools_note: 'These four appear throughout the published tool documentation as the job-lifecycle
+    and upload surface. They are recorded here because the docs name and describe them explicitly;
+    their full input schemas are not published and were not introspected (the endpoint is per-tenant and
+    OAuth-gated), so no parameter list is asserted for them.'
+limits:
+  aqcat:
+    bulks_per_request: 1
+    adsorbates_per_request: 1
+    facets_per_request: 1
+    placements_per_call: 5
+    max_optimization_steps: 100 per placement / 500 total
+    max_response_tokens: 25000
+    concurrent_submissions: 15 parallel jobs
+    retry_guidance: 'Wait ~10 seconds after a rate-limit error; rate-limit responses do NOT include a
+      Retry-After header.'
+    typical_latency: 3-5 minutes on NVIDIA A100 or T4 GPUs
+  aqpotency:
+    screen_max_smiles: 10000
+    screen_max_upload_bytes: 16777216
+    screen_upload_formats: [.smi, .csv]
+    over_cap_behaviour: rejected with a ToolError
+pricing:
+  model: per Relaxation Unit (RU)
+  unit_definition: 1 RU = 1 bulk x 1 facet x 1 adsorbate, up to 500 total steps
+  published_rate: 'Pricing on request; individual self-serve tier covered by the Master Customer
+    Agreement, Data Protection Addendum and Privacy Policy linked from docs.aisim.sandboxaq.com.'
+  enterprise_contact: mcp-prod@sandboxaq.com
+deployment:
+  self_serve: shared managed endpoint at https://mcp.{tenant}.aisim.sandboxaq.com
+  enterprise: 'Hyperscaler deployment (AWS, Azure, GCP) for private networking, centralized billing and
+    identity integration. Per-provider tutorials are not yet published.'
+x-evidence:
+  fetched: '2026-08-02'
+  sources:
+  - {url: 'https://docs.aisim.sandboxaq.com/mcp', http_status: 200}
+  - {url: 'https://docs.aisim.sandboxaq.com/aqcat', http_status: 200}
+  - {url: 'https://docs.aisim.sandboxaq.com/aqpotency', http_status: 200}
+  live_introspection: 'not possible — the MCP endpoint is per-tenant (https://mcp.{tenant}.aisim.sandboxaq.com)
+    and OAuth-gated, so no anonymous tools/list call is available. Every tool name, parameter and limit
+    above is transcribed from the provider''s published documentation.'

@@ -1,0 +1,99 @@
+# Flint AI
+
+## Docs
+
+- [Get all AI-SPM agents](https://docs.flintai.dev/api-reference/aispm-agents/get-all-ai-spm-agents.md): List all AI-SPM agents for a tenant workspace, ordered by last_seen descending
+- [Get all objects associated with an AISPM Agent](https://docs.flintai.dev/api-reference/aispm-agents/get-all-objects-associated-with-an-aispm-agent.md): Get all 'edges' associated with an AISPM Agent. An 'edge' is a type of object that is related to an AISPM Agent.
+- [Get single AI-SPM agent](https://docs.flintai.dev/api-reference/aispm-agents/get-single-ai-spm-agent.md): Get AI-SPM agent by ID with embedded models, MCP servers, tools, sub-agents, guardrails, and locations
+- [Get AISPM Dashboard summary info](https://docs.flintai.dev/api-reference/aispm-dashboard/get-aispm-dashboard-summary-info.md): Get summary data from AISPM Dashboard
+- [Get AISPM guardrail category counts](https://docs.flintai.dev/api-reference/aispm-guardrails/get-aispm-guardrail-category-counts.md): Returns counts per guardrail category from BLOCKED or REDACTED prompt and response guardrail results in a time range
+- [Get AISPM guardrail interaction counts bucketed by hour](https://docs.flintai.dev/api-reference/aispm-guardrails/get-aispm-guardrail-interaction-counts-bucketed-by-hour.md): Returns total counts and hourly bucketed results for LLM interactions in a time range, categorized by guardrail outcome (OK, BLOCKED, REDACTED)
+- [Get AISPM guardrail outcome totals](https://docs.flintai.dev/api-reference/aispm-guardrails/get-aispm-guardrail-outcome-totals.md): Returns aggregate totals of OK, BLOCKED, and REDACTED guardrail outcomes for LLM interactions in a time range
+- [Get all AI-SPM LLM interactions](https://docs.flintai.dev/api-reference/aispm-llm-interactions/get-all-ai-spm-llm-interactions.md): List all AI-SPM LLM interactions for a tenant workspace, ordered by interaction_time descending
+- [Get single AI-SPM LLM interaction](https://docs.flintai.dev/api-reference/aispm-llm-interactions/get-single-ai-spm-llm-interaction.md): Get AI-SPM LLM interaction by ID
+- [List LLM sessions grouped by session_id for an agent](https://docs.flintai.dev/api-reference/aispm-llm-sessions/list-llm-sessions-grouped-by-session_id-for-an-agent.md): Returns paginated LLM sessions aggregated by session_id with tokens, cost, turns, duration, and guardrail results
+- [Get all AI-SPM MCP servers](https://docs.flintai.dev/api-reference/aispm-mcp-servers/get-all-ai-spm-mcp-servers.md): List all AI-SPM MCP servers for a tenant workspace, ordered by last_seen descending
+- [Get all objects associated with an AISPM MCP Server](https://docs.flintai.dev/api-reference/aispm-mcp-servers/get-all-objects-associated-with-an-aispm-mcp-server.md): Get all 'edges' associated with an AISPM MCP Server. An 'edge' is a type of object that is related to an AISPM MCP Server.
+- [Get single AI-SPM MCP server](https://docs.flintai.dev/api-reference/aispm-mcp-servers/get-single-ai-spm-mcp-server.md): Get AI-SPM MCP server by ID with embedded agents and locations
+- [Get all AI-SPM models](https://docs.flintai.dev/api-reference/aispm-models/get-all-ai-spm-models.md): List all AI-SPM models for a tenant workspace, ordered by last_seen descending
+- [Get all objects associated with an AISPM Model](https://docs.flintai.dev/api-reference/aispm-models/get-all-objects-associated-with-an-aispm-model.md): Get all 'edges' associated with an AISPM Model. An 'edge' is a type of object that is related to an AISPM Model.
+- [Get single AI-SPM model](https://docs.flintai.dev/api-reference/aispm-models/get-single-ai-spm-model.md): Get AI-SPM model by ID with embedded agents and locations
+- [Get all AI-SPM tools](https://docs.flintai.dev/api-reference/aispm-tools/get-all-ai-spm-tools.md): List all AI-SPM tools for a tenant workspace, ordered by last_seen descending
+- [Get all objects associated with an AISPM Tool](https://docs.flintai.dev/api-reference/aispm-tools/get-all-objects-associated-with-an-aispm-tool.md): Get all 'edges' associated with an AISPM Tool. An 'edge' is a type of object that is related to an AISPM Tool.
+- [Get single AI-SPM tool](https://docs.flintai.dev/api-reference/aispm-tools/get-single-ai-spm-tool.md): Get AI-SPM tool by ID with embedded agents, MCP servers, issues, and locations
+- [Get all assets](https://docs.flintai.dev/api-reference/assets/get-all-assets.md): List all assets for a tenant workspace
+- [Get all cryptographic objects associated with a Asset](https://docs.flintai.dev/api-reference/assets/get-all-cryptographic-objects-associated-with-a-asset.md): Get all 'edges' associated with a Asset. An 'edge' is a type of cryptographic object that is related to a Asset.
+- [Get single asset](https://docs.flintai.dev/api-reference/assets/get-single-asset.md): Get asset by ID
+- [Create or update tenant+user-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/create-or-update-tenant+user-scoped-client-storage-entry.md): Upsert an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token.
+- [Create or update tenant+workspace-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/create-or-update-tenant+workspace-scoped-client-storage-entry.md): Upsert an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key
+- [Create or update tenant-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/create-or-update-tenant-scoped-client-storage-entry.md): Upsert an opaque key-value entry scoped to a tenant, client, namespace, and key
+- [Create or update user-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/create-or-update-user-scoped-client-storage-entry.md): Upsert an opaque key-value entry scoped to the authenticated user. User ID is derived from the auth token.
+- [Delete tenant+user-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/delete-tenant+user-scoped-client-storage-entry.md): Delete an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token.
+- [Delete tenant+workspace-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/delete-tenant+workspace-scoped-client-storage-entry.md): Delete an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key
+- [Delete tenant-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/delete-tenant-scoped-client-storage-entry.md): Delete an opaque key-value entry scoped to a tenant, client, namespace, and key
+- [Delete user-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/delete-user-scoped-client-storage-entry.md): Delete an opaque key-value entry scoped to the authenticated user. User ID is derived from the auth token.
+- [Get tenant+user-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/get-tenant+user-scoped-client-storage-entry.md): Retrieve an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token.
+- [Get tenant+workspace-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/get-tenant+workspace-scoped-client-storage-entry.md): Retrieve an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key
+- [Get tenant-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/get-tenant-scoped-client-storage-entry.md): Retrieve an opaque key-value entry scoped to a tenant, client, namespace, and key
+- [Get user-scoped client storage entry](https://docs.flintai.dev/api-reference/client-storage/get-user-scoped-client-storage-entry.md): Retrieve an opaque key-value entry scoped to the authenticated user (no tenant association). User ID is derived from the auth token.
+- [Get full details for a single instance](https://docs.flintai.dev/api-reference/fine-issues/get-full-details-for-a-single-instance.md): Retrieve full details for a single instance by its ID, including rule metadata when available
+- [Get all sensor types that have ever been used](https://docs.flintai.dev/api-reference/inventory/get-all-sensor-types-that-have-ever-been-used.md)
+- [Get the past 12 months of scan issue counts for AISPM related inventory objects](https://docs.flintai.dev/api-reference/issues-aispm-histograms/get-the-past-12-months-of-scan-issue-counts-for-aispm-related-inventory-objects.md): Get time-series issues histogram data for AISPM related inventory objects
+- [Get a single issue](https://docs.flintai.dev/api-reference/issues/get-a-single-issue.md): Retrieve a single issue by its ID
+- [Get a single issue object detail (instance)](https://docs.flintai.dev/api-reference/issues/get-a-single-issue-object-detail-instance.md): Retrieve a single instance record for a specific issue, object, and detail ID
+- [Get all instances associated with Issue](https://docs.flintai.dev/api-reference/issues/get-all-instances-associated-with-issue.md): Get all issues
+- [Get all issues](https://docs.flintai.dev/api-reference/issues/get-all-issues.md): Get all issues
+- [Get single issue](https://docs.flintai.dev/api-reference/issues/get-single-issue.md): Get single issue
+- [List details (instances) for an issue object](https://docs.flintai.dev/api-reference/issues/list-details-instances-for-an-issue-object.md): List instance-level details for a specific object within an issue, with pagination
+- [List issues](https://docs.flintai.dev/api-reference/issues/list-issues.md): List issues grouped by rule_id and severity with filtering, sorting, and pagination
+- [List objects for an issue](https://docs.flintai.dev/api-reference/issues/list-objects-for-an-issue.md): List objects (e.g. assets, models) affected by a specific issue with pagination
+- [Get all cryptographic objects associated with a Location](https://docs.flintai.dev/api-reference/locations/get-all-cryptographic-objects-associated-with-a-location.md): Get all 'edges' associated with a Location. An 'edge' is a type of cryptographic object that is related to a Location.
+- [Get all locations](https://docs.flintai.dev/api-reference/locations/get-all-locations.md): List all locations for a tenant workspace
+- [Get a single rule by ID](https://docs.flintai.dev/api-reference/rules/get-a-single-rule-by-id.md): Get a single rule by its rule_id from the unified rules table (static + external)
+- [Get results from single rule](https://docs.flintai.dev/api-reference/rules/get-results-from-single-rule.md): Get results from single rule
+- [List all rules for a workspace](https://docs.flintai.dev/api-reference/rules/list-all-rules-for-a-workspace.md): List all rules (static + external) for a tenant workspace with optional filtering and pagination
+- [List external rules](https://docs.flintai.dev/api-reference/rules/list-external-rules.md): List externally-sourced rules with optional name filtering
+- [List static rules](https://docs.flintai.dev/api-reference/rules/list-static-rules.md): List built-in static rules with optional name filtering
+- [Get all scans associated with an asset](https://docs.flintai.dev/api-reference/scans-assets/get-all-scans-associated-with-an-asset.md): Get all scans (active or not) linked to the given asset
+- [Get all current scans for a sensor type](https://docs.flintai.dev/api-reference/scans/get-all-current-scans-for-a-sensor-type.md): Get all scans marked current for a specific sensor type
+- [Schedule a View to be exported](https://docs.flintai.dev/api-reference/viewexports/schedule-a-view-to-be-exported.md)
+- [Flint AI Platform API](https://docs.flintai.dev/flintai/api-reference/index.md): Query your AI inventory, findings, and rules over HTTP, and traverse the relationships between them.
+- [Configuration](https://docs.flintai.dev/flintai/cli/eval/eval-configuration.md): Configure models, evaluations, and test assignments
+- [Examples](https://docs.flintai.dev/flintai/cli/eval/eval-examples.md): Practical usage examples for Flint AI Eval
+- [Eval results](https://docs.flintai.dev/flintai/cli/eval/eval-results.md): Read your reliability score and prove you're ready to ship
+- [Eval your agent](https://docs.flintai.dev/flintai/cli/eval/getting-started.md): Get proof your agent is production-ready
+- [How evaluation works](https://docs.flintai.dev/flintai/cli/eval/how-evaluation-works.md): Evaluation types, detectors, and scoring explained
+- [CI/CD integration](https://docs.flintai.dev/flintai/cli/guides/ci-cd-integration.md): Integrate flintai-cli into your continuous integration pipeline
+- [Guides](https://docs.flintai.dev/flintai/cli/guides/index.md): End-to-end workflows and examples
+- [Scan quickstart](https://docs.flintai.dev/flintai/cli/guides/scan-quickstart.md): Prove your agents are production ready in less than 10 minutes
+- [Flint AI CLI](https://docs.flintai.dev/flintai/cli/index.md): Ship AI agents with confidence
+- [Built-in evaluations](https://docs.flintai.dev/flintai/cli/reference/builtin-evaluations.md): Complete reference of built-in evaluations
+- [Commands](https://docs.flintai.dev/flintai/cli/reference/commands.md): Complete command reference for Flint AI CLI
+- [Data privacy](https://docs.flintai.dev/flintai/cli/reference/data-privacy.md): What data Flint AI sends to LLM providers
+- [Environment variables](https://docs.flintai.dev/flintai/cli/reference/env-vars.md): Configure Flint AI CLI behavior with environment variables
+- [Changelog](https://docs.flintai.dev/flintai/cli/resources/changelog.md): What's new in Flint AI CLI
+- [FAQ](https://docs.flintai.dev/flintai/cli/resources/faq.md): Common questions answered
+- [Scan your agent](https://docs.flintai.dev/flintai/cli/scan/getting-started.md): Prove your agents are production ready in less than 10 minutes
+- [How scanning works](https://docs.flintai.dev/flintai/cli/scan/how-scanning-works.md): 3-layer pipeline with AI reasoning — real issues, not false positives
+- [Examples](https://docs.flintai.dev/flintai/cli/scan/scan-examples.md): Practical usage examples for Flint AI Scan
+- [Scan results](https://docs.flintai.dev/flintai/cli/scan/scan-results.md): Read findings and prove you're ready to ship
+- [Troubleshooting](https://docs.flintai.dev/flintai/cli/troubleshooting/common-issues.md): Fast fixes for installation, scan, and eval
+- [Discover your agents](https://docs.flintai.dev/flintai/platform/getting-started/discover.md): Find AI agents in your code in less than 10 minutes
+- [Monitor your agents at runtime](https://docs.flintai.dev/flintai/platform/getting-started/runtime.md): Install the SDK and see your first traces in less than 10 minutes
+- [Flint AI Platform](https://docs.flintai.dev/flintai/platform/index.md): Discover agents, prove they're worth it
+- [Configuration](https://docs.flintai.dev/flintai/platform/python-sdk/configuration.md): Configure gateway URL, API keys, and environment variables
+- [Installation](https://docs.flintai.dev/flintai/platform/python-sdk/installation.md): Install and verify the Flint AI Python SDK
+- [Integrations](https://docs.flintai.dev/flintai/platform/python-sdk/integrations.md): OpenAI, Anthropic, Google GenAI, LangChain, and Google ADK
+- [Usage](https://docs.flintai.dev/flintai/platform/python-sdk/usage.md): Wrap LLM clients and route traffic through guardrails
+- [Data handling](https://docs.flintai.dev/flintai/platform/resources/data-handling.md): How Flint AI Platform handles and protects your data
+- [Data Protection Addendum](https://docs.flintai.dev/flintai/platform/resources/dpa.md): GDPR data processing terms for Flint AI Platform
+- [Flint AI Platform FAQ](https://docs.flintai.dev/flintai/platform/resources/faq.md): Common questions answered
+- [Agent runtime rules](https://docs.flintai.dev/flintai/platform/rules/agent-runtime-rules.md): Runtime behavior vulnerabilities in agent execution, memory, communication, and control flow
+- [Discovery rules](https://docs.flintai.dev/flintai/platform/rules/discovery-rules.md): Static analysis findings about missing configurations, metadata, and evaluation scores detected during agent discovery
+- [Rules reference](https://docs.flintai.dev/flintai/platform/rules/index.md): Complete reference for built-in discovery, MCP server, and agent runtime rules
+- [MCP server rules](https://docs.flintai.dev/flintai/platform/rules/mcp-server-rules.md): Vulnerabilities in MCP servers, tools, and their configurations
+- [Flint AI](https://docs.flintai.dev/index.md): Discover, prove, and protect your AI agents
+
+## OpenAPI Specs
+
+- [openapi](https://docs.flintai.dev/flintai/api-reference/openapi.json)

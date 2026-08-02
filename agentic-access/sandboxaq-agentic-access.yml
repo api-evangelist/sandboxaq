@@ -1,0 +1,620 @@
+generated: '2026-08-02'
+method: generated
+source: openapi/sandboxaq-flint-ai-platform-openapi.json
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 55
+  by_action_class:
+    connected: 46
+    acting: 9
+  by_consequence:
+    read: 46
+    write: 9
+  human_in_the_loop_required: 0
+operations:
+- path: /aispm-agents/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllAispmAgents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-agents/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetAispmAgentDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-agents/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}
+  method: get
+  operationId: GetAISPMAgentEdges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-dashboard
+  method: get
+  operationId: GetSummaryAispmDashboard
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/categories
+  method: get
+  operationId: GetAispmGuardrailCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/counts
+  method: get
+  operationId: GetAispmGuardrailInteractionCounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/outcomes
+  method: get
+  operationId: GetAispmGuardrailOutcomes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-llm-interactions/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllAispmLlmInteractions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-llm-interactions/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetAispmLlmInteractionDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-llm-sessions/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAispmLlmSessions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-mcp-servers/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllAispmMcpServers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-mcp-servers/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetAispmMcpServerDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-mcp-servers/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}
+  method: get
+  operationId: GetAISPMMcpServerEdges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-models/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllAispmModels
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-models/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetAispmModelDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-models/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}
+  method: get
+  operationId: GetAISPMModelEdges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-tools/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllAispmTools
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-tools/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetAispmToolDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /aispm-tools/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}
+  method: get
+  operationId: GetAISPMToolEdges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /assets/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllAssets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /assets/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetAssetDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /assets/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}
+  method: get
+  operationId: GetAssetEdges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /client-storage/tenants/{tenant_id}/users/{client_id}/{namespace}/{key}
+  method: delete
+  operationId: DeleteClientStorageTenantUser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/tenants/{tenant_id}/users/{client_id}/{namespace}/{key}
+  method: get
+  operationId: GetClientStorageTenantUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /client-storage/tenants/{tenant_id}/users/{client_id}/{namespace}/{key}
+  method: put
+  operationId: PutClientStorageTenantUser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/tenants/{tenant_id}/workspaces/{workspace_id}/{client_id}/{namespace}/{key}
+  method: delete
+  operationId: DeleteClientStorageTenantWorkspace
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/tenants/{tenant_id}/workspaces/{workspace_id}/{client_id}/{namespace}/{key}
+  method: get
+  operationId: GetClientStorageTenantWorkspace
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /client-storage/tenants/{tenant_id}/workspaces/{workspace_id}/{client_id}/{namespace}/{key}
+  method: put
+  operationId: PutClientStorageTenantWorkspace
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/tenants/{tenant_id}/{client_id}/{namespace}/{key}
+  method: delete
+  operationId: DeleteClientStorageTenant
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/tenants/{tenant_id}/{client_id}/{namespace}/{key}
+  method: get
+  operationId: GetClientStorageTenant
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /client-storage/tenants/{tenant_id}/{client_id}/{namespace}/{key}
+  method: put
+  operationId: PutClientStorageTenant
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/users/{client_id}/{namespace}/{key}
+  method: delete
+  operationId: DeleteClientStorageUser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /client-storage/users/{client_id}/{namespace}/{key}
+  method: get
+  operationId: GetClientStorageUser
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /client-storage/users/{client_id}/{namespace}/{key}
+  method: put
+  operationId: PutClientStorageUser
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /external-rules
+  method: get
+  operationId: GetExternalRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /histograms/aispm
+  method: get
+  operationId: GetHistogramsAispm
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /instances/tenants/{tenant_id}/workspaces/{workspace_id}/{instanceId}
+  method: get
+  operationId: GetInstanceDetailsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues
+  method: get
+  operationId: GetAllIssues
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetIssuesIndex
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}
+  method: get
+  operationId: GetIssueSingle
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects
+  method: get
+  operationId: GetIssueObjects
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details
+  method: get
+  operationId: GetIssueObjectDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details/{detailId}
+  method: get
+  operationId: GetIssueObjectDetail
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/{id}
+  method: get
+  operationId: GetIssueDetails
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /issues/{id}/instances
+  method: get
+  operationId: GetIssueInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /locations/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllLocations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /locations/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}
+  method: get
+  operationId: GetLocationEdges
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /rules/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetAllRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /rules/tenants/{tenant_id}/workspaces/{workspace_id}/{rule_id}
+  method: get
+  operationId: GetRule
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /rules/{id}/results
+  method: get
+  operationId: GetRuleInstances
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /scans/asset/{id}
+  method: get
+  operationId: GetAllScansForAsset
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /scans/tenants/{tenant_id}/workspaces/{workspace_id}/current
+  method: get
+  operationId: GetAllCurrentScans
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /sensors-used/tenants/{tenant_id}/workspaces/{workspace_id}
+  method: get
+  operationId: GetSensorsUsed
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /static-rules
+  method: get
+  operationId: GetStaticRules
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /views/{id}/export
+  method: post
+  operationId: ExportView
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required

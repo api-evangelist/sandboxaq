@@ -1,0 +1,123 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/sandboxaq-flint-ai-platform-openapi.json + graphql/sandboxaq-aqtive-guard.graphql +
+  mcp/sandboxaq-mcp.yml + a2a/sandboxaq-a2a.yml + https://docs.aisim.sandboxaq.com/mcp
+description: 'Cross-cutting and industry standards SandboxAQ''s API surfaces conform to, each with the
+  evidence it was asserted from. Absence is recorded as honestly as presence — no compliance program,
+  certification or audit report was found published on any SandboxAQ host, so this file deliberately
+  does NOT support a `Compliance` pointer in apis.yml.'
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: 'openapi/sandboxaq-flint-ai-platform-openapi.json declares openapi 3.0.3 with 47 paths, 55
+    operations, 51 component schemas and a securityScheme, published at
+    https://docs.flintai.dev/flintai/api-reference/openapi.json'
+- id: graphql
+  conforms: true
+  evidence: 'AQtive Guard serves a GraphQL API at https://aqtiveguard.sandboxaq.com/api/v2; the published
+    schema reference transcribes to a valid SDL of 414 types (6 queries, 73 mutations, 206 objects, 109
+    inputs, 76 enums, 4 interfaces, 1 union).'
+- id: graphql-relay-connections
+  conforms: true
+  evidence: 'The AQtive Guard schema implements the Relay Cursor Connections specification — 30+
+    *Connection/*Edge types plus PageInfo — and the Relay input/payload mutation convention with
+    clientMutationId.'
+- id: graphql-relay-node
+  conforms: true
+  evidence: 'Query.node(id: ID!) returns a Node interface; the schema declares a Node interface with an
+    id field.'
+- id: model-context-protocol
+  conforms: true
+  evidence: 'SandboxAQ operates a managed MCP server over Streamable HTTP at
+    https://mcp.{tenant}.aisim.sandboxaq.com, documented for Claude Desktop, Claude Code, Gemini CLI and
+    Antigravity, and stated compatible with any Streamable-HTTP MCP client.'
+- id: a2a-agent-card
+  conforms: partial
+  grade: flavored
+  evidence: 'An A2A Agent Card is served at https://docs.flintai.dev/.well-known/agent-card.json. It
+    passes the structural hard checks but declares protocolVersion 0.3 and uses the pre-1.0
+    supportedInterfaces field name. See a2a/sandboxaq-a2a.yml.'
+- id: llms-txt
+  conforms: true
+  evidence: 'https://docs.flintai.dev/llms.txt returns a valid llms.txt index of 99 lines including an
+    "## OpenAPI Specs" section pointing at the live spec.'
+- id: agent-skills
+  conforms: true
+  evidence: 'A provider-authored Agent Skill is served at
+    https://docs.flintai.dev/.well-known/agent-skills/flint/skill.md with name/description frontmatter,
+    advertised by the agent card.'
+- id: oauth2
+  conforms: true
+  evidence: 'The SandboxAQ MCP Server authenticates via OAuth only (email+password, Google social login,
+    or enterprise SSO); static API keys are explicitly not issued or accepted.'
+  gap: 'No /.well-known/oauth-authorization-server or /.well-known/oauth-protected-resource document is
+    served anonymously on any host, so the authorization-server metadata (RFC 8414) and protected-resource
+    metadata (RFC 9728) cannot be discovered without a tenant.'
+- id: oidc
+  conforms: unknown
+  evidence: 'Enterprise SSO through a customer identity provider is offered but the protocol is not named
+    and no /.well-known/openid-configuration is served.'
+- id: bearer-token-auth
+  conforms: true
+  evidence: 'Flint AI Platform API declares a BearerAuth scheme sending a Bearer token in the
+    Authorization header.'
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Error responses use a custom application/json object (common.RequestError with code +
+    message), not application/problem+json.'
+- id: cursor-pagination
+  conforms: true
+  evidence: 'Flint AI collection endpoints take cursor + page_size and return an EngineDataPage with a
+    cursor; AQtive Guard uses Relay cursor connections.'
+- id: idempotency
+  conforms: false
+  evidence: 'No Idempotency-Key parameter or header appears in any spec, and no surface documents a
+    retry-safe write contract.'
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: '/.well-known/security.txt returns 404 on www.sandboxaq.com, flintai.dev and
+    docs.flintai.dev; the 200s on app.flintai.dev and aqtiveguard.sandboxaq.com are SPA catch-all HTML
+    shells, not documents.'
+- id: rfc8594-sunset-header
+  conforms: unknown
+  evidence: No deprecation or sunset policy is published; no Sunset header is documented.
+- id: asyncapi
+  conforms: false
+  evidence: 'No event, streaming or webhook surface was found on any SandboxAQ product — /asyncapi.yaml
+    misses, the Flint AI llms.txt and OpenAPI contain no webhook references, and the AQtive Guard schema
+    declares no subscription type. Not applicable rather than missing.'
+- id: sarif
+  conforms: true
+  evidence: 'The flintai CLI emits SARIF (--format sarif) from both `flintai scan` and `flintai eval` for
+    GitHub code scanning.'
+- id: owasp-top-10-agentic
+  conforms: true
+  evidence: 'Flint AI Scan findings and Flint AI Eval scores are mapped to the OWASP Top 10 for Agentic
+    Applications, with CVSS severity scores on scan findings.'
+- id: cvss
+  conforms: true
+  evidence: 'flintai scan findings carry CVSS severity scores.'
+compliance_program:
+  published: false
+  trust_center: false
+  certifications: []
+  probed:
+  - {url: 'https://www.sandboxaq.com/trust', status: 404}
+  - {url: 'https://trust.sandboxaq.com/', result: no such host}
+  - {url: 'https://security.sandboxaq.com/', result: no such host}
+  note: 'No trust center, SOC 2 / ISO 27001 / FedRAMP / HIPAA attestation page, or named certification
+    was found published on any SandboxAQ host. The Master Customer Agreement and Data Protection
+    Addendum are published (GDPR processing terms), but a DPA is a contract, not a certification — so no
+    `Compliance` pointer is emitted.'
+  what_is_published:
+  - {name: Master Customer Agreement, url: 'https://docs.aisim.sandboxaq.com/mca', last_updated: '2026-06-17'}
+  - {name: Data Protection Addendum, url: 'https://docs.aisim.sandboxaq.com/dpa'}
+  - {name: 'Flint AI Platform Data Protection Addendum', url: 'https://docs.flintai.dev/flintai/platform/resources/dpa'}
+  - {name: 'Flint AI data handling', url: 'https://docs.flintai.dev/flintai/platform/resources/data-handling'}
+  - {name: 'Flint AI CLI data privacy', url: 'https://docs.flintai.dev/flintai/cli/reference/data-privacy'}
+domain_security_summary:
+  source: security/sandboxaq-domain-security.yml
+  highlights:
+  - sandboxaq.com has DNSSEC enabled, CAA records, SPF and DMARC (p=quarantine)
+  - flintai.dev has SPF and DMARC (p=quarantine) but no DNSSEC and no CAA
+  - all reachable hosts serve TLS 1.3 with HSTS

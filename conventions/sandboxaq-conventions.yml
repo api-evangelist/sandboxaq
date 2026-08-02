@@ -1,0 +1,159 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/sandboxaq-flint-ai-platform-openapi.json + graphql/sandboxaq-aqtive-guard.graphql +
+  https://docs.flintai.dev/flintai/api-reference/index + https://docs.aisim.sandboxaq.com/
+description: 'Cross-cutting request/response semantics across SandboxAQ''s three API surfaces. Each
+  surface is a different product with its own conventions — this file records them side by side rather
+  than pretending one house style exists.'
+surfaces:
+- surface: Flint AI Platform API
+  style: REST over HTTPS, JSON
+  spec: openapi/sandboxaq-flint-ai-platform-openapi.json
+  authentication:
+    scheme: bearer token in the Authorization header
+    header: 'Authorization: Bearer <token>'
+    issuance: Settings > API Keys in the Platform console; the token is shown once at creation
+    profile: authentication/sandboxaq-authentication.yml
+  versioning:
+    scheme: uri-path
+    current: v1
+    evidence: 'servers[0].url = https://{instance}.flintai.dev/api/v1'
+  multi_tenancy:
+    style: path-scoped
+    parameters: [tenant_id, workspace_id]
+    pattern: /{resource}/tenants/{tenant_id}/workspaces/{workspace_id}
+    note: 'Requests only return resources inside the named tenant and workspace, and the token must have
+      access to them. tenant_id appears on 30 operations, workspace_id on 24.'
+  pagination:
+    style: cursor
+    request_params: [cursor, page_size]
+    request_params_note: 'One operation uses the camelCase variant pageSize — an inconsistency in the
+      published spec, not a second scheme.'
+    response_envelope: engine_output.EngineDataPage
+    response_fields: [cursor, header, rows, total, total_sampling]
+    required_response_fields: [cursor, header, rows]
+    shape_note: 'Collection responses are tabular rather than object-per-row: `header` carries the column
+      names and `rows` carries arrays of values. Clients must zip header against each row.'
+  filtering_and_sorting:
+    params: [sort, sort_dir, group_by, start_time, end_time, agent_id, sensorType, cicdType]
+    ilike_suffix: '__ilk'
+    ilike_note: 'Case-insensitive name filters use a __ilk suffixed query parameter (e.g. name__ilk).'
+  graph_traversal:
+    pattern: 'GET /{resource}/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}'
+    entities: [aispm-agents, aispm-models, aispm-tools, aispm-mcp-servers, assets, locations]
+    note: 'Every graph entity exposes an edge endpoint returning its related entities, so a caller walks
+      the inventory graph one hop at a time.'
+  error_envelope:
+    schema: common.RequestError
+    fields:
+    - {name: code, type: integer, example: 400}
+    - {name: message, type: string, example: Invalid request}
+    format: custom JSON object (NOT RFC 9457 application/problem+json)
+    catalog: errors/sandboxaq-problem-types.yml
+  idempotency:
+    supported: false
+    evidence: 'No Idempotency-Key parameter or header appears anywhere in the OpenAPI, and the docs do
+      not document a retry-safe write contract. 47 of 55 operations are GET; the only writes are the
+      client-storage upserts (PUT, naturally idempotent by HTTP method) and deletes.'
+  request_tracing:
+    request_id_header: none documented
+  rate_limits:
+    documented: false
+    note: No rate-limit headers or quotas are documented for the Flint AI Platform API.
+  content_type: application/json
+- surface: AQtive Guard API
+  style: GraphQL over HTTPS
+  spec: graphql/sandboxaq-aqtive-guard.graphql
+  endpoint: https://aqtiveguard.sandboxaq.com/api/v2
+  authentication:
+    scheme: API key in a custom header
+    header: API-KEY
+    evidence: 'POST without the header returns HTTP 400 {"errors":["You must supply an `API-KEY` header
+      in your request"]}'
+    cli_env: CRYPTOSENSE_API_KEY
+  versioning:
+    scheme: uri-path
+    current: v2
+    product_versioning: 'The product itself uses calendar versioning YY.MM.PATCH (see changelog/).'
+  pagination:
+    style: Relay cursor connections
+    request_args: [first, after, last, before]
+    response_types: '*Connection / *Edge / PageInfo'
+    evidence: 'The schema declares 30+ Connection types (CallConnection, CertificateConnection,
+      InstanceConnection, KeyConnection, ProjectConnection, ...) each with edges and a PageInfo node.'
+  filtering_and_sorting:
+    style: typed filter and sorter input objects per collection
+    inputs: 'Filter inputs (InstancesFilter, CertificatesFilter, ScansFilter, ...) and sorter inputs
+      (InstancesSorter, CertificatesSorter, ...) with per-collection FilterFields/SorterFields enums and
+      an OperatorEnum (EQ, CONTAINS, ...) plus OrderEnum.'
+  mutation_convention:
+    style: Relay input/payload
+    note: 'Every mutation takes a single `input` argument of a dedicated *Input type and returns a
+      dedicated *Payload type; inputs carry an optional clientMutationId.'
+  error_envelope:
+    style: GraphQL errors array
+    example: '{"errors":["You must supply an `API-KEY` header in your request"]}'
+    format: GraphQL (not RFC 9457)
+  idempotency:
+    supported: false
+    evidence: No idempotency key or replay-safe mutation contract is declared in the schema or docs.
+  deprecation:
+    style: '@deprecated field directives'
+    note: 'The published schema reference marks deprecated fields with a warning glyph and a migration
+      note (e.g. Ciphersuite.kex -> "Will be renamed to kexAlg in future releases"). Transcribed as
+      @deprecated(reason:) directives in the SDL.'
+- surface: SandboxAQ MCP Server
+  style: Model Context Protocol over Streamable HTTP
+  spec: mcp/sandboxaq-mcp.yml
+  endpoint: https://mcp.{tenant}.aisim.sandboxaq.com
+  authentication:
+    scheme: oauth2
+    api_keys_accepted: false
+    note: 'Email + password, Google social login, or enterprise SSO. SandboxAQ explicitly does not issue
+      or accept static API keys for this surface.'
+  async_convention:
+    style: submit / poll / fetch
+    steps:
+    - Call the tool; it returns a job_id in 1-2 seconds with status pending.
+    - Poll check_job_status until is_terminal is true (the response carries a recommended
+      poll_after_seconds interval).
+    - Call get_job_results to fetch the predictions list.
+    terminal_flag: is_terminal
+    progress_field: progress_message
+  upload_convention:
+    tools: [upload_files, upload_local_files]
+    purpose_value: aqpotency_screen
+    session_handle: upload_session_id
+    formats: ['.smi', '.csv (case-sensitive SMILES column header)']
+    max_bytes: 16777216
+  rate_limits:
+    concurrency: 15 parallel aqcat jobs
+    backoff: '~10 seconds after a rate-limit error'
+    retry_after_header: false
+    retry_after_note: 'Rate-limit responses do NOT include a Retry-After header — clients must use a
+      fixed backoff.'
+    quotas: 'aqcat: 1 bulk / 1 adsorbate / 1 facet per request, 5 placements hard cap, 100 steps per
+      placement and 500 total, 25,000 max response tokens. AqpotencyScreen: 10,000 SMILES per call.'
+    over_cap_behaviour: rejected with a ToolError
+  idempotency:
+    supported: false
+  error_envelope:
+    style: MCP ToolError
+  result_ordering:
+    note: 'AqpotencyScreen predictions are sorted by potency_mean descending; AqpotencySelectivity
+      off_targets are ordered lexicographically by UniProt accession, NOT by submission order.'
+  correctness_guards:
+    note: 'The docs call out two behaviours a client must handle: aqcat placements with is_relaxed=false
+      may carry anomalously high energies and must be excluded from analysis, and an unsupported
+      adsorbate may be SILENTLY substituted with a chemically similar supported one — callers must
+      verify info.adsorbate in the response matches the input.'
+cross_links:
+  authentication: authentication/sandboxaq-authentication.yml
+  errors: errors/sandboxaq-problem-types.yml
+  lifecycle: lifecycle/sandboxaq-lifecycle.yml
+  changelog: changelog/sandboxaq-changelog.yml
+  data_model: data-model/sandboxaq-data-model.yml
+idempotency_summary:
+  any_surface_supports_idempotency_keys: false
+  note: 'No SandboxAQ surface documents an idempotency-key contract, so this repo deliberately does NOT
+    carry an `Idempotency` pointer in apis.yml. Recorded as an honest gap.'

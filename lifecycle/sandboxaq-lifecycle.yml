@@ -1,0 +1,72 @@
+generated: '2026-08-02'
+method: searched
+source: https://aqtiveguard.sandboxaq.com/docs/changelog/ + https://docs.flintai.dev/flintai/cli/resources/changelog
+  + openapi/sandboxaq-flint-ai-platform-openapi.json + graphql/sandboxaq-aqtive-guard.graphql
+description: Versioning, deprecation and operational-transparency posture across SandboxAQ's product
+  lines.
+versioning:
+- surface: Flint AI Platform API
+  scheme: uri-path
+  current: v1
+  evidence: 'servers[0].url = https://{instance}.flintai.dev/api/v1 (info.version 1.0.0)'
+  docs: https://docs.flintai.dev/flintai/api-reference/index
+- surface: Flint AI CLI
+  scheme: semver
+  current: 1.1.1
+  evidence: https://pypi.org/project/flintai-cli/
+  docs: https://docs.flintai.dev/flintai/cli/resources/changelog
+- surface: Flint AI Python SDK
+  scheme: semver
+  current: 1.0.2
+  evidence: https://pypi.org/project/flintai-sdk-py/
+- surface: AQtive Guard API
+  scheme: uri-path
+  current: v2
+  evidence: 'GraphQL endpoint https://aqtiveguard.sandboxaq.com/api/v2'
+- surface: AQtive Guard product
+  scheme: calendar (YY.MM.PATCH)
+  current: 26.07.1
+  released: '2026-07-24'
+  docs: https://aqtiveguard.sandboxaq.com/docs/changelog/
+- surface: SandboxAQ MCP Server
+  scheme: none published
+  note: No public version identifier is published for the MCP server surface.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: unknown
+  mechanism: '@deprecated field directives in the AQtive Guard GraphQL schema'
+  evidence: 'The published AQtive Guard schema reference marks deprecated fields inline with a migration
+    note. Transcribed into graphql/sandboxaq-aqtive-guard.graphql as @deprecated(reason:) directives.'
+  deprecated_operations: []
+  deprecated_fields:
+  - {type: Ciphersuite, field: kex, reason: Will be renamed to kexAlg in future releases.}
+  - {type: Ciphersuite, field: auth, reason: Will be renamed to authAlg in future releases.}
+  note: 'No written deprecation or sunset policy is published for any surface — the deprecation signal
+    is schema-level only. The Flint AI OpenAPI declares no `deprecated: true` operations.'
+sla:
+  url: null
+  uptime_target: null
+  note: 'No public SLA is published. Enterprise SLAs are negotiated separately — the MCP documentation
+    directs enterprise customers to mcp-prod@sandboxaq.com for SLAs, custom deployments and volume
+    commitments.'
+status_page:
+  url: null
+  probed:
+  - {url: 'https://status.sandboxaq.com/', result: no such host}
+  - {url: 'https://status.aqtiveguard.com/', result: no such host}
+  note: No public status page was found for any SandboxAQ product.
+support:
+  mcp: mcp-prod@sandboxaq.com
+  mcp_contact_page: https://docs.aisim.sandboxaq.com/contact
+  flint_ai: https://github.com/sandbox-quantum/flintai-cli/issues
+legal:
+  master_customer_agreement: https://docs.aisim.sandboxaq.com/mca
+  mca_last_updated: '2026-06-17'
+  data_protection_addendum: https://docs.aisim.sandboxaq.com/dpa
+  eula: https://www.sandboxaq.com/legal/eula
+  terms: https://www.sandboxaq.com/legal/terms-conditions
+  privacy: https://www.sandboxaq.com/legal/privacy-policy
+release_cadence:
+  aqtive_guard: 'Roughly monthly-to-quarterly calendar releases; 10 releases observed between 2025-09
+    and 2026-07.'

@@ -1,0 +1,65 @@
+generated: '2026-08-02'
+method: probed
+source: https://docs.flintai.dev/.well-known/agent-card.json
+description: 'A2A Agent Card observed at /.well-known/agent-card.json on docs.flintai.dev, the
+  documentation host for Flint AI — a SandboxAQ product (the CLI and SDK are published from the
+  sandbox-quantum GitHub organization and the Platform API spec is licensed under
+  https://www.sandboxaq.com/legal/eula). Grade is measured against the A2A 1.0.0 AgentCard object:
+  ''conformant'' passes every structural check, ''near-conformant'' is correctly shaped but omits
+  optional fields, ''flavored'' fails a hard check and is an agent card in spirit rather than in
+  schema. Provider-published by construction — served from the provider''s own host; nothing here is
+  derived or generated.'
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: docs.flintai.dev
+  legacy_path_probed: /.well-known/agent.json
+  legacy_path_status: 404
+conformance:
+  spec: A2A 1.0.0
+  grade: flavored
+  protocol_version: '0.3'
+  preferred_transport: HTTP+JSON
+  hard_checks:
+    capabilities_is_object: true
+    protocol_version_present: true
+    skills_is_array: true
+  deviations:
+  - supportedInterfaces-not-additionalInterfaces
+  grade_note: 'All three structural hard checks pass (capabilities is an object, protocolVersion is
+    present, skills is an array) and every optional field the rubric looks for — preferredTransport,
+    defaultInputModes, defaultOutputModes — is populated. The card is graded flavored on one count: it
+    declares its transport interfaces under `supportedInterfaces`, the pre-1.0 field name, rather than
+    A2A 1.0.0''s `additionalInterfaces`. protocolVersion is likewise declared as "0.3", a pre-1.0
+    protocol revision. Recorded honestly rather than rounded up.'
+card:
+  name: Flint AI
+  url: https://docs.flintai.dev/
+  version: 1.0.0
+  documentation_url: https://docs.flintai.dev/
+  provider_organization: Flint AI
+  capabilities:
+    streaming: false
+    pushNotifications: false
+  default_input_modes:
+  - text/plain
+  default_output_modes:
+  - text/plain
+  skills: 1
+  skill_ids:
+  - flint
+  file: sandboxaq-agent-card.json
+related:
+  agent_skill_url: https://docs.flintai.dev/.well-known/agent-skills/flint/skill.md
+  agent_skill_saved_as: skills/sandboxaq-flint.md
+x-evidence:
+  fetched: '2026-08-02'
+  url: https://docs.flintai.dev/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+  note: 'Verbatim body saved alongside this manifest as sandboxaq-agent-card.json. No field inferred.
+    The card advertises a skill document at /.well-known/agent-skills/flint/skill.md, which returned
+    200 and is saved verbatim to skills/. Cards were also probed and MISSED (no AgentCard shape) at:
+    www.sandboxaq.com (404), sandboxaq.com (404), flintai.dev (404), app.flintai.dev (200 HTML SPA
+    shell — rejected), aqtiveguard.sandboxaq.com (200 HTML SPA shell — rejected),
+    docs.aisim.sandboxaq.com (404).'

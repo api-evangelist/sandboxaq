@@ -1,0 +1,151 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/sandboxaq-flint-ai-platform-openapi.json + https://docs.flintai.dev/flintai/api-reference/index
+description: 'Entity-relationship graph of the Flint AI Platform API. Flint AI models an organization''s
+  AI estate as an explicit graph — every inventory entity exposes an /{id}/{edge} endpoint that returns
+  its related entities, and the detail responses embed the neighbour collections directly. Relationships
+  below are derived from the edge endpoints and from the embedded collections declared in the detail
+  response schemas; nothing is inferred beyond what the spec states.'
+scoping:
+  root: tenant
+  levels: [tenant, workspace]
+  note: 'Almost every entity is addressed as /{resource}/tenants/{tenant_id}/workspaces/{workspace_id};
+    entities do not exist outside a tenant+workspace pair.'
+entities:
+- name: Agent
+  api_name: aispm-agents
+  description: An AI agent discovered in the customer's code.
+  detail_schema: api.AispmDetailResponse
+  operations: [GetAllAispmAgents, GetAispmAgentDetails, GetAISPMAgentEdges]
+  relationships:
+  - {type: has_many, target: Model, via: models, source: api.AispmDetailResponse.models}
+  - {type: has_many, target: Tool, via: tools, source: api.AispmDetailResponse.tools}
+  - {type: has_many, target: MCPServer, via: mcp_servers, source: api.AispmDetailResponse.mcp_servers}
+  - {type: has_many, target: Agent, via: sub_agents, source: api.AispmDetailResponse.sub_agents}
+  - {type: has_many, target: Location, via: locations, source: api.AispmDetailResponse.locations}
+  - {type: has_many, target: Guardrail, via: input_guardrails, source: api.AispmDetailResponse.input_guardrails}
+  - {type: has_many, target: Guardrail, via: output_guardrails, source: api.AispmDetailResponse.output_guardrails}
+  - {type: has_one, target: BurnRate, via: burn_rate, source: cost.BurnRate}
+  - {type: has_one, target: CostHistory, via: cost_history, source: cost.CostHistory}
+- name: Model
+  api_name: aispm-models
+  description: A model an agent calls.
+  detail_schema: api.AispmModelDetailResponse
+  operations: [GetAllAispmModels, GetAispmModelDetails, GetAISPMModelEdges]
+  relationships:
+  - {type: has_many, target: Agent, via: agents, source: api.AispmModelDetailResponse.agents}
+  - {type: has_many, target: Location, via: locations, source: api.AispmModelDetailResponse.locations}
+- name: Tool
+  api_name: aispm-tools
+  description: A tool an agent can invoke.
+  detail_schema: api.AispmToolDetailResponse
+  operations: [GetAllAispmTools, GetAispmToolDetails, GetAISPMToolEdges]
+  relationships:
+  - {type: has_many, target: Agent, via: agents, source: api.AispmToolDetailResponse.agents}
+  - {type: has_many, target: MCPServer, via: mcp_servers, source: api.AispmToolDetailResponse.mcp_servers}
+  - {type: has_many, target: Issue, via: issues, source: api.AispmToolDetailResponse.issues}
+  - {type: has_many, target: Location, via: locations, source: api.AispmToolDetailResponse.locations}
+- name: MCPServer
+  api_name: aispm-mcp-servers
+  description: An MCP server an agent connects to.
+  detail_schema: api.AispmMcpServerDetailResponse
+  operations: [GetAllAispmMcpServers, GetAispmMcpServerDetails, GetAISPMMcpServerEdges]
+  relationships:
+  - {type: has_many, target: Agent, via: agents, source: api.AispmMcpServerDetailResponse.agents}
+  - {type: has_many, target: Location, via: locations, source: api.AispmMcpServerDetailResponse.locations}
+- name: Asset
+  api_name: assets
+  description: A code asset that backs these components.
+  operations: [GetAllAssets, GetAssetDetails, GetAssetEdges]
+  relationships:
+  - {type: has_many, target: CryptographicObject, via: edges, source: GetAssetEdges}
+  - {type: has_many, target: Scan, via: scans, source: GetAllScansForAsset}
+- name: Location
+  api_name: locations
+  description: 'Where an asset lives — a repository and file path.'
+  operations: [GetAllLocations, GetLocationEdges]
+  relationships:
+  - {type: has_many, target: CryptographicObject, via: edges, source: GetLocationEdges}
+- name: Issue
+  api_name: issues
+  description: A finding produced by a rule against one or more inventory objects.
+  operations: [GetAllIssues, GetIssuesIndex, GetIssueSingle, GetIssueDetails, GetIssueObjects,
+    GetIssueObjectDetails, GetIssueObjectDetail, GetIssueInstances]
+  relationships:
+  - {type: belongs_to, target: Rule, via: rule_id, source: engine_output.AispmObjectsTopIssue.rule_id}
+  - {type: has_many, target: IssueObject, via: objects, source: GetIssueObjects}
+  - {type: has_many, target: Instance, via: instances, source: GetIssueInstances}
+- name: Instance
+  api_name: fine-issues
+  description: 'An instance-level detail record for a specific issue, object and detail id.'
+  operations: [GetInstanceDetailsV2, GetIssueObjectDetail]
+  relationships:
+  - {type: belongs_to, target: Issue, via: issueId}
+- name: Rule
+  api_name: rules
+  description: 'A rule that produces findings. Rules are static (built in) or external, unified in one
+    rules table.'
+  detail_schema: engine_output.RuleInfo
+  operations: [GetAllRules, GetRule, GetRuleInstances, GetStaticRules, GetExternalRules]
+  fields: [rule_id, rule_name, rule_description, object_types, source]
+  relationships:
+  - {type: has_many, target: Issue, via: rule_id}
+- name: Scan
+  api_name: scans
+  description: A scan run, current or historical, produced by a sensor type.
+  operations: [GetAllCurrentScans, GetAllScansForAsset, GetSensorsUsed]
+  relationships:
+  - {type: has_many, target: Asset, via: asset}
+- name: LlmInteraction
+  api_name: aispm-llm-interactions
+  description: A single LLM interaction captured at runtime by the Python SDK.
+  operations: [GetAllAispmLlmInteractions, GetAispmLlmInteractionDetails]
+  relationships:
+  - {type: belongs_to, target: Agent, via: agent_id}
+  - {type: belongs_to, target: LlmSession, via: session_id}
+- name: LlmSession
+  api_name: aispm-llm-sessions
+  description: 'LLM interactions aggregated by session_id, with tokens, cost, turns, duration and
+    guardrail results.'
+  operations: [GetAispmLlmSessions]
+  relationships:
+  - {type: has_many, target: LlmInteraction, via: session_id}
+  - {type: belongs_to, target: Agent, via: agent_id}
+- name: ClientStorageEntry
+  api_name: client-storage
+  description: 'An opaque key-value entry scoped to a tenant, workspace, user, client and namespace. The
+    only write surface in the spec.'
+  detail_schema: api.clientStorageEntry
+  fields: [value, created_at, updated_at]
+  scopes: [tenant, tenant+user, tenant+workspace, user]
+  operations: [PutClientStorageTenant, GetClientStorageTenant, DeleteClientStorageTenant,
+    PutClientStorageTenantUser, GetClientStorageTenantUser, DeleteClientStorageTenantUser,
+    PutClientStorageTenantWorkspace, GetClientStorageTenantWorkspace, DeleteClientStorageTenantWorkspace,
+    PutClientStorageUser, GetClientStorageUser, DeleteClientStorageUser]
+- name: ViewExport
+  api_name: viewExports
+  description: A scheduled export of a saved view.
+  detail_schema: api.viewExportDescriptionType
+  fields: [id, view_id, export_date, export_path, export_status]
+  operations: [ExportView]
+edge_endpoint:
+  pattern: 'GET /{resource}/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}'
+  available_on: [aispm-agents, aispm-models, aispm-tools, aispm-mcp-servers, assets, locations]
+  note: The same {id}/{edge} pattern traverses the full graph one hop at a time.
+collection_shape:
+  envelope: engine_output.EngineDataPage
+  fields: [cursor, header, rows, total, total_sampling]
+  note: 'Collections are tabular — `header` names the columns and `rows` carries arrays of values —
+    rather than a list of objects. Detail responses extend the same envelope with embedded neighbour
+    sections (engine_output.EmbeddedSection / EmbeddedLocationSection with items + total).'
+graph_render:
+  schema: engine_output.SankeyResponse
+  fields: [nodes, links, cursor, total]
+  node_fields: [id, name, type, weight]
+  link_fields: [source, target, value]
+  note: The API can return the inventory graph directly as a Sankey node/link structure.
+counts:
+  entities: 14
+  relationships: 24
+  openapi_schemas: 51
+  operations: 55

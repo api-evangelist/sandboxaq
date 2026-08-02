@@ -1,0 +1,7004 @@
+"""
+Query objects from AQtive Guard.
+"""
+type Query {
+  """
+  Root object to query
+  """
+  node(id: ID!): Node
+  """
+  Logged in user
+  """
+  viewer: User!
+  """
+  List of the existing trace types.
+  """
+  traceTypes: [TraceType]
+  """
+  List of analyzer rules
+  """
+  analyzerRules(profileType: ProfileType!): [AnalyzerRule!]
+  """
+  Cap version
+  """
+  version: String
+  """
+  Current status of all RQ queues
+  """
+  queueStatus: QueueStatus!
+}
+
+type Mutation {
+  """
+  Analyze a trace with a given profile.
+  """
+  analyze(input: AnalyzeInput!): AnalyzePayload
+  """
+  Authorize Jira Integration configuration and receive a request token and secret
+  """
+  authorizeJiraIntegration(input: AuthorizeJiraIntegrationInput!): AuthorizeJiraIntegrationPayload
+  """
+  Cancel JIRA Export.
+  """
+  cancelJiraExport(input: CancelJiraExportInput!): CancelJiraExportPayload
+  """
+  Cancels the scheduled job to update the exceptions cache of a report
+  """
+  cancelReportExceptionsCacheUpdate(input: CancelReportExceptionsCacheUpdateInput!): CancelReportExceptionsCacheUpdatePayload
+  """
+  Scan hosts via CrowdStrike
+  """
+  cancelScan(input: CancelScanInput!): CancelScanPayload
+  """
+  Changes the password of the current user
+  """
+  changePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  """
+  Test Jira Configuration for Export
+  """
+  checkJiraExport(input: CheckJiraExportInput!): CheckJiraExportPayload
+  """
+  Test Jira integration connection
+  """
+  checkJiraIntegration(input: CheckJiraIntegrationInput!): CheckJiraIntegrationPayload
+  """
+  Test Tanium Computer Group
+  """
+  checkTaniumComputerGroup(input: CheckTaniumComputerGroupInput!): CheckTaniumComputerGroupPayload
+  """
+  Test Tanium integration connection
+  """
+  checkTaniumIntegration(input: CheckTaniumIntegrationInput!): CheckTaniumIntegrationPayload
+  """
+  Test Venafi integration connection
+  """
+  checkVenafiIntegration(input: CheckVenafiIntegrationInput!): CheckVenafiIntegrationPayload
+  """
+  Create a new local user.
+  """
+  createLocalUser(input: CreateLocalUserInput!): CreateLocalUserPayload
+  """
+  Create a new project.
+  """
+  createProject(input: CreateProjectInput!): CreateProjectPayload
+  """
+  Creates an exception for a project
+  """
+  createProjectException(input: CreateProjectExceptionInput!): CreateProjectExceptionPayload
+  """
+  Create a new Slot.
+  """
+  createSlot(input: CreateSlotInput!): CreateSlotPayload
+  """
+  Generate form data and URL method for use in the trace stream upload request. The upload endpoint is
+  a S3-like object storage service and the form data is just for one-time use.
+  """
+  createStreamUpload(input: CreateStreamUploadInput!): CreateStreamUploadPayload
+  """
+  Register a previously uploaded file as a trace in CAP.
+  """
+  createTrace(input: CreateTraceInput!): CreateTracePayload
+  """
+  Delete a project.
+  """
+  deleteProject(input: DeleteProjectInput!): DeleteProjectPayload
+  """
+  Delete a project exception.
+  """
+  deleteProjectException(input: DeleteProjectExceptionInput!): DeleteProjectExceptionPayload
+  """
+  Delete a report.
+  """
+  deleteReport(input: DeleteReportInput!): DeleteReportPayload
+  """
+  Delete a slot.
+  """
+  deleteSlot(input: DeleteSlotInput!): DeleteSlotPayload
+  """
+  Delete a trace.
+  """
+  deleteTrace(input: DeleteTraceInput!): DeleteTracePayload
+  """
+  Deletes a user
+  """
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+  """
+  Finalize stream upload and start tracing generation.
+  """
+  finalizeStreamUpload(input: FinalizeStreamUploadInput!): FinalizeStreamUploadPayload
+  """
+  Generate bulk presigned part number urls for the stream upload.
+  """
+  generatePresignedPartUrls(input: GeneratePresignedPartUrlsInput!): GeneratePresignedPartUrlsPayload
+  """
+  Generate form data and URL method for use in the trace upload request. The upload endpoint is a
+  S3-like object storage service and the form data is just for one-time use.
+  """
+  generateTraceUploadPost(input: GenerateTraceUploadPostInput!): GenerateTraceUploadPostPayload
+  """
+  Get certificate details from Venafi
+  """
+  getVenafiCertificateDetails(input: GetVenafiCertificateDetailsInput!): GetVenafiCertificateDetailsPayload
+  """
+  Exports a Instance to JIRA
+  """
+  jiraExportInstance(input: JiraExportInstanceInput!): JiraExportInstancePayload
+  """
+  Exports multiple instances to JIRA
+  """
+  jiraExportInstances(input: JiraExportInstancesInput!): JiraExportInstancesPayload
+  """
+  Check all the certificates in a report against the Venafi database, and retrieve Venafi GUIDs for
+  those that are found.
+  """
+  populateVenafiGuids(input: PopulateVenafiGuidsInput!): PopulateVenafiGuidsPayload
+  """
+  Refresh last update at stream upload tracker by provided key.
+  """
+  refreshStreamUpload(input: RefreshStreamUploadInput!): RefreshStreamUploadPayload
+  """
+  Request Jira Integration access token and secret to finalize the integration connection
+  """
+  requestJiraIntegrationAccessToken(input: RequestJiraIntegrationAccessTokenInput!): RequestJiraIntegrationAccessTokenPayload
+  """
+  Resets the password of a user
+  """
+  resetUserPassword(input: ResetUserPasswordInput!): ResetUserPasswordPayload
+  """
+  Schedule a job to update the exceptions cache of a report
+  """
+  scheduleReportExceptionsCacheUpdate(input: ScheduleReportExceptionsCacheUpdateInput!): ScheduleReportExceptionsCacheUpdatePayload
+  """
+  Start retrieving traces from Tanium endpoints for a given project.
+  """
+  startTaniumRetrieval(input: StartTaniumRetrievalInput!): StartTaniumRetrievalPayload
+  """
+  Stop retrieving traces from Tanium endpoints for a given project.
+  """
+  stopTaniumRetrieval(input: StopTaniumRetrievalInput!): StopTaniumRetrievalPayload
+  """
+  Unlink Jira Integration and clear all existing values
+  """
+  unlinkJiraIntegration(input: UnlinkJiraIntegrationInput!): UnlinkJiraIntegrationPayload
+  """
+  Unlink organization level jira issue collector
+  """
+  unlinkJiraIssueCollector(input: UnlinkJiraIssueCollectorInput!): UnlinkJiraIssueCollectorPayload
+  """
+  Unlink Project level jira integration and clean the configuration
+  """
+  unlinkProjectJiraIntegration(input: UnlinkProjectJiraIntegrationInput!): UnlinkProjectJiraIntegrationPayload
+  """
+  Update an existing Jira settings
+  """
+  updateJiraIntegration(input: UpdateJiraIntegrationInput!): UpdateJiraIntegrationPayload
+  """
+  Update an existing Jira settings URL and generate public and private keys
+  """
+  updateJiraIntegrationUrl(input: UpdateJiraIntegrationUrlInput!): UpdateJiraIntegrationUrlPayload
+  """
+  Update an existing Jira settings
+  """
+  updateJiraIssueCollector(input: UpdateJiraIssueCollectorInput!): UpdateJiraIssueCollectorPayload
+  """
+  Update an already existing project
+  """
+  updateProject(input: UpdateProjectInput!): UpdateProjectPayload
+  """
+  Updates a project exception.
+  """
+  updateProjectException(input: UpdateProjectExceptionInput!): UpdateProjectExceptionPayload
+  """
+  Update a Project jira settings
+  """
+  updateProjectJiraIntegration(input: UpdateProjectJiraIntegrationInput!): UpdateProjectJiraIntegrationPayload
+  """
+  Update a Project jira issue collector settings
+  """
+  updateProjectJiraIssueCollector(input: UpdateProjectJiraIssueCollectorInput!): UpdateProjectJiraIssueCollectorPayload
+  """
+  Unlink Project level jira issue collector
+  """
+  unlinkProjectJiraIssueCollector(input: UnlinkProjectJiraIssueCollectorInput!): UnlinkProjectJiraIssueCollectorPayload
+  """
+  Unlink Project level Tanium integration and clean the configuration
+  """
+  unlinkProjectTanium(input: UnlinkProjectTaniumIntegrationInput!): UnlinkProjectTaniumIntegrationPayload
+  """
+  Update an already existing slot
+  """
+  updateSlot(input: UpdateSlotInput!): UpdateSlotPayload
+  """
+  Update an existing Tanium integration
+  """
+  updateTaniumIntegration(input: UpdateTaniumIntegrationInput!): UpdateTaniumIntegrationPayload
+  """
+  Unlink an existing Tanium integration
+  """
+  unlinkTaniumIntegration(input: UnlinkTaniumIntegrationInput!): UnlinkTaniumIntegrationPayload
+  """
+  Update an existing Tanium integration
+  """
+  updateProjectTanium(input: UpdateProjectTaniumInput!): UpdateProjectTaniumPayload
+  """
+  Updates an existing user
+  """
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  """
+  Update an existing Venafi integration
+  """
+  updateVenafiIntegration(input: UpdateVenafiIntegrationInput!): UpdateVenafiIntegrationPayload
+  """
+  Unlink an existing Venafi integration
+  """
+  unlinkVenafiIntegration(input: UnlinkVenafiIntegrationInput!): UnlinkVenafiIntegrationPayload
+  """
+  Upload a certificate to Venafi For a detailed overview of available parameters visit:
+  https://docs.venafi.com/Docs/current/TopNav/Content/SDK/WebSDK/r-SDK-POST-Certificates-Import.php
+  """
+  uploadCertificateToVenafi(input: UploadCertificateToVenafiInput!): UploadCertificateToVenafiPayload
+  """
+  Delete a profile.
+  """
+  deleteProfile(input: DeleteProfileInput!): DeleteProfilePayload
+  """
+  Create a new tracer Profile.
+  """
+  createTracerProfile(input: CreateTracerProfileInput!): CreateTracerProfilePayload
+  """
+  Create a new fuzzer Profile.
+  """
+  createFuzzerProfile(input: CreateFuzzerProfileInput!): CreateFuzzerProfilePayload
+  """
+  Update a tracer Profile.
+  """
+  updateTracerProfile(input: UpdateTracerProfileInput!): UpdateTracerProfilePayload
+  """
+  Update a fuzzer Profile.
+  """
+  updateFuzzerProfile(input: UpdateFuzzerProfileInput!): UpdateFuzzerProfilePayload
+  """
+  Create a report diff between two reports
+  """
+  createReportDiff(input: CreateReportDiffInput!): CreateReportDiffPayload
+  """
+  Query hosts via CrowdStrike For a detailed overview of available parameters visit (requires login):
+  https://assets.falcon.us-2.crowdstrike.com/support/api/swagger-
+  us2.html#/hosts/QueryDevicesByFilterScroll
+  """
+  queryHostsViaCrowdStrike(input: QueryHostsViaCrowdStrikeInput!): QueryHostsViaCrowdStrikePayload
+  """
+  Scan hosts via CrowdStrike
+  """
+  scanHostsViaCrowdStrike(input: ScanHostsViaCrowdStrikeInput!): ScanHostsViaCrowdStrikePayload
+  """
+  Update an existing CrowdStrike integration
+  """
+  updateCrowdStrikeIntegration(input: UpdateCrowdStrikeIntegrationInput!): UpdateCrowdStrikeIntegrationPayload
+  """
+  Unlink an existing CrowdStrike integration
+  """
+  unlinkCrowdStrikeIntegration(input: UnlinkCrowdStrikeIntegrationInput!): UnlinkCrowdStrikeIntegrationPayload
+  """
+  Check if CrowdStrike integration settings are valid
+  """
+  checkCrowdStrikeIntegration(input: CheckCrowdStrikeIntegrationInput!): CheckCrowdStrikeIntegrationPayload
+  """
+  Mutation to update ServiceNow integration settings for an organization. This mutation allows an
+  authenticated user to update the ServiceNow settings or create a new one if they do not exist.
+  Settings are tested against the ServiceNow instance to ensure correctness. Note: Inputs are
+  validated with strict length validations because ServiceNow will accept any input and truncate it to
+  the max allowed length.
+  """
+  updateServiceNowIntegration(input: UpdateServiceNowIntegrationInput!): UpdateServiceNowIntegrationPayload
+  """
+  Mutation to test ServiceNow integration settings. We support two cases: 1. Test settings provided as
+  input: All settings provided as input will be tested against the ServiceNow instance. 2. Test
+  existing settings: To test existing settings, they must exist in the database. The input password
+  must be an empty string, and the instance_url and user_id must match the saved settings'
+  instance_url and user_id.
+  """
+  checkServiceNowIntegration(input: CheckServiceNowIntegrationInput!): CheckServiceNowIntegrationPayload
+  """
+  Delete existing ServiceNow settings
+  """
+  unlinkServiceNowIntegration(input: UnlinkServiceNowIntegrationInput!): UnlinkServiceNowIntegrationPayload
+  serviceNowExportReport(input: ServiceNowExportReportInput!): ServiceNowExportReportPayload
+  """
+  Export instance to ServiceNow
+  """
+  serviceNowExportInstance(input: ServiceNowExportSingleInstanceInput!): ServiceNowExportSingleInstancePayload
+  """
+  Cancels the running ServiceNow bulk export for the selected report. Note: There can be only one
+  running export per report, which is why we are doing it through the report
+  """
+  serviceNowCancelReportExport(input: CancelServiceNowReportExportInput!): CancelServiceNowReportExportPayload
+}
+
+"""
+Analyze a trace with a given profile.
+"""
+type AnalyzePayload {
+  """
+  The trace that was analyzed
+  """
+  trace: Trace!
+  """
+  The profile that was applied
+  """
+  profile: Profile!
+  """
+  The report that was generated
+  """
+  report: Report!
+  clientMutationId: String
+}
+
+type AnalyzerRule {
+  ruleset: Ruleset!
+  category: RuleCategory!
+  number: Int!
+  title: String!
+  compatibleTraceTypes: [CompatibleTraceType!]
+  shortExplanation: String
+  consequences: String
+  explanation: String
+  resources: String
+  access: String
+  expertise: String
+  kbLink: [KbLink!]
+}
+
+"""
+Authorize Jira Integration configuration and receive a request token and secret
+"""
+type AuthorizeJiraIntegrationPayload {
+  jiraIntegration: JiraIntegration!
+  clientMutationId: String
+}
+
+type BatchExport {
+  """
+  status.
+  """
+  exportType: ExportType!
+  """
+  status.
+  """
+  status: ExportStatus!
+  """
+  Total expected count of instances for export
+  """
+  totalCount: Int!
+  """
+  Number of exported instances in the current status of the export
+  """
+  exportedCount: Int!
+  """
+  Export creation time
+  """
+  createdAt: DateTime!
+  """
+  Export cancellation time
+  """
+  canceledAt: DateTime
+}
+
+"""
+A single call to a cryptographic library from a traced application.
+"""
+type Call {
+  """
+  The ID of the object
+  """
+  id: ID!
+  timestamp: Float
+  arguments: String
+  """
+  Status of the call with regards to project exceptions
+  """
+  isKeptByFilters: Boolean!
+  stackTrace(before: String, after: String, first: Int, last: Int): StackFrameConnection
+}
+
+type CallConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [CallEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Call and its cursor.
+"""
+type CallEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Call
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type CallLimiting {
+  """
+  Indicates whether calls were discarded during the preparation of the report
+  """
+  callsLimited: Boolean
+  """
+  Maximum number of calls in a bucket, as set in the analyzer
+  """
+  maxCallsPerBucket: Int
+  """
+  Maximum number of calls in total, as set in the analyzer
+  """
+  maxCallsTotal: Int
+  """
+  Number of kept calls
+  """
+  numCallsKept: Int
+  """
+  Number of calls discarded because of the bucket limit
+  """
+  numCallsOverBucketLimit: Int
+  """
+  Number of calls discarded because of the total limit
+  """
+  numCallsOverTotalLimit: Int
+  """
+  Total number of calls
+  """
+  numCallsTotal: Int
+  """
+  Number of distinct buckets
+  """
+  numBuckets: Int
+  """
+  Number of buckets where the call limit was reached
+  """
+  numFullBuckets: Int
+}
+
+"""
+A specific call site in a traced application. As an example, if the class Foo , found in the file
+Foo.java , there is a method bar() . Inside that method, on line 123, a call is made to Bat.baz() .
+This this case, the CallSite node will have the following values: The corresponding java code might
+look like this:
+"""
+type CallSite {
+  """
+  The ID of the object
+  """
+  id: ID!
+  reportId: Float!
+  covered: Boolean
+  starred: Boolean
+  """
+  Class holding the method that made the call
+  """
+  class: String
+  """
+  Method that made the call
+  """
+  method: String!
+  """
+  File containing the code of the method
+  """
+  file: String
+  """
+  Line within the file that made the call
+  """
+  line: Int!
+  """
+  Target class of the call
+  """
+  calledClass: String
+  """
+  Target method of the call
+  """
+  calledMethod: String
+}
+
+type CallSiteConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [CallSiteEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a CallSite and its cursor.
+"""
+type CallSiteEdge {
+  """
+  The item at the end of the edge
+  """
+  node: CallSite
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Cancel JIRA Export.
+"""
+type CancelJiraExportPayload {
+  export: BatchExport
+  clientMutationId: String
+}
+
+"""
+Cancels the scheduled job to update the exceptions cache of a report
+"""
+type CancelReportExceptionsCacheUpdatePayload {
+  report: Report!
+  clientMutationId: String
+}
+
+"""
+Scan hosts via CrowdStrike
+"""
+type CancelScanPayload {
+  scan: Scan!
+  clientMutationId: String
+}
+
+"""
+Cancels the running ServiceNow bulk export for the selected report. Note: There can be only one
+running export per report, which is why we are doing it through the report
+"""
+type CancelServiceNowReportExportPayload {
+  export: BatchExport!
+  clientMutationId: String
+}
+
+type Certificate {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Report in which the certificate was found
+  """
+  report: Report!
+  serialNumber: String!
+  subject: String!
+  issuer: String!
+  version: String
+  fingerprint: String
+  """
+  GUID of the certificate within Venafi, if one was found
+  """
+  venafiGuid: String
+  """
+  PEM encoded representation of the certificate.
+  """
+  encoded: String
+  instances(before: String, after: String, first: Int, last: Int): InstanceConnection
+  publicKey: Key!
+  isCa: Boolean
+  isSelfSigned: Boolean
+  """
+  Start of the certificate validity period
+  """
+  notBefore: DateTime
+  """
+  End of the certificate validity period
+  """
+  notAfter: DateTime
+  signatureAlgorithm: SignatureAlgorithmData
+  """
+  Corresponding certificate at the AQtive Guard organization level
+  """
+  organizationCertificate: OrganizationCertificate
+  """
+  Locations at which the certificate was found
+  """
+  locations(before: String, after: String, first: Int, last: Int): LocationConnection
+  """
+  Operations that were involved with this certificate
+  """
+  operations(keptByFilters: Boolean, filters: OperationsFilter, sorters: [OperationsSorter], before: String, after: String, first: Int, last: Int): OperationConnection
+  extensions: [CertificateExtensionData]
+  signature: String
+}
+
+type CertificateConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [CertificateEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Certificate and its cursor.
+"""
+type CertificateEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Certificate
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type CertificateExtensionData {
+  name: String
+  value: String
+  critical: Boolean
+}
+
+"""
+Changes the password of the current user
+"""
+type ChangePasswordPayload {
+  clientMutationId: String
+}
+
+type CheckConnectionResult {
+  isSuccessful: Boolean!
+  reason: String
+}
+
+"""
+Check if CrowdStrike integration settings are valid
+"""
+type CheckCrowdStrikeIntegrationPayload {
+  crowdStrikeConnectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+"""
+Test Jira Configuration for Export
+"""
+type CheckJiraExportPayload {
+  jiraConnectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+"""
+Test Jira integration connection
+"""
+type CheckJiraIntegrationPayload {
+  jiraConnectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+"""
+Mutation to test ServiceNow integration settings. We support two cases: 1. Test settings provided as
+input: All settings provided as input will be tested against the ServiceNow instance. 2. Test
+existing settings: To test existing settings, they must exist in the database. The input password
+must be an empty string, and the instance_url and user_id must match the saved settings’
+instance_url and user_id.
+"""
+type CheckServiceNowIntegrationPayload {
+  connectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+"""
+Test Tanium Computer Group
+"""
+type CheckTaniumComputerGroupPayload {
+  taniumConnectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+"""
+Test Tanium integration connection
+"""
+type CheckTaniumIntegrationPayload {
+  taniumConnectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+"""
+Test Venafi integration connection
+"""
+type CheckVenafiIntegrationPayload {
+  venafiConnectionResult: CheckConnectionResult!
+  clientMutationId: String
+}
+
+type CiphersuiteInfo {
+  """
+  ID of the ciphersuite. May correspond to a ciphersuite standardized by IETF or to an unknown one. In
+  the former case other 'CiphersuiteInfo' fields will be filled with extracted information, such as
+  'name', 'recommended' and others. In the latter case, most fields will be 'null'.
+  """
+  nid: Int!
+  """
+  Name given by IETF to a recognized ciphersuite. ('TLS_AES_128_GCM_SHA256',
+  'TLS_NULL_WITH_NULL_NULL', ...)
+  """
+  name: String
+  """
+  Whether ciphersuite is recommended by IETF or not.
+  """
+  recommended: Boolean!
+  """
+  List of RFCs in which ciphersuite was defined.
+  """
+  reference: [String]
+  version: CiphersuiteTlsVersion!
+  """
+  Key exchange algorithm used. (ECDHE, DHE, RSA, ...)
+  """
+  kex: String @deprecated(reason: "Will be renamed to kexAlg in future releases.")
+  """
+  Authentication algorithm used. (ECDSA, RSA, PSK, ...)
+  """
+  auth: String @deprecated(reason: "Will be renamed to authAlg in future releases.")
+  """
+  Block/stream cipher algorithm used. (AES, RC4, ...)
+  """
+  algorithmSym: String @deprecated(reason: "Will be renamed to symmetricCipherAlg in future releases.")
+  """
+  MAC algorithm used. (AEAD for TLS1.3, SHA256, ...)
+  """
+  mac: String @deprecated(reason: "Will be renamed to macAlg in future releases.")
+  """
+  Mode of operation used by the block cipher. 'null' if stream cipher is used. (GCM, CBC, CCM, ...)
+  """
+  modeOfOperation: String @deprecated(reason: "Will be renamed to modeOfOperationAlg in future releases.")
+  """
+  Hash algorithm used; serves as HKDF for TLS1.3 and as a MAC for TLS1.2. (SHA-family, MD5, ...)
+  """
+  hashAlg: String
+}
+
+type CompatibleTraceType {
+  traceType: TraceType!
+}
+
+type CoverageSummary {
+  """
+  Total number of call sites found by a static scan
+  """
+  total: Int!
+  """
+  Number of call sites covered by the trace
+  """
+  covered: Int!
+  """
+  Number of passes performed by the scanner over the code during the inspection for call sites
+  """
+  depth: Int
+}
+
+"""
+Create a new fuzzer Profile.
+"""
+type CreateFuzzerProfilePayload {
+  profile: Profile!
+  clientMutationId: String
+}
+
+"""
+Create a new local user.
+"""
+type CreateLocalUserPayload {
+  user: User!
+  clientMutationId: String
+}
+
+"""
+Creates an exception for a project
+"""
+type CreateProjectExceptionPayload {
+  exception: ProjectException
+  clientMutationId: String
+}
+
+"""
+Create a new project.
+"""
+type CreateProjectPayload {
+  project: Project!
+  clientMutationId: String
+}
+
+"""
+Create a report diff between two reports
+"""
+type CreateReportDiffPayload {
+  reportDiff: ReportDiff!
+  clientMutationId: String
+}
+
+"""
+Create a new Slot.
+"""
+type CreateSlotPayload {
+  project: Project!
+  slot: Slot!
+  clientMutationId: String
+}
+
+"""
+Generate form data and URL method for use in the trace stream upload request. The upload endpoint is
+a S3-like object storage service and the form data is just for one-time use.
+"""
+type CreateStreamUploadPayload {
+  """
+  Stream identifier
+  """
+  streamId: String!
+  clientMutationId: String
+}
+
+"""
+Register a previously uploaded file as a trace in CAP.
+"""
+type CreateTracePayload {
+  project: Project!
+  slot: Slot!
+  trace: Trace!
+  report: Report
+  clientMutationId: String
+}
+
+"""
+Create a new tracer Profile.
+"""
+type CreateTracerProfilePayload {
+  profile: Profile!
+  clientMutationId: String
+}
+
+"""
+Details of the connection parameters to Tanium
+"""
+type CrowdStrikeIntegration {
+  baseUrl: String!
+  clientId: String!
+  clientSecret: String!
+}
+
+"""
+Delete a profile.
+"""
+type DeleteProfilePayload {
+  clientMutationId: String
+}
+
+"""
+Delete a project exception.
+"""
+type DeleteProjectExceptionPayload {
+  clientMutationId: String
+}
+
+"""
+Delete a project.
+"""
+type DeleteProjectPayload {
+  clientMutationId: String
+}
+
+"""
+Delete a report.
+"""
+type DeleteReportPayload {
+  clientMutationId: String
+}
+
+"""
+Delete a slot.
+"""
+type DeleteSlotPayload {
+  clientMutationId: String
+}
+
+"""
+Delete a trace.
+"""
+type DeleteTracePayload {
+  clientMutationId: String
+}
+
+"""
+Deletes a user
+"""
+type DeleteUserPayload {
+  clientMutationId: String
+}
+
+type DisabledRule {
+  ruleNumber: Int!
+  ruleset: Ruleset!
+}
+
+"""
+Finalize stream upload and start tracing generation.
+"""
+type FinalizeStreamUploadPayload {
+  trace: Trace
+  report: Report
+  clientMutationId: String
+}
+
+type GeneralRemediation {
+  remediation: String!
+  triage: String
+  specificRemediationAdvice: String
+  link: [String]
+}
+
+"""
+Generate bulk presigned part number urls for the stream upload.
+"""
+type GeneratePresignedPartUrlsPayload {
+  """
+  Presigned parts and their data.
+  """
+  parts: [PresignedPart]!
+  clientMutationId: String
+}
+
+"""
+Generate form data and URL method for use in the trace upload request. The upload endpoint is a
+S3-like object storage service and the form data is just for one-time use.
+"""
+type GenerateTraceUploadPostPayload {
+  """
+  URL of the request
+  """
+  url: String!
+  """
+  URL method of the request (PUT or POST)
+  """
+  method: String!
+  """
+  JSON encoding of the form data to use in the POST upload request. This should be ignored for PUT
+  requests.
+  """
+  formData: String!
+  clientMutationId: String
+}
+
+"""
+Get certificate details from Venafi
+"""
+type GetVenafiCertificateDetailsPayload {
+  details: JSONString
+  clientMutationId: String
+}
+
+"""
+Elliptic curve group information
+"""
+type GroupInfo {
+  """
+  ID of elliptic or finite-field group. May correspond to a group standardized by IETF, to IDs
+  specified by Open Quantum Safe project - https://openquantumsafe.org/ - in the case of post-quantum
+  or hybrid ones, or to an unknown group.
+  """
+  nid: Int!
+  classification: GroupClassification!
+  """
+  Name given to a recognized group. ('secp256r1', 'kyber512', 'kyber512 & secp256_r1', ...)
+  """
+  name: String
+  """
+  Whether group is recommended by IETF or not. Is always 'true' if the group is classified as post-
+  quantum or hybrid.
+  """
+  recommended: Boolean!
+}
+
+type HandshakeConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [HandshakeEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Handshake and its cursor.
+"""
+type HandshakeEdge {
+  """
+  The item at the end of the edge
+  """
+  node: TlsHandshake
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type IncidentInfo {
+  sysId: String!
+  number: String!
+  url: String!
+  instanceId: Int!
+}
+
+"""
+A finding within a report.
+"""
+type Instance {
+  """
+  The ID of the object
+  """
+  id: ID!
+  number: Int!
+  severity: InstanceSeverity!
+  data: String!
+  details: String
+  dismissed: Boolean!
+  """
+  Calls linked to the instance
+  """
+  calls(keptByFilters: Boolean, before: String, after: String, first: Int, last: Int): CallConnection
+  """
+  All certificates related to this instance. If the rule relates directly to a certificate, then only
+  that certificate will be returned. For other rules this will return all certificates that contain a
+  key linked to the instance.
+  """
+  certificates(before: String, after: String, first: Int, last: Int): CertificateConnection
+  keys(before: String, after: String, first: Int, last: Int): KeyConnection
+  """
+  Operations linked to the instance
+  """
+  operations(keptByFilters: Boolean, filters: OperationsFilter, sorters: [OperationsSorter], before: String, after: String, first: Int, last: Int): OperationConnection!
+  locations(before: String, after: String, first: Int, last: Int): LocationConnection
+  """
+  Status of the instance with regards to project exceptions
+  """
+  filterStatus: FilterStatus!
+  """
+  Relative URL for this instance in the web UI (e.g. `/report/123/45/6789`).
+  """
+  url: String!
+  """
+  Rule that was checked for this instance
+  """
+  rule: Rule!
+  """
+  Remediation recommendations
+  """
+  remediation: Remediation
+  hardCodedStringLocations: [StackFrame]
+  """
+  Number of this instance within instances of the same rule
+  """
+  numberLocal: Int
+  """
+  Jira issue key created when exporting an instance
+  """
+  jiraExportUrl: String
+  """
+  ServiceNow url created when exporting an instance
+  """
+  serviceNowExportUrl: String
+}
+
+type InstanceConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [InstanceEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Instance and its cursor.
+"""
+type InstanceEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Instance
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Statistics for the appearance of a group of instances for a severity level.
+"""
+type InstanceStat {
+  percentage: String!
+  count: Int!
+}
+
+type InventoryRecapCategory {
+  name: String!
+  lines: [InventoryRecapLineData]!
+}
+
+type InventoryRecapData {
+  algorithms: [InventoryRecapCategory]
+  keys: [InventoryRecapCategory]!
+  keystores: [InventoryRecapCategory]
+  operations: [InventoryRecapCategory]
+}
+
+type InventoryRecapLineData {
+  name: String!
+  count: Int!
+  percentage: String!
+}
+
+"""
+Java cryptography provider
+"""
+type JavaProvider {
+  name: String!
+  version: String!
+  """
+  Known vulnerabilities for this provider. (`[]` means none, `null` means unknown.)
+  """
+  vulnerabilities: [JavaVulnerability]
+}
+
+"""
+Known vulnerability in a Java cryptography provider
+"""
+type JavaVulnerability {
+  name: String!
+  url: String
+}
+
+type JiraExportError {
+  instanceId: ID!
+  errors: [String!]! @deprecated(reason: "This field is deprecated and will be removed in a future release. Users are invited to use the `errorDetails` response field instead, which returns more granular information about export errors")
+  errorDetails: [JiraExportErrorDetail!]!
+}
+
+type JiraExportErrorDetail {
+  """
+  Error message returned from JIRA
+  """
+  error: String!
+  """
+  JIRA Issue field that caused the error
+  """
+  field: String
+  """
+  Value of the field that caused the error
+  """
+  value: String
+}
+
+"""
+Exports a Instance to JIRA
+"""
+type JiraExportInstancePayload {
+  jiraIssue: String!
+  jiraUrl: String!
+  clientMutationId: String
+}
+
+"""
+Exports multiple instances to JIRA
+"""
+type JiraExportInstancesPayload {
+  """
+  List of created JIRA issues
+  """
+  issues: [JiraExportIssue!]
+  """
+  Errors from JIRA
+  """
+  errors: [JiraExportError!]
+  export: BatchExport
+  clientMutationId: String
+}
+
+type JiraExportIssue {
+  instanceId: ID!
+  issueKey: String!
+  issueUrl: String!
+}
+
+"""
+Details of the connection parameters to JIRA
+"""
+type JiraIntegration {
+  url: String!
+  jiraRequestToken: String
+  jiraRequestTokenSecret: String
+  jiraAccessToken: String
+  jiraAccessTokenSecret: String
+  jiraConsumerKey: String
+  jiraProjectKey: String
+  jiraIssuetypeKey: String
+  jiraPublicKey: String
+  jiraPrivateKey: String
+  jiraAuthorizationUrl: String
+}
+
+"""
+Details of the connection parameters to JIRA Issue Collector
+"""
+type JiraIssueCollectorIntegration {
+  issueCollectorCode: String!
+}
+
+type KbLink {
+  title: String!
+  url: String
+}
+
+"""
+A cryptographic key
+"""
+type Key {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Report in which the key was found
+  """
+  report: Report!
+  category: KeyCategory!
+  type: KeyType!
+  """
+  JSON-encoded representation of the key
+  """
+  valueJson: String!
+  """
+  Generic representation of the value of the key
+  """
+  valueSummary: String!
+  """
+  Summarized list of operations performed with the key
+  """
+  operationSummary: String
+  shortDescription: String!
+  length: Int
+  metadata: String
+  """
+  Human-readable information on the source of the key
+  """
+  information: [String]
+  hasPrivateKey: Boolean
+  """
+  The call site within the application source where this key was first used
+  """
+  firstCallSite: StackFrame
+  instances(before: String, after: String, first: Int, last: Int): InstanceConnection
+  certificates(before: String, after: String, first: Int, last: Int): CertificateConnection!
+  """
+  Corresponding key at the AQtive Guard organization level
+  """
+  organizationKey: OrganizationKey
+  locations(before: String, after: String, first: Int, last: Int): LocationConnection
+  operations(keptByFilters: Boolean, filters: OperationsFilter, sorters: [OperationsSorter], before: String, after: String, first: Int, last: Int): OperationConnection
+  pkcs11Attributes: String
+  source: String
+}
+
+type KeyConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [KeyEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Key and its cursor.
+"""
+type KeyEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Key
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type LengthProfile {
+  medHighThreshold: Int!
+  lowMedThreshold: Int!
+  offLowThreshold: Int!
+}
+
+type Location {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Path to the location, either on a filesystem or inside a compressed archive or keystore.
+  """
+  path: String
+  """
+  Certificates found at this location
+  """
+  certificates(before: String, after: String, first: Int, last: Int): CertificateConnection
+  """
+  Keys found at this location
+  """
+  keys(before: String, after: String, first: Int, last: Int): KeyConnection
+  """
+  All instances involving objects found at this location
+  """
+  instances(filters: InstancesFilter, before: String, after: String, first: Int, last: Int): InstanceConnection
+  hostname: String
+  """
+  Path or name of the image the location comes from, if any
+  """
+  imageInfo: String
+  """
+  Type of the image the location comes from, if any
+  """
+  imageType: Imagetype
+  fileType: Filetype
+}
+
+type LocationConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [LocationEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Location and its cursor.
+"""
+type LocationEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Location
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type ObjectStat {
+  type: String!
+  value: String!
+  count: Int!
+}
+
+"""
+A recorded action taken with or on a cryptographic object.
+"""
+type Operation {
+  """
+  The ID of the object
+  """
+  id: ID!
+  onlyTls: Boolean
+  timestamp: Float
+  """
+  The operation type
+  """
+  type: OperationType!
+  """
+  The operation type as a readable string
+  """
+  operationType: String!
+  """
+  The operation category
+  """
+  category: OperationCategory!
+  """
+  The operation category as a readable string
+  """
+  operationCategory: String!
+  """
+  The operation context
+  """
+  context: OperationContext!
+  """
+  The operation context as a readable string
+  """
+  operationContext: String!
+  algorithms: [String]
+  algorithmSummary: String
+  keys(before: String, after: String, first: Int, last: Int): OperationKeyConnection
+  report: Report!
+  tlsHandshake(before: String, after: String, first: Int, last: Int): HandshakeConnection
+  sshHandshake: SshHandshake
+  keyRoles: [String]
+  """
+  Status of the operation with regards to project exceptions
+  """
+  filterStatus: FilterStatus!
+  """
+  Calls linked to the operation
+  """
+  calls(keptByFilters: Boolean, before: String, after: String, first: Int, last: Int): CallConnection
+  """
+  Instances linked to the operation
+  """
+  instances(keptByFilters: Boolean, filters: InstancesFilter, sorters: [InstancesSorter], before: String, after: String, first: Int, last: Int): InstanceConnection
+  """
+  JSON-encoded representation of the operation
+  """
+  valueJson: String!
+  """
+  The first call site for this operation. The returned call site is the second frame of the first call
+  found, representing the location in the code where this operation began.
+  """
+  firstCallSite: StackFrame
+}
+
+type OperationConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [OperationEdge]!
+  totalCount: Int!
+}
+
+type OperationCounts {
+  """
+  Number of operations in high severity instances
+  """
+  high: Int!
+  """
+  Number of operations in medium severity instances
+  """
+  medium: Int!
+  """
+  Number of operations in low severity instances
+  """
+  low: Int!
+  """
+  Number of operations in passed instances
+  """
+  passed: Int!
+}
+
+"""
+A Relay edge containing a Operation and its cursor.
+"""
+type OperationEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Operation
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type OperationKeyConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [OperationKeyEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a OperationKey and its cursor.
+"""
+type OperationKeyEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Key
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+  """
+  The role played by the key in the operation
+  """
+  role: String!
+  """
+  Data that was either encrypted or decrypted with the key in the operation
+  """
+  cipherData: String
+  """
+  The ID of the key wrapping this key, if any
+  """
+  wrappedByKeyId: ID
+  """
+  The ID of the key wrapped by this key, if any
+  """
+  wrappedKeyId: ID
+}
+
+type OperationStats {
+  """
+  Asymmetric key generation
+  """
+  asymmetricKeyGeneration: OperationCounts
+  """
+  Symmetric key generation
+  """
+  symmetricKeyGeneration: OperationCounts
+  """
+  Encryption / decryption
+  """
+  encryptionDecryption: OperationCounts
+  """
+  Signature / verification
+  """
+  signatureGenerationVerification: OperationCounts
+  """
+  MAC
+  """
+  mac: OperationCounts
+  """
+  Hashing
+  """
+  hashing: OperationCounts
+  """
+  Key wrapping / unwrapping
+  """
+  keyWrappingUnwrapping: OperationCounts
+  """
+  Key derivation
+  """
+  keyDerivation: OperationCounts
+  """
+  Key store access
+  """
+  keyStoreAccess: OperationCounts
+  """
+  Key store creation / loading
+  """
+  keyStoreCreationLoading: OperationCounts
+  """
+  Key agreement
+  """
+  keyAgreement: OperationCounts
+  """
+  Cloud storage
+  """
+  cloudStorage: OperationCounts
+  """
+  Key definition
+  """
+  keyDefinition: OperationCounts
+  """
+  TLS or SSL initialization
+  """
+  tlsInitialization: OperationCounts
+  """
+  TLS Handshake
+  """
+  tlsHandshake: OperationCounts
+  """
+  SSH Handshake
+  """
+  sshHandshake: OperationCounts
+}
+
+type Organization {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  The name of this organization
+  """
+  name: String!
+  """
+  Users in the organization
+  """
+  users(filters: UsersFilter, sorters: [UsersSorter], before: String, after: String, first: Int, last: Int): UserConnection!
+  """
+  Testers in the organization
+  """
+  testers(before: String, after: String, first: Int, last: Int): UserConnection
+  """
+  Searches a project with an exact name in the organization
+  """
+  project(name: String!): Project
+  """
+  Projects in the organization. Use the optional name argument to only get those whose name contains a
+  given, case sensitive, substring.
+  """
+  projects(name: String, filters: ProjectsFilter, sorters: [ProjectsSorter], before: String, after: String, first: Int, last: Int): ProjectConnection!
+  """
+  Can the organization go over the default reports per slot limit
+  """
+  unlimitedReports: Boolean
+  """
+  Scans in the organization.
+  """
+  scans(filters: ExpandedScansFilter, sorters: [ScansSorter], before: String, after: String, first: Int, last: Int): ScanConnection!
+  profiles(filters: ProfilesFilter, sorters: [ProfilesSorter], before: String, after: String, first: Int, last: Int): ProfileConnection
+  """
+  List of the trace types the organization is allowed to use.
+  """
+  allowedTraceTypes: [TraceType]
+  keys(filters: OrganizationKeysFilter, before: String, after: String, first: Int, last: Int): OrganizationKeyConnection
+  certificates(filters: OrganizationCertificatesFilter, before: String, after: String, first: Int, last: Int): OrganizationCertificateConnection
+  """
+  List of the integration that have been configured for the organization.
+  """
+  integrations: [Integration]
+  """
+  Jira integration for the current organization
+  """
+  jiraIntegration: JiraIntegration
+  """
+  ServiceNow integration for the current organization
+  """
+  serviceNowIntegration: ServiceNowIntegration
+  """
+  Tags aggregated from the slots of all projects.
+  """
+  slotTags(name: String, first: Int): [String]
+  """
+  Last update time for organization with provided filters (UTC, in ISO8601 format).
+  """
+  lastUpdated(tags: [String!], projectIds: [String!], profileIds: [String!]): DateTime
+  """
+  Inventory summary for the given projects. The inventory summary is made of two parts: algorithm
+  statistics and key statistics. Those parts are computed from the latest report of each relevant
+  project.
+  """
+  inventory(tags: [String!], projectIds: [String!], profileIds: [String!], overviewTypes: [OverviewType!], from: DateTime, to: DateTime): InventoryRecapData
+  """
+  Organization overview grouped into categories with aggregated severity data.
+  """
+  overview(tags: [String!], projectIds: [String!], profileIds: [String!], overviewTypes: [OverviewType!], from: DateTime, to: DateTime): OverviewSummary
+  """
+  Vulnerabilities for the given projects. Given their severity, we get them sorted by top priority
+  index.
+  """
+  vulnerabilities(tags: [String!], projectIds: [String!], profileIds: [String!], severities: [DisplaySeverity!], overviewTypes: [OverviewType!], withExceptions: Boolean, from: DateTime, to: DateTime, before: String, after: String, first: Int, last: Int): VulnerabilityConnection
+  """
+  Aggregated report summaries sliced over time.
+  """
+  timeRepresentationSlices(tags: [String!], projectIds: [String!], profileIds: [String!], overviewTypes: [OverviewType!], from: DateTime!, to: DateTime!, numberOfSlices: Int!, slotIds: [String!]): [TimeRepresentationSlice]
+}
+
+"""
+Certificate, aggregated at the level of the organization.
+"""
+type OrganizationCertificate {
+  """
+  The ID of the object
+  """
+  id: ID!
+  organization: Organization!
+  publicKey: OrganizationKey
+  version: String!
+  serialNumber: String!
+  issuer: String!
+  subject: String!
+  fingerprint: String
+  """
+  GUID of the certificate in Venafi if one was found.
+  """
+  venafiGuid: String
+  """
+  PEM encoded representation of the certificate.
+  """
+  encoded: String
+  isCa: Boolean
+  isSelfSigned: Boolean
+  """
+  Start of the certificate validity period
+  """
+  notBefore: DateTime
+  """
+  End of the certificate validity period
+  """
+  notAfter: DateTime
+  signatureAlgorithm: SignatureAlgorithmData
+  """
+  Link to the certificates inside individual reports
+  """
+  reportCertificates(before: String, after: String, first: Int, last: Int): CertificateConnection!
+  extensions: [CertificateExtensionData]
+  signature: String
+}
+
+type OrganizationCertificateConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [OrganizationCertificateEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a OrganizationCertificate and its cursor.
+"""
+type OrganizationCertificateEdge {
+  """
+  The item at the end of the edge
+  """
+  node: OrganizationCertificate
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Cryptographic key at the organization level.
+"""
+type OrganizationKey {
+  """
+  The ID of the object
+  """
+  id: ID!
+  organization: Organization!
+  length: Int
+  category: KeyCategory!
+  type: KeyType!
+  """
+  JSON-encoded representation of the key
+  """
+  valueJson: String!
+  shortDescription: String!
+  metadata: String
+  """
+  Human-readable information on the source of the key
+  """
+  information: [String]
+  hasPrivateKey: Boolean
+  """
+  Link to the key inside individual reports
+  """
+  reportKeys(before: String, after: String, first: Int, last: Int): KeyConnection!
+  """
+  Certificates based on this key
+  """
+  certificates(filters: CertificatesFilter, before: String, after: String, first: Int, last: Int): OrganizationCertificateConnection!
+}
+
+type OrganizationKeyConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [OrganizationKeyEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a OrganizationKey and its cursor.
+"""
+type OrganizationKeyEdge {
+  """
+  The item at the end of the edge
+  """
+  node: OrganizationKey
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Statistics over the entire organization.
+"""
+type Overview {
+  latestUpdate: String
+  issueCount: Int!
+  issueDoughnutData: String!
+  secure: OverviewSecure
+  otherItems: [OverviewItem]
+  highInstances: InstanceStat
+  mediumInstances: InstanceStat
+  lowInstances: InstanceStat
+  passedInstances: InstanceStat
+}
+
+"""
+Supporting values for the overview, like number of projects included in the analysis or semantic
+traces’ header.
+"""
+type OverviewItem {
+  header: String!
+  data: String!
+}
+
+"""
+Percentage value of how many secure items are present in the specific overview. Result of total
+passed over the total number of instances.
+"""
+type OverviewSecure {
+  header: String!
+  value: String!
+}
+
+"""
+Grouped statistics over the entire organization with summary data. Summary data contains additional
+descriptive information about the overview, like the number of unique projects included in general
+for the summary.
+"""
+type OverviewSummary {
+  numberOfProjects: Int!
+  overviews: [OverviewWithMeta]
+}
+
+"""
+Expanded overview that contains specific overview meta-data, like title. Used to describe each
+unique overview in more detail.
+"""
+type OverviewWithMeta {
+  title: String
+  overview: Overview
+}
+
+"""
+The Relay compliant PageInfo type, containing data necessary to paginate this connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+"""
+A permission is either granted or not denied. When denied, a reason may be given.
+"""
+type Permission {
+  """
+  Permission granting
+  """
+  granted: Boolean!
+  """
+  Denied reason
+  """
+  deniedReason: String
+}
+
+"""
+Set of permissions for a given user.
+"""
+type Permissions {
+  """
+  Change the password of the current user
+  """
+  changePassword: Permission!
+  """
+  Create projects
+  """
+  createProject: Permission!
+  """
+  Update project
+  """
+  updateProject(projectId: ID!): Permission!
+  """
+  Delete project
+  """
+  deleteProject(projectId: ID!): Permission!
+  """
+  Download tracers
+  """
+  downloadTracers: Permission!
+  """
+  Create a user
+  """
+  createUser: Permission!
+  """
+  Update the preferred name of a user
+  """
+  updateUserPreferredName(userId: ID!): Permission!
+  """
+  Update the permissions of a user
+  """
+  updateUserPermissions(userId: ID!): Permission!
+  """
+  Update the authorization tags of a user
+  """
+  updateUserAuthTags(userId: ID!): Permission!
+  """
+  Reset the password of a user
+  """
+  resetUserPassword(userId: ID!): Permission!
+  """
+  Delete a user
+  """
+  deleteUser(userId: ID!): Permission!
+  """
+  Create slot within a project
+  """
+  createSlot(projectId: ID!): Permission!
+  """
+  Update a slot
+  """
+  updateSlot(slotId: ID!): Permission!
+  """
+  Delete a slot
+  """
+  deleteSlot(slotId: ID!): Permission!
+  """
+  Upload a trace in a project
+  """
+  uploadTrace(projectId: ID!): Permission!
+  """
+  Update a report
+  """
+  updateReport(reportId: ID!): Permission!
+  """
+  Read organization users
+  """
+  readOrganizationUsers: Permission!
+  """
+  Read organization keys
+  """
+  readOrganizationKeys: Permission!
+  """
+  Read organization certificates
+  """
+  readOrganizationCertificates: Permission!
+  """
+  Create filters
+  """
+  createExceptions(projectId: ID!): Permission!
+  """
+  Upload a certificate to Venafi
+  """
+  venafiUploadCertificate(certificateId: ID!): Permission!
+  """
+  Retrieve certificate details from Venafi
+  """
+  venafiGetCertificateDetails(certificateId: ID!): Permission!
+  """
+  Upload all of the report's certificates to Venafi
+  """
+  venafiPopulateGuids(reportId: ID!): Permission!
+  """
+  Edit CrowdStrike configuration
+  """
+  crowdStrikeEditConfig: Permission!
+  """
+  Edit Venafi configuration
+  """
+  venafiEditConfig: Permission!
+  """
+  Edit Tanium configuration
+  """
+  taniumEditConfig: Permission!
+  """
+  Edit Jira configuration
+  """
+  jiraEditConfig: Permission!
+  """
+  Create a new Profile
+  """
+  createProfile: Permission!
+  """
+  Update a Profile
+  """
+  updateProfile(profileId: ID!): Permission!
+  """
+  Delete a Profile
+  """
+  deleteProfile(profileId: ID!): Permission!
+  """
+  Edit ServiceNow configuration
+  """
+  serviceNowEditConfig: Permission!
+  """
+  Read organization scans
+  """
+  readOrganizationScans: Permission!
+  """
+  Create a scan in the organization
+  """
+  createScan: Permission!
+  """
+  Update a scan
+  """
+  updateScan(scanId: ID!): Permission!
+  """
+  Delete a scan
+  """
+  deleteScan(scanId: ID!): Permission!
+  """
+  Query hosts integrated with a CrowdStrike instance
+  """
+  crowdStrikeQueryHosts: Permission!
+  """
+  Upload a file to CrowdStrike storage
+  """
+  crowdStrikeUploadFilesToStorage: Permission!
+  """
+  Create a script and store it in CrowdStrike storage
+  """
+  crowdStrikeUploadScriptsToStorage: Permission!
+  """
+  Run scripts on report hosts
+  """
+  crowdStrikeRunScriptsOnHosts: Permission!
+  """
+  Copy files from CrowdStrike storage to remote hosts
+  """
+  crowdStrikeUploadFilesToHosts: Permission!
+  """
+  Read files from remote hosts
+  """
+  crowdStrikeReadFilesFromHosts: Permission!
+  """
+  Edit JIRA configuration for a project
+  """
+  jiraEditProjectConfig(projectId: ID!): Permission!
+  """
+  Export instances to JIRA
+  """
+  jiraExportInstances: Permission!
+  """
+  Check ServiceNow configuration
+  """
+  serviceNowCheckConnection: Permission!
+  """
+  Export instances to ServiceNow
+  """
+  serviceNowExportInstances: Permission!
+  """
+  Edit Tanium configuration for a project
+  """
+  taniumEditProjectConfig(projectId: ID!): Permission!
+  """
+  Check Tanium configuration
+  """
+  taniumCheckConnection: Permission!
+  """
+  Check Venafi configuration
+  """
+  venafiCheckConnection: Permission!
+}
+
+"""
+Check all the certificates in a report against the Venafi database, and retrieve Venafi GUIDs for
+those that are found.
+"""
+type PopulateVenafiGuidsPayload {
+  clientMutationId: String
+}
+
+type PresignedPart {
+  """
+  Part number, ranging from 1-10.000
+  """
+  partNumber: Int!
+  """
+  URL of the request
+  """
+  url: String!
+  """
+  URL method of the request (PUT or POST)
+  """
+  method: String!
+}
+
+"""
+Profiles define how rules will be assessed as each object is evaluated during analysis.
+"""
+type Profile {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  preset: Boolean!
+  createdAt: DateTime!
+  expiringSoon: Int!
+  type: ProfileType!
+  staleKeyProfile: LengthProfile
+  certificateValidityProfile: LengthProfile
+  ecProfile: LengthProfile
+  rsaProfile: LengthProfile
+  symmetricProfile: LengthProfile
+  reportCount: Int!
+  projectCount: Int!
+  lastUsed: DateTime
+  disabledRules: [DisabledRule]!
+}
+
+type ProfileConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ProfileEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Profile and its cursor.
+"""
+type ProfileEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Profile
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type Project {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  description: String
+  inventory: InventoryRecapData
+  """
+  Users assigned to the project
+  """
+  users(before: String, after: String, first: Int, last: Int): UserConnection
+  """
+  Testers assigned to the project
+  """
+  testers(before: String, after: String, first: Int, last: Int): UserConnection
+  defaultProfile: Profile
+  traces(filters: TracesFilter, before: String, after: String, first: Int, last: Int): TraceConnection
+  reports(filters: ReportsFilter, sorters: [ReportsSorter], before: String, after: String, first: Int, last: Int): ReportConnection
+  projectJira: ProjectJira
+  """
+  Scans in the project.
+  """
+  scans(filters: ScansFilter, sorters: [ScansSorter], before: String, after: String, first: Int, last: Int): ScanConnection!
+  slots(filters: SlotsFilter, sorters: [SlotsSorter], before: String, after: String, first: Int, last: Int): SlotConnection
+  organization: Organization!
+  """
+  The maximum number of traces / reports that can live in a slot before the oldest ones get deleted.
+  Traces and reports are counted separately. The value must be between 2 and 100, defaulting to 20.
+  """
+  maxItemCount: Int
+  """
+  Last update time for this project (UTC, in ISO8601 format)
+  """
+  lastUpdated: DateTime @deprecated(reason: "This field is deprecated and will be removed in a future release. Use the `lastAnalysis` field instead.")
+  """
+  Tags aggregated from the slots of the project.
+  """
+  tags: [String]
+  """
+  Authorization tags of the project.
+  """
+  authTags: [String]
+  vulnerabilityStatistics: [VulnerabilityStatistic]
+  """
+  Creation or completion time of the first report in this project (UTC, in ISO8601 format)
+  """
+  firstAnalysis: DateTime
+  """
+  Creation or completion time of the latest report in this project (UTC, in ISO8601 format)
+  """
+  lastAnalysis: DateTime
+  distinctCallSites: Int
+  vulnerabilities(severities: [DisplaySeverity!], withExceptions: Boolean, before: String, after: String, first: Int, last: Int): VulnerabilityConnection
+  tanium: ProjectTanium
+  exceptions(filters: ProjectExceptionsFilter, sorters: [ProjectExceptionsSorter], before: String, after: String, first: Int, last: Int): ProjectExceptionConnection
+}
+
+type ProjectConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ProjectEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Project and its cursor.
+"""
+type ProjectEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Project
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Exceptions can be used to exclude or include parts of traced applications in the reports.
+"""
+type ProjectException {
+  """
+  The ID of the object
+  """
+  id: ID!
+  description: String
+  active: Boolean!
+  type: ProjectExceptionType!
+  term: String!
+  traceType: TraceType!
+}
+
+type ProjectExceptionConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ProjectExceptionEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a ProjectException and its cursor.
+"""
+type ProjectExceptionEdge {
+  """
+  The item at the end of the edge
+  """
+  node: ProjectException
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type ProjectJira {
+  id: ID!
+  projectKey: String
+  issueTypeKey: String
+  issueCollectorCode: String
+}
+
+"""
+Tanium configuration and execution state for a given project.
+"""
+type ProjectTanium {
+  computerGroup: String!
+  status: ProjectTaniumStatus
+  endpointsCount: Int
+  todoCount: Int
+  completedAt: DateTime
+  log: String
+}
+
+"""
+Query hosts via CrowdStrike For a detailed overview of available parameters visit (requires login):
+https://assets.falcon.us-2.crowdstrike.com/support/api/swagger-
+us2.html#/hosts/QueryDevicesByFilterScroll
+"""
+type QueryHostsViaCrowdStrikePayload {
+  numberOfHosts: Int!
+  clientMutationId: String
+}
+
+"""
+Information about a specific queue.
+"""
+type QueueInfo {
+  """
+  Name of the queue
+  """
+  name: String!
+  """
+  Current number of jobs in the queue
+  """
+  currentSize: Int!
+  """
+  Maximum number of jobs allowed in the queue (0 = unlimited)
+  """
+  sizeLimit: Int!
+  """
+  Whether the queue is at its size limit
+  """
+  isFull: Boolean!
+}
+
+"""
+Overall queue status information.
+"""
+type QueueStatus {
+  """
+  Status of all queues
+  """
+  queues: [QueueInfo!]!
+}
+
+"""
+Refresh last update at stream upload tracker by provided key.
+"""
+type RefreshStreamUploadPayload {
+  """
+  Success of the update action
+  """
+  updated: Boolean!
+  clientMutationId: String
+}
+
+"""
+Remediation advice.
+"""
+type Remediation {
+  general: GeneralRemediation
+  specificTag: String
+}
+
+type ReportConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ReportEdge]!
+  totalCount: Int!
+}
+
+type ReportDiff {
+  state: State!
+  instancesCount0: SeverityCountMap!
+  rulesCount0: SeverityCountMap!
+  instancesCount1: SeverityCountMap!
+  rulesCount1: SeverityCountMap!
+}
+
+"""
+A report for which analysis successfully finished.
+"""
+type ReportDone {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  """
+  Creation time for this report (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  project: Project
+  profile: Profile
+  slot: Slot
+  trace: Trace
+  traceType: TraceType
+  ruleset: Ruleset
+  instances(keptByFilters: Boolean, filters: InstancesFilter, sorters: [InstancesSorter], before: String, after: String, first: Int, last: Int): InstanceConnection!
+  rules(includeDisabledRules: Boolean, includeFilteredRules: Boolean, filters: RulesFilter, before: String, after: String, first: Int, last: Int): RuleConnection
+  """
+  List of operations found in the report
+  """
+  operations(keptByFilters: Boolean, filters: OperationsFilter, sorters: [OperationsSorter], before: String, after: String, first: Int, last: Int): OperationConnection
+  """
+  Count of operations for each category and severity
+  """
+  operationStats: OperationStats
+  """
+  Statistics about cryptographic objects
+  """
+  objectStats: [ObjectStat]
+  """
+  Implementations of `java.security.Provider` that were used.
+  """
+  javaProviders: [JavaProvider]
+  certificates(hasVenafiGuid: Boolean, filters: CertificatesFilter, sorters: [CertificatesSorter], before: String, after: String, first: Int, last: Int): CertificateConnection!
+  keys(filters: KeysFilter, before: String, after: String, first: Int, last: Int): KeyConnection!
+  """
+  Completion time for this report (UTC, in ISO8601 format)
+  """
+  completedAt: DateTime!
+  callSites(filters: CallSitesFilter, sorters: [CallSitesSorter], before: String, after: String, first: Int, last: Int): CallSiteConnection!
+  """
+  Relative URL for this report in the web UI (e.g. `/report/123`).
+  """
+  url: String!
+  inventory: InventoryRecapData
+  """
+  List of TLS handshakes that were found in network captures
+  """
+  handshakes(statuses: [TlsHandshakeStatus!], filters: HandshakesFilter, sorters: [HandshakesSorter], before: String, after: String, first: Int, last: Int): HandshakeConnection!
+  """
+  List of SSH handshakes that were found in network captures
+  """
+  sshHandshakes(statuses: [SshHandshakeStatus!], filters: SshHandshakesFilter, sorters: [SshHandshakesSorter], before: String, after: String, first: Int, last: Int): SshHandshakeConnection!
+  """
+  List of ciphersuites that were found in network captures
+  """
+  ciphersuites(onlyRecommended: Boolean, onlyUsed: Boolean, sorters: [CiphersuitesSorter]): [CiphersuiteInfo]
+  vulnerabilityStatistics: [VulnerabilityStatistic]
+  vulnerabilities(severities: [DisplaySeverity!], withExceptions: Boolean, before: String, after: String, first: Int, last: Int): ReportVulnerabilityConnection
+  """
+  If non-null, this indicates that the report was generated using a nonsensitive trace with the given
+  salt
+  """
+  nonsensitiveSalt: String
+  """
+  Statistics about the coverage of call sites found by a static scan
+  """
+  coverageSummary: CoverageSummary
+  """
+  Statistics about the report call limiting
+  """
+  callLimiting: CallLimiting
+  """
+  Status of the report cache with respect to the current exceptions of its project
+  """
+  exceptionsCacheStatus: ReportExceptionsCacheStatus
+  """
+  Last update time of the Venafi GUIDs in this report. (UTC, in ISO8601 format)
+  """
+  venafiGuidsUpdatedAt: DateTime
+  """
+  Get report diff between this report and the compared report
+  """
+  reportDiff(reportId: ID!): ReportDiff
+  """
+  Get running batch exports for selected report
+  """
+  exports: [BatchExport]!
+  """
+  Locations found in the report
+  """
+  locations(before: String, after: String, first: Int, last: Int): LocationConnection
+}
+
+"""
+A Relay edge containing a Report and its cursor.
+"""
+type ReportEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Report
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+A for report for which analysis failed.
+"""
+type ReportFailed {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  """
+  Creation time for this report (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  project: Project
+  profile: Profile
+  slot: Slot
+  trace: Trace
+  traceType: TraceType
+  ruleset: Ruleset
+  """
+  Human-readable explanation of the analysis failure.
+  """
+  reason: String
+}
+
+"""
+A report for which analysis has not yet completed.
+"""
+type ReportPending {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  """
+  Creation time for this report (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  project: Project
+  profile: Profile
+  slot: Slot
+  trace: Trace
+  traceType: TraceType
+  ruleset: Ruleset
+}
+
+"""
+Vulnerability connected to a specific report and statistics for that vulnerability at the report
+level.
+"""
+type ReportVulnerability {
+  """
+  The ID of the object
+  """
+  id: ID!
+  number: Int!
+  """
+  Short explanation of the vulnerability
+  """
+  shortExplanation: String
+  """
+  Full explanation of the vulnerability
+  """
+  explanation: String
+  """
+  Potential consequences if the vulnerability gets exploited
+  """
+  consequences: String
+  title: String!
+  """
+  Access level required to exploit this vulnerability
+  """
+  access: String
+  """
+  Expertise required to exploit this vulnerability
+  """
+  expertise: String
+  """
+  Resources required to exploit this vulnerability
+  """
+  resources: String
+  """
+  Link to the knowledge base article about this vulnerability
+  """
+  kbLink: String
+  severity: DisplaySeverity
+  """
+  Number of affected slots
+  """
+  numberOfSlots: Int!
+  slots(before: String, after: String, first: Int, last: Int): VulnerabilitySlotConnection
+  project: Project
+  report: Report
+}
+
+type ReportVulnerabilityConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ReportVulnerabilityEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a ReportVulnerability and its cursor.
+"""
+type ReportVulnerabilityEdge {
+  """
+  The item at the end of the edge
+  """
+  node: ReportVulnerability
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Request Jira Integration access token and secret to finalize the integration connection
+"""
+type RequestJiraIntegrationAccessTokenPayload {
+  jiraIntegration: JiraIntegration!
+  clientMutationId: String
+}
+
+"""
+Resets the password of a user
+"""
+type ResetUserPasswordPayload {
+  """
+  New password of the target user
+  """
+  password: String!
+  clientMutationId: String
+}
+
+"""
+A rule to follow for secure cryptography, with associated explanations and suggestions for
+remediation.
+"""
+type Rule {
+  """
+  The ID of the object
+  """
+  id: ID!
+  number: Int!
+  shortExplanation: String
+  explanation: String
+  consequences: String
+  title: String!
+  access: String
+  expertise: String
+  resources: String
+  kbLink: String
+  category: RuleCategory!
+  """
+  Status of the rule with regards to project exceptions
+  """
+  filterStatus: FilterStatus!
+  instances(keptByFilters: Boolean, filters: InstancesFilter, sorters: [InstancesSorter], before: String, after: String, first: Int, last: Int): InstanceConnection!
+  severity: DisplaySeverity
+  mainObjectTypes: [RuleObjectType]
+}
+
+type RuleConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [RuleEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Rule and its cursor.
+"""
+type RuleEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Rule
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type Scan {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Name of the scan.
+  """
+  name: String!
+  """
+  Description of the scan.
+  """
+  description: String!
+  """
+  Start time for this scan (UTC, in ISO8601 format)
+  """
+  startedAt: DateTime!
+  """
+  End time, if cancelled or completed, for this scan (UTC, in ISO8601 format)
+  """
+  endedAt: DateTime
+  """
+  Number of hosts included in the scan, updates dynamically throughout the scan
+  """
+  totalHosts: Int!
+  """
+  Number of hosts where scan has failed, updates dynamically throughout the scan
+  """
+  failedHosts: Int!
+  """
+  Number of hosts where scan has succeed, updates dynamically throughout the scan
+  """
+  successfulHosts: Int!
+  """
+  Type of the scan.
+  """
+  type: ScanType!
+  """
+  Status of the scan.
+  """
+  status: ScanStatus!
+  """
+  Project of the scan.
+  """
+  project: Project
+  """
+  Hosts in the scan.
+  """
+  hosts(filters: ScanHostsFilter, sorters: [ScanHostsSorter], before: String, after: String, first: Int, last: Int): ScanHostConnection!
+}
+
+type ScanConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ScanEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Scan and its cursor.
+"""
+type ScanEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Scan
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type ScanHost {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Name of the host.
+  """
+  name: String!
+  """
+  Status of the host.
+  """
+  status: HostStatus!
+  """
+  Host platform.
+  """
+  platform: Platform!
+  """
+  Reason why the host is in current status.
+  """
+  statusReason: String!
+  """
+  ID from the origin service (eg., CrowdStrike host id...).
+  """
+  originId: String!
+  """
+  Connected report ID, if created.
+  """
+  reportId: ID
+}
+
+type ScanHostConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [ScanHostEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a ScanHost and its cursor.
+"""
+type ScanHostEdge {
+  """
+  The item at the end of the edge
+  """
+  node: ScanHost
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Scan hosts via CrowdStrike
+"""
+type ScanHostsViaCrowdStrikePayload {
+  scan: Scan!
+  clientMutationId: String
+}
+
+"""
+Schedule a job to update the exceptions cache of a report
+"""
+type ScheduleReportExceptionsCacheUpdatePayload {
+  report: Report!
+  clientMutationId: String
+}
+
+type ServiceNowExportReportPayload {
+  export: BatchExport
+  clientMutationId: String
+}
+
+"""
+Export instance to ServiceNow
+"""
+type ServiceNowExportSingleInstancePayload {
+  incident: IncidentInfo!
+  clientMutationId: String
+}
+
+"""
+Details of the connection parameters to ServiceNow
+"""
+type ServiceNowIntegration {
+  instanceUrl: String!
+  userID: String!
+}
+
+type SeverityCountMap {
+  high: Int!
+  med: Int!
+  low: Int!
+  passed: Int!
+}
+
+type SignatureAlgorithmData {
+  digest: Digest
+  algorithm: Algorithm
+  rsaPadding: RsaPadding
+}
+
+type Slot {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Name of the slot.
+  """
+  name: String!
+  """
+  Description of the slot.
+  """
+  description: String
+  """
+  Type of the slot.
+  """
+  traceType: TraceType!
+  """
+  Traces of the slot.
+  """
+  traces(filters: TracesFilter, before: String, after: String, first: Int, last: Int): TraceConnection
+  """
+  Reports of the slot.
+  """
+  reports(filters: ReportsFilter, before: String, after: String, first: Int, last: Int): ReportConnection
+  """
+  Project of the slot.
+  """
+  project: Project
+  """
+  Tags of the slot.
+  """
+  tags: [String]
+  """
+  Latest successfully completed report.
+  """
+  latestReport: Report
+  """
+  Last generated report.
+  """
+  lastReport: Report
+  """
+  Last report trace name.
+  """
+  lastReportTraceName: String
+  """
+  Last report created at.
+  """
+  lastReportCreatedAt: DateTime
+  """
+  Last report state.
+  """
+  lastReportState: State
+  """
+  Number of reports.
+  """
+  reportCount: Int
+  """
+  Number of distinct call sites.
+  """
+  distinctCallSites: Int
+}
+
+type SlotConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [SlotEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Slot and its cursor.
+"""
+type SlotEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Slot
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+A SSH handshake detected in a network trace.
+"""
+type SshHandshake {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Client IP
+  """
+  initiatorIp: String!
+  """
+  Client port
+  """
+  initiatorPort: Int
+  """
+  Server IP
+  """
+  targetIp: String!
+  """
+  Server port
+  """
+  targetPort: Int
+  timestamp: Float
+  """
+  Key exchange algorithms supported by the client
+  """
+  clientSupportedKexAlgs: [String]
+  """
+  Server signature algorithms supported by the client
+  """
+  clientSupportedServerHostkeyAlgs: [String]
+  """
+  Client to server authentication algorithms supported by the client
+  """
+  clientSupportedMacC2sAlgs: [String]
+  """
+  Server to client authentication algorithms supported by the client
+  """
+  clientSupportedMacS2cAlgs: [String]
+  """
+  Client to server encryption algorithms supported by the client
+  """
+  clientSupportedSymencC2sAlgs: [String]
+  """
+  Server to client encryption algorithms supported by the client
+  """
+  clientSupportedSymencS2cAlgs: [String]
+  """
+  Key exchange algorithms supported by the server
+  """
+  serverSupportedKexAlgs: [String]
+  """
+  Server signature algorithms supported by the server
+  """
+  serverSupportedServerHostkeyAlgs: [String]
+  """
+  Client to server authentication algorithms supported by the server
+  """
+  serverSupportedMacC2sAlgs: [String]
+  """
+  Server to client authentication algorithms supported by the server
+  """
+  serverSupportedMacS2cAlgs: [String]
+  """
+  Client to server encryption algorithms supported by the server
+  """
+  serverSupportedSymencC2sAlgs: [String]
+  """
+  Server to client encryption algorithms supported by the server
+  """
+  serverSupportedSymencS2cAlgs: [String]
+  """
+  Selected key exchange algorithm
+  """
+  selectedKexAlg: String
+  """
+  Selected server signature algorithm
+  """
+  selectedServerHostkeyAlg: String
+  """
+  Selected client to server authentication algorithm
+  """
+  selectedMacC2sAlg: String
+  """
+  Selected server to client authentication algorithm
+  """
+  selectedMacS2cAlg: String
+  """
+  Selected client to server encryption algorithm
+  """
+  selectedSymencC2sAlg: String
+  """
+  Selected server to client encryption algorithm
+  """
+  selectedSymencS2cAlg: String
+  """
+  Client protocol version
+  """
+  clientProtocolVersion: String
+  """
+  Client software version
+  """
+  clientSoftwareVersion: String
+  """
+  Client software comments
+  """
+  clientSoftwareComments: String
+  """
+  Server protocol version
+  """
+  serverProtocolVersion: String
+  """
+  Server software version
+  """
+  serverSoftwareVersion: String
+  """
+  Server software comments
+  """
+  serverSoftwareComments: String
+  status: SshHandshakeStatus!
+}
+
+type SshHandshakeConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [SshHandshakeEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a SshHandshake and its cursor.
+"""
+type SshHandshakeEdge {
+  """
+  The item at the end of the edge
+  """
+  node: SshHandshake
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+A single line from an application stacktrace.
+"""
+type StackFrame {
+  """
+  Fully-qualified class name
+  """
+  class: String
+  """
+  Method name
+  """
+  method: String!
+  """
+  Line number
+  """
+  line: Int
+  """
+  File name
+  """
+  file: String
+}
+
+type StackFrameConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [StackFrameEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a StackFrame and its cursor.
+"""
+type StackFrameEdge {
+  """
+  The item at the end of the edge
+  """
+  node: StackFrame
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Start retrieving traces from Tanium endpoints for a given project.
+"""
+type StartTaniumRetrievalPayload {
+  result: ProjectTanium!
+  clientMutationId: String
+}
+
+"""
+Stop retrieving traces from Tanium endpoints for a given project.
+"""
+type StopTaniumRetrievalPayload {
+  result: ProjectTanium!
+  clientMutationId: String
+}
+
+"""
+Details of the connection parameters to Tanium
+"""
+type TaniumIntegration {
+  url: String!
+  accessToken: String!
+  trustedCaCertificate: String
+  maxConcurrentRetrievals: Int
+  requestRate: Int
+  requestTimeout: Int
+  downloadRequestTimeout: Int
+}
+
+"""
+A slice of time representation.
+"""
+type TimeRepresentationSlice {
+  from: DateTime!
+  to: DateTime!
+  high: Int!
+  medium: Int!
+  low: Int!
+  passed: Int!
+}
+
+"""
+A TLS handshake detected in a network trace.
+"""
+type TlsHandshake {
+  """
+  The ID of the object
+  """
+  id: ID!
+  """
+  Client IP
+  """
+  initiatorIp: String!
+  """
+  Client port
+  """
+  initiatorPort: Int
+  """
+  Server IP
+  """
+  targetIp: String!
+  """
+  Server port
+  """
+  targetPort: Int
+  timestamp: Float
+  """
+  Client-specified name of the server they desire to connect to. Specified in https://www.rfc-
+  editor.org/rfc/rfc6066#section-3
+  """
+  serverNameIndication: String
+  """
+  The highest TLS version supported by the client (as advertised by the client)
+  """
+  clientHighestVersion: TlsVersion!
+  """
+  List of TLS versions advertised by the client, if the client used the supported_versions extension
+  """
+  clientSupportedVersionsExtension: [TlsVersion]
+  """
+  The TLS version chosen by the server
+  """
+  serverChosenVersion: TlsVersion
+  """
+  Ciphersuites offered by the server
+  """
+  supportedCiphersuites: [CiphersuiteInfo]!
+  selectedCiphersuite: CiphersuiteInfo
+  """
+  EC groups supported by the server
+  """
+  supportedGroups: [GroupInfo]
+  selectedGroup: GroupInfo
+  status: TlsHandshakeStatus!
+}
+
+type TraceConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [TraceEdge]!
+  totalCount: Int!
+}
+
+"""
+A trace that has been successfully loaded.
+"""
+type TraceDone {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  """
+  Creation time for this trace (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  size: BigInt
+  slot: Slot
+  """
+  Only for java traces
+  """
+  jvmName: String
+  """
+  Only for java traces
+  """
+  jvmVendor: String
+  """
+  Only for java traces
+  """
+  jvmArguments: [String]
+  """
+  Only for java traces
+  """
+  javaClassPath: [String]
+  traceType: TraceType
+  reports(filters: ReportsFilter, before: String, after: String, first: Int, last: Int): ReportConnection
+}
+
+"""
+A Relay edge containing a Trace and its cursor.
+"""
+type TraceEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Trace
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+A trace that has failed to load.
+"""
+type TraceFailed {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  """
+  Creation time for this trace (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  size: BigInt
+  slot: Slot
+  """
+  Only for java traces
+  """
+  jvmName: String
+  """
+  Only for java traces
+  """
+  jvmVendor: String
+  """
+  Only for java traces
+  """
+  jvmArguments: [String]
+  """
+  Only for java traces
+  """
+  javaClassPath: [String]
+  traceType: TraceType
+  reason: String
+}
+
+"""
+A trace that is still being loaded.
+"""
+type TracePending {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  """
+  Creation time for this trace (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  size: BigInt
+  slot: Slot
+  """
+  Only for java traces
+  """
+  jvmName: String
+  """
+  Only for java traces
+  """
+  jvmVendor: String
+  """
+  Only for java traces
+  """
+  jvmArguments: [String]
+  """
+  Only for java traces
+  """
+  javaClassPath: [String]
+  traceType: TraceType
+}
+
+"""
+Unlink an existing CrowdStrike integration
+"""
+type UnlinkCrowdStrikeIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink Jira Integration and clear all existing values
+"""
+type UnlinkJiraIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink organization level jira issue collector
+"""
+type UnlinkJiraIssueCollectorPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink Project level jira integration and clean the configuration
+"""
+type UnlinkProjectJiraIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink Project level jira issue collector
+"""
+type UnlinkProjectJiraIssueCollectorPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink Project level Tanium integration and clean the configuration
+"""
+type UnlinkProjectTaniumIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Delete existing ServiceNow settings
+"""
+type UnlinkServiceNowIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink an existing Tanium integration
+"""
+type UnlinkTaniumIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Unlink an existing Venafi integration
+"""
+type UnlinkVenafiIntegrationPayload {
+  clientMutationId: String
+}
+
+"""
+Update an existing CrowdStrike integration
+"""
+type UpdateCrowdStrikeIntegrationPayload {
+  crowdStrikeIntegration: CrowdStrikeIntegration!
+  clientMutationId: String
+}
+
+"""
+Update a fuzzer Profile.
+"""
+type UpdateFuzzerProfilePayload {
+  profile: Profile!
+  clientMutationId: String
+}
+
+"""
+Update an existing Jira settings
+"""
+type UpdateJiraIntegrationPayload {
+  jiraIntegration: JiraIntegration!
+  clientMutationId: String
+}
+
+"""
+Update an existing Jira settings URL and generate public and private keys
+"""
+type UpdateJiraIntegrationUrlPayload {
+  jiraIntegration: JiraIntegration!
+  clientMutationId: String
+}
+
+"""
+Update an existing Jira settings
+"""
+type UpdateJiraIssueCollectorPayload {
+  organization: Organization!
+  clientMutationId: String
+}
+
+"""
+Updates a project exception.
+"""
+type UpdateProjectExceptionPayload {
+  """
+  The updated exception
+  """
+  exception: ProjectException!
+  clientMutationId: String
+}
+
+"""
+Update a Project jira settings
+"""
+type UpdateProjectJiraIntegrationPayload {
+  projectJira: ProjectJira!
+  clientMutationId: String
+}
+
+"""
+Update a Project jira issue collector settings
+"""
+type UpdateProjectJiraIssueCollectorPayload {
+  projectJira: ProjectJira!
+  clientMutationId: String
+}
+
+"""
+Update an already existing project
+"""
+type UpdateProjectPayload {
+  project: Project!
+  clientMutationId: String
+}
+
+"""
+Update an existing Tanium integration
+"""
+type UpdateProjectTaniumPayload {
+  projectTanium: ProjectTanium
+  clientMutationId: String
+}
+
+"""
+Mutation to update ServiceNow integration settings for an organization. This mutation allows an
+authenticated user to update the ServiceNow settings or create a new one if they do not exist.
+Settings are tested against the ServiceNow instance to ensure correctness. Note: Inputs are
+validated with strict length validations because ServiceNow will accept any input and truncate it to
+the max allowed length.
+"""
+type UpdateServiceNowIntegrationPayload {
+  serviceNowIntegration: ServiceNowIntegration!
+  clientMutationId: String
+}
+
+"""
+Update an already existing slot
+"""
+type UpdateSlotPayload {
+  slot: Slot!
+  clientMutationId: String
+}
+
+"""
+Update an existing Tanium integration
+"""
+type UpdateTaniumIntegrationPayload {
+  taniumIntegration: TaniumIntegration!
+  clientMutationId: String
+}
+
+"""
+Update a tracer Profile.
+"""
+type UpdateTracerProfilePayload {
+  profile: Profile!
+  clientMutationId: String
+}
+
+"""
+Updates an existing user
+"""
+type UpdateUserPayload {
+  user: User!
+  clientMutationId: String
+}
+
+"""
+Update an existing Venafi integration
+"""
+type UpdateVenafiIntegrationPayload {
+  venafiIntegration: VenafiIntegration!
+  clientMutationId: String
+}
+
+"""
+Upload a certificate to Venafi For a detailed overview of available parameters visit:
+https://docs.venafi.com/Docs/current/TopNav/Content/SDK/WebSDK/r-SDK-POST-Certificates-Import.php
+"""
+type UploadCertificateToVenafiPayload {
+  guid: String!
+  clientMutationId: String
+}
+
+type User {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  preferredName: String
+  origin: Origin!
+  """
+  Permission level of the user
+  """
+  level: UserLevel!
+  canChangePassword: Boolean
+  organization: Organization!
+  projects(name: String, filters: ProjectsFilter, sorters: [ProjectsSorter], before: String, after: String, first: Int, last: Int): ProjectConnection
+  project(name: String!): Project
+  """
+  A user can have one or more roles. Each role grants the user specific permissions.
+  """
+  roles: [Role!]!
+  """
+  User permissions
+  """
+  permissions: Permissions
+  """
+  Authorization tags of the user.
+  """
+  authTags: [String]
+}
+
+type UserConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [UserEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a User and its cursor.
+"""
+type UserEdge {
+  """
+  The item at the end of the edge
+  """
+  node: User
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Details of the connection parameters to Venafi
+"""
+type VenafiIntegration {
+  url: String!
+  accessToken: String!
+  trustedCaCertificate: String
+}
+
+"""
+Vulnerability connected to a project or a group of projects in an organization.
+"""
+type Vulnerability {
+  """
+  The ID of the object
+  """
+  id: ID!
+  number: Int!
+  """
+  Short explanation of the vulnerability
+  """
+  shortExplanation: String
+  """
+  Full explanation of the vulnerability
+  """
+  explanation: String
+  """
+  Potential consequences if the vulnerability gets exploited
+  """
+  consequences: String
+  title: String!
+  """
+  Access level required to exploit this vulnerability
+  """
+  access: String
+  """
+  Expertise required to exploit this vulnerability
+  """
+  expertise: String
+  """
+  Resources required to exploit this vulnerability
+  """
+  resources: String
+  """
+  Link to the knowledge base article about this vulnerability
+  """
+  kbLink: String
+  severity: DisplaySeverity
+  """
+  Number of affected slots
+  """
+  numberOfSlots: Int!
+  slots(before: String, after: String, first: Int, last: Int): VulnerabilitySlotConnection
+  project: Project
+  report: Report
+}
+
+type VulnerabilityConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [VulnerabilityEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a Vulnerability and its cursor.
+"""
+type VulnerabilityEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Vulnerability
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Slot representation for vulnerability with statistics for failed and passed instances. Statistics
+are calculated from the context where we requested it, from either Vulnerability or
+ReportVulnerability.
+"""
+type VulnerabilitySlot {
+  """
+  The ID of the object
+  """
+  id: ID!
+  name: String!
+  instancesPassed: Int!
+  instancesFailed: Int!
+  latestReportId: ID
+}
+
+type VulnerabilitySlotConnection {
+  """
+  Pagination data for this connection.
+  """
+  pageInfo: PageInfo!
+  """
+  Contains the nodes in this connection.
+  """
+  edges: [VulnerabilitySlotEdge]!
+  totalCount: Int!
+}
+
+"""
+A Relay edge containing a VulnerabilitySlot and its cursor.
+"""
+type VulnerabilitySlotEdge {
+  """
+  The item at the end of the edge
+  """
+  node: VulnerabilitySlot
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+Counter of vulnerabilities aggregated by severity.
+"""
+type VulnerabilityStatistic {
+  severity: InstanceSeverity!
+  amount: Int
+}
+
+input AnalyzeInput {
+  """
+  ID of the trace to analyze
+  """
+  traceId: ID!
+  """
+  ID of the profile to use for analysis
+  """
+  profileId: ID
+  clientMutationId: String
+}
+
+input AuthorizeJiraIntegrationInput {
+  clientMutationId: String
+}
+
+input CallSitesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [CallSitesFilter!]
+  """
+  Field name from the model.
+  """
+  field: CallSitesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input CallSitesSorter {
+  """
+  Field name from the model.
+  """
+  field: CallSitesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input CancelJiraExportInput {
+  reportId: ID!
+  clientMutationId: String
+}
+
+input CancelReportExceptionsCacheUpdateInput {
+  """
+  ID of the report
+  """
+  reportId: ID!
+  clientMutationId: String
+}
+
+input CancelScanInput {
+  scanId: ID!
+  clientMutationId: String
+}
+
+input CancelServiceNowReportExportInput {
+  """
+  ID of the report
+  """
+  reportId: ID!
+  clientMutationId: String
+}
+
+input CertificatesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [CertificatesFilter!]
+  """
+  Field name from the model.
+  """
+  field: CertificatesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input CertificatesSorter {
+  """
+  Field name from the model.
+  """
+  field: CertificatesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input ChangePasswordInput {
+  """
+  Current password. Leading and trailing whitespaces are ignored.
+  """
+  currentPassword: String!
+  """
+  New password. The password must be at least 8 characters long. Leading and trailing whitespaces are
+  ignored.
+  """
+  newPassword: String!
+  clientMutationId: String
+}
+
+input CheckCrowdStrikeIntegrationInput {
+  """
+  Instance URL
+  """
+  baseUrl: String!
+  """
+  Client ID
+  """
+  clientId: String!
+  """
+  Client secret
+  """
+  clientSecret: String!
+  clientMutationId: String
+}
+
+input CheckJiraExportInput {
+  """
+  Jira project key
+  """
+  projectKey: String!
+  """
+  Jira issue type key
+  """
+  issuetypeKey: String!
+  clientMutationId: String
+}
+
+input CheckJiraIntegrationInput {
+  """
+  Jira project key
+  """
+  projectKey: String!
+  """
+  Jira issue type key
+  """
+  issuetypeKey: String!
+  clientMutationId: String
+}
+
+input CheckServiceNowIntegrationInput {
+  """
+  Instance URL
+  """
+  instanceUrl: String!
+  """
+  ServiceNow User ID
+  """
+  userID: String!
+  """
+  ServiceNow User password
+  """
+  password: String
+  clientMutationId: String
+}
+
+input CheckTaniumComputerGroupInput {
+  """
+  Computer Group
+  """
+  computerGroup: String
+  clientMutationId: String
+}
+
+input CheckTaniumIntegrationInput {
+  """
+  Instance URL
+  """
+  url: String!
+  """
+  Access token
+  """
+  accessToken: String!
+  """
+  Trusted CA Certificate
+  """
+  trustedCaCertificate: String
+  clientMutationId: String
+}
+
+input CheckVenafiIntegrationInput {
+  """
+  Instance URL
+  """
+  url: String!
+  """
+  Access token
+  """
+  accessToken: String!
+  """
+  Trusted CA Certificate
+  """
+  trustedCaCertificate: String
+  clientMutationId: String
+}
+
+input CiphersuitesSorter {
+  """
+  Field name from the model.
+  """
+  field: CiphersuitesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input CreateFuzzerProfileInput {
+  name: String!
+  disabledRules: [Int!]!
+  clientMutationId: String
+}
+
+input CreateLocalUserInput {
+  """
+  User name. Must be unique in the organization. Leading and trailing whitespaces are ignored. The
+  value is converted to lowercase.
+  """
+  name: String!
+  """
+  Preferred user name for display. Leading and trailing whitespaces are ignored.
+  """
+  preferredName: String
+  """
+  Permission level of the user
+  """
+  level: UserLevel
+  """
+  Roles to assign to the user
+  """
+  roles: [Role!]
+  """
+  Authorization tags
+  """
+  authTags: [String]
+  """
+  Password of the user. The password must be at least 8 characters long. Leading and trailing
+  whitespaces are ignored.
+  """
+  password: String!
+  clientMutationId: String
+}
+
+input CreateProjectExceptionInput {
+  projectId: ID!
+  traceType: TraceType!
+  type: ProjectExceptionType!
+  term: String!
+  description: String
+  active: Boolean
+  clientMutationId: String
+}
+
+input CreateProjectInput {
+  """
+  Project name
+  """
+  name: String!
+  """
+  Project description
+  """
+  description: String
+  """
+  ID of the default profile for the project
+  """
+  profileId: ID!
+  """
+  Maximum item count for the project
+  """
+  maxItemCount: Int
+  """
+  Authorization tags
+  """
+  authTags: [String]
+  clientMutationId: String
+}
+
+input CreateReportDiffInput {
+  reportId0: ID!
+  reportId1: ID!
+  forceRecreate: Boolean
+  clientMutationId: String
+}
+
+input CreateSlotInput {
+  """
+  ID of the project to create the slot in
+  """
+  projectId: ID!
+  """
+  Trace type to create the slot with
+  """
+  traceType: TraceType!
+  """
+  Slot name
+  """
+  name: String!
+  """
+  Slot description
+  """
+  description: String
+  """
+  Slot tags
+  """
+  tags: [String]
+  clientMutationId: String
+}
+
+input CreateStreamUploadInput {
+  """
+  Project ID
+  """
+  projectId: ID!
+  """
+  Slot name
+  """
+  slotName: String!
+  clientMutationId: String
+}
+
+input CreateTraceInput {
+  """
+  ID of the project to create the trace in
+  """
+  projectId: ID!
+  """
+  ID of the profile to analyze the trace with
+  """
+  profileId: ID
+  """
+  ID of the slot to create the trace in
+  """
+  slotId: ID
+  """
+  Default name of the slot to be created if no slot is selected
+  """
+  defaultSlotName: String
+  """
+  Name for the new trace. Leading and trailing whitespaces are ignored. Defaults to fileName if empty.
+  """
+  name: String
+  """
+  Name of the trace file. Leading and trailing whitespaces are ignored. Defaults to the current
+  timestamp if empty. Ignored if name is provided.
+  """
+  fileName: String
+  """
+  S3 key of the trace file
+  """
+  key: String!
+  """
+  Size of the trace file in bytes
+  """
+  size: BigInt!
+  """
+  Generate report for the trace
+  """
+  generateReport: Boolean
+  clientMutationId: String
+}
+
+input CreateTracerProfileInput {
+  name: String!
+  expiringSoon: Int!
+  disabledRules: [Int!]!
+  symmetricProfile: LengthProfileInput!
+  rsaProfile: LengthProfileInput!
+  ecProfile: LengthProfileInput!
+  certificateValidityProfile: LengthProfileInput!
+  staleKeyProfile: LengthProfileInput!
+  clientMutationId: String
+}
+
+input DeleteProfileInput {
+  """
+  Profile to delete
+  """
+  profileId: ID!
+  clientMutationId: String
+}
+
+input DeleteProjectExceptionInput {
+  """
+  ID of the exception to delete
+  """
+  exceptionId: ID!
+  clientMutationId: String
+}
+
+input DeleteProjectInput {
+  """
+  Project to delete
+  """
+  projectId: ID!
+  clientMutationId: String
+}
+
+input DeleteReportInput {
+  """
+  Report to delete
+  """
+  reportId: ID!
+  clientMutationId: String
+}
+
+input DeleteSlotInput {
+  """
+  Slot to delete
+  """
+  slotId: ID!
+  clientMutationId: String
+}
+
+input DeleteTraceInput {
+  """
+  Trace to delete
+  """
+  traceId: ID!
+  clientMutationId: String
+}
+
+input DeleteUserInput {
+  """
+  ID of the user to delete
+  """
+  userId: ID!
+  clientMutationId: String
+}
+
+input ExpandedScansFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ExpandedScansFilter!]
+  """
+  Field name from the model.
+  """
+  field: ExpandedScansFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input FinalizeStreamUploadInput {
+  """
+  Stream id acquired from `createStreamUpload`.
+  """
+  streamId: String!
+  clientMutationId: String
+}
+
+input GeneratePresignedPartUrlsInput {
+  """
+  Value from 1-10.000, inclusive.
+  """
+  fromPart: Int!
+  """
+  Value from 1-100, inclusive.
+  """
+  numberOfParts: Int!
+  """
+  Stream id acquired from `createStreamUpload`.
+  """
+  streamId: String!
+  clientMutationId: String
+}
+
+input GenerateTraceUploadPostInput {
+  clientMutationId: String
+}
+
+input GetVenafiCertificateDetailsInput {
+  """
+  Certificate to get Venafi certificate details for
+  """
+  certificateId: ID!
+  clientMutationId: String
+}
+
+input HandshakesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [HandshakesFilter!]
+  """
+  Field name from the model.
+  """
+  field: HandshakesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input HandshakesSorter {
+  """
+  Field name from the model.
+  """
+  field: HandshakesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input InstancesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [InstancesFilter!]
+  """
+  Field name from the model.
+  """
+  field: InstancesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input InstancesSorter {
+  """
+  Field name from the model.
+  """
+  field: InstancesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input JiraExportInstanceInput {
+  instanceId: ID!
+  clientMutationId: String
+}
+
+input JiraExportInstancesInput {
+  reportId: ID!
+  """
+  List of rule numbers whose instances we want to export
+  """
+  issueIds: [Int!]
+  """
+  Status of the Instance with regards to project exceptions
+  """
+  instancesKeptByFilters: Boolean
+  """
+  List of IDs of the instances to export
+  """
+  instanceIds: [ID!]
+  clientMutationId: String
+}
+
+input KeysFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [KeysFilter!]
+  """
+  Field name from the model.
+  """
+  field: KeysFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input LengthProfileInput {
+  medHighThreshold: Int!
+  lowMedThreshold: Int!
+  offLowThreshold: Int!
+}
+
+input OperationsFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [OperationsFilter!]
+  """
+  Field name from the model.
+  """
+  field: OperationsFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input OperationsSorter {
+  """
+  Field name from the model.
+  """
+  field: OperationsSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input OrganizationCertificatesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [OrganizationCertificatesFilter!]
+  """
+  Field name from the model.
+  """
+  field: OrganizationCertificatesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input OrganizationKeysFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [OrganizationKeysFilter!]
+  """
+  Field name from the model.
+  """
+  field: OrganizationKeysFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input PopulateVenafiGuidsInput {
+  """
+  ID of the report to modify
+  """
+  reportId: ID!
+  clientMutationId: String
+}
+
+input ProfilesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ProfilesFilter!]
+  """
+  Field name from the model.
+  """
+  field: ProfilesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ProfilesSorter {
+  """
+  Field name from the model.
+  """
+  field: ProfilesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input ProjectExceptionsFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ProjectExceptionsFilter!]
+  """
+  Field name from the model.
+  """
+  field: ProjectExceptionsFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ProjectExceptionsSorter {
+  """
+  Field name from the model.
+  """
+  field: ProjectExceptionsSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input ProjectsFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ProjectsFilter!]
+  """
+  Field name from the model.
+  """
+  field: ProjectsFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ProjectsSorter {
+  """
+  Field name from the model.
+  """
+  field: ProjectsSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input QueryHostsViaCrowdStrikeInput {
+  """
+  Only return hosts whose platform is in the provided list. Defaults to Windows and Linux.
+  """
+  platforms: [Platform]
+  """
+  Only return hosts whose hostname matches the provided string.
+  """
+  hostname: String
+  """
+  Only return hosts last seen within the provided number of hours.
+  """
+  lastSeenHours: Int
+  clientMutationId: String
+}
+
+input RefreshStreamUploadInput {
+  """
+  Stream id acquired from `createStreamUpload`.
+  """
+  streamId: String!
+  clientMutationId: String
+}
+
+input ReportsFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ReportsFilter!]
+  """
+  Field name from the model.
+  """
+  field: ReportsFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ReportsSorter {
+  """
+  Field name from the model.
+  """
+  field: ReportsSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input RequestJiraIntegrationAccessTokenInput {
+  clientMutationId: String
+}
+
+input ResetUserPasswordInput {
+  """
+  ID of the target user
+  """
+  userId: ID!
+  clientMutationId: String
+}
+
+input RulesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [RulesFilter!]
+  """
+  Field name from the model.
+  """
+  field: RulesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ScanHostsFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ScanHostsFilter!]
+  """
+  Field name from the model.
+  """
+  field: ScanHostsFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ScanHostsSorter {
+  """
+  Field name from the model.
+  """
+  field: ScanHostsSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input ScanHostsViaCrowdStrikeInput {
+  """
+  Name for the scan
+  """
+  scanName: String
+  """
+  Only scan hosts whose platform is in the provided list. Defaults to Windows and Linux.
+  """
+  platforms: [Platform]
+  """
+  Only scan hosts whose hostname matches the provided string.
+  """
+  hostname: String
+  """
+  Only scan hosts last seen within the provided number of hours.
+  """
+  lastSeenHours: Int
+  """
+  ID of the project to create the trace in
+  """
+  projectId: ID!
+  """
+  ID of the profile to be used. Only filesystem scanner is supported at the moment.
+  """
+  profileId: ID
+  """
+  Flag indicating if the scan is a scheduled one or a manual one.
+  """
+  scheduled: Boolean
+  """
+  Maximum number of hosts to be included in a single batch command.
+  """
+  maxBatchSize: Int
+  """
+  Windows directory path to start searching from if the scan target is a filesystem. Defaults to 'C:'.
+  """
+  windowsRoot: String
+  """
+  Linux directory path to start searching from if the scan target is a filesystem. Defaults to '/'.
+  """
+  linuxRoot: String
+  """
+  Define the limit as a percentage on the CPU load of the Filesystem Scanner during its execution. The
+  default value is 5%.
+  """
+  workLoad: Int
+  """
+  Set the limit on the number of files scanned per second. The default value is 0 which is no limit.
+  """
+  maxFilesPerSecond: Int
+  """
+  The cutoff size in bytes for files to be scanned (not applicable to ZIP files). The default is
+  1000000 (1MB). If set to 0, the cutoff is disabled.
+  """
+  maxFileSize: Int
+  """
+  Assign tags to categorize the generated trace.
+  """
+  tags: [String]
+  """
+  Exclude a file or directory from a scan. You can specify this multiple times to exclude several
+  files or directories. This is especially useful to avoid scanning network filesystems. It’s
+  important to note that the scanner doesn't avoid any filesystem by default.
+  """
+  exclude: [String]
+  """
+  The image name if the scan target is a container.
+  """
+  image: String
+  clientMutationId: String
+}
+
+input ScansFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [ScansFilter!]
+  """
+  Field name from the model.
+  """
+  field: ScansFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input ScansSorter {
+  """
+  Field name from the model.
+  """
+  field: ScansSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input ScheduleReportExceptionsCacheUpdateInput {
+  """
+  ID of the report to update
+  """
+  reportId: ID!
+  clientMutationId: String
+}
+
+input ServiceNowExportReportInput {
+  """
+  ID of the report
+  """
+  reportId: ID!
+  """
+  List of rule numbers whose instances we want to export
+  """
+  ruleNumbers: [Int!]
+  """
+  List of IDs of the instances to export
+  """
+  instanceIds: [ID!]
+  """
+  Status of the Instance with regards to project exceptions
+  """
+  instanceIsKeptByFilters: Boolean
+  clientMutationId: String
+}
+
+input ServiceNowExportSingleInstanceInput {
+  instanceId: ID!
+  clientMutationId: String
+}
+
+input SlotsFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [SlotsFilter!]
+  """
+  Field name from the model.
+  """
+  field: SlotsFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input SlotsSorter {
+  """
+  Field name from the model.
+  """
+  field: SlotsSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input SshHandshakesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [SshHandshakesFilter!]
+  """
+  Field name from the model.
+  """
+  field: SshHandshakesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input SshHandshakesSorter {
+  """
+  Field name from the model.
+  """
+  field: SshHandshakesSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+input StartTaniumRetrievalInput {
+  """
+  Project ID
+  """
+  projectId: String!
+  clientMutationId: String
+}
+
+input StopTaniumRetrievalInput {
+  """
+  Project ID
+  """
+  projectId: String!
+  clientMutationId: String
+}
+
+input TracesFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [TracesFilter!]
+  """
+  Field name from the model.
+  """
+  field: TracesFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input UnlinkCrowdStrikeIntegrationInput {
+  clientMutationId: String
+}
+
+input UnlinkJiraIntegrationInput {
+  clientMutationId: String
+}
+
+input UnlinkJiraIssueCollectorInput {
+  clientMutationId: String
+}
+
+input UnlinkProjectJiraIntegrationInput {
+  """
+  Project ID
+  """
+  projectId: ID!
+  clientMutationId: String
+}
+
+input UnlinkProjectJiraIssueCollectorInput {
+  """
+  Project ID
+  """
+  projectId: ID!
+  clientMutationId: String
+}
+
+input UnlinkProjectTaniumIntegrationInput {
+  """
+  Project ID
+  """
+  projectId: ID!
+  clientMutationId: String
+}
+
+input UnlinkServiceNowIntegrationInput {
+  clientMutationId: String
+}
+
+input UnlinkTaniumIntegrationInput {
+  clientMutationId: String
+}
+
+input UnlinkVenafiIntegrationInput {
+  clientMutationId: String
+}
+
+input UpdateCrowdStrikeIntegrationInput {
+  """
+  Instance URL
+  """
+  baseUrl: String!
+  """
+  Client ID
+  """
+  clientId: String!
+  """
+  Client secret
+  """
+  clientSecret: String!
+  clientMutationId: String
+}
+
+input UpdateFuzzerProfileInput {
+  profileId: ID!
+  name: String!
+  clientMutationId: String
+}
+
+input UpdateJiraIntegrationInput {
+  """
+  Jira project key
+  """
+  projectKey: String
+  """
+  Jira issue type key
+  """
+  issuetypeKey: String
+  clientMutationId: String
+}
+
+input UpdateJiraIntegrationUrlInput {
+  """
+  Jira instance URL
+  """
+  url: String!
+  clientMutationId: String
+}
+
+input UpdateJiraIssueCollectorInput {
+  """
+  Jira issue collector code
+  """
+  issueCollectorCode: String!
+  clientMutationId: String
+}
+
+input UpdateProjectExceptionInput {
+  """
+  ID of the exception to update
+  """
+  exceptionId: ID!
+  """
+  The new trace type. If `null`, the existing trace type is kept.
+  """
+  traceType: TraceType
+  """
+  The new type. If `null`, the existing type is kept.
+  """
+  type: ProjectExceptionType
+  """
+  The new term. If `null`, the existing term is kept.
+  """
+  term: String
+  """
+  The new description. If `null`, the existing description is kept.
+  """
+  description: String
+  """
+  The new active state. If `null`, the existing active state is kept.
+  """
+  active: Boolean
+  clientMutationId: String
+}
+
+input UpdateProjectInput {
+  """
+  ID of the project to update
+  """
+  projectId: ID!
+  """
+  Project name
+  """
+  name: String
+  """
+  Project description
+  """
+  description: String
+  """
+  List of tester user IDs
+  """
+  testers: [ID!]
+  """
+  Maximum item count for the project
+  """
+  maxItemCount: Int
+  """
+  Authorization tags
+  """
+  authTags: [String]
+  clientMutationId: String
+}
+
+input UpdateProjectJiraIntegrationInput {
+  """
+  Project ID
+  """
+  projectId: ID!
+  """
+  Jira project key
+  """
+  projectKey: String!
+  """
+  Jira issue type name
+  """
+  issueTypeKey: String!
+  clientMutationId: String
+}
+
+input UpdateProjectJiraIssueCollectorInput {
+  """
+  Project ID
+  """
+  projectId: ID!
+  """
+  Jira issue collector HTML code
+  """
+  issueCollectorCode: String!
+  clientMutationId: String
+}
+
+input UpdateProjectTaniumInput {
+  """
+  Analyzer project ID
+  """
+  projectId: String!
+  """
+  Tanium ID of Computer Group to retrieve traces from
+  """
+  computerGroup: String!
+  clientMutationId: String
+}
+
+input UpdateServiceNowIntegrationInput {
+  """
+  ServiceNow Instance URL
+  """
+  instanceUrl: String!
+  """
+  ServiceNow User ID
+  """
+  userID: String!
+  """
+  ServiceNow User password
+  """
+  password: String!
+  clientMutationId: String
+}
+
+input UpdateSlotInput {
+  """
+  ID of the slot to update
+  """
+  slotId: ID!
+  """
+  Slot name
+  """
+  name: String
+  """
+  Slot description
+  """
+  description: String
+  """
+  Slot tags
+  """
+  tags: [String]
+  clientMutationId: String
+}
+
+input UpdateTaniumIntegrationInput {
+  """
+  Instance URL
+  """
+  url: String!
+  """
+  Access token
+  """
+  accessToken: String!
+  """
+  Trusted CA Certificate
+  """
+  trustedCaCertificate: String
+  """
+  Max concurrent retrievals
+  """
+  maxConcurrentRetrievals: Int
+  """
+  Request rate
+  """
+  requestRate: Int
+  """
+  Request timeout
+  """
+  requestTimeout: Int
+  """
+  Download request timeout
+  """
+  downloadRequestTimeout: Int
+  clientMutationId: String
+}
+
+input UpdateTracerProfileInput {
+  profileId: ID!
+  name: String!
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  """
+  ID of the user to update
+  """
+  userId: ID!
+  """
+  Preferred user name for display. Leading and trailing whitespaces are ignored.
+  """
+  preferredName: String
+  """
+  New permission level of the user
+  """
+  level: UserLevel
+  """
+  New roles of the user. If a non-empty list is provided, existing roles are replaced. This argument
+  should not be used if user authorization is managed by an external OpenID provider.
+  """
+  roles: [Role!]
+  """
+  New authorization tags. If an empty list is provided, existing authorization tags are removed from
+  the user.
+  """
+  authTags: [String]
+  clientMutationId: String
+}
+
+input UpdateVenafiIntegrationInput {
+  """
+  Instance URL
+  """
+  url: String!
+  """
+  Access token
+  """
+  accessToken: String!
+  """
+  Trusted CA Certificate
+  """
+  trustedCaCertificate: String
+  clientMutationId: String
+}
+
+input UploadCertificateToVenafiInput {
+  """
+  ID of a certificate to be uploaded to Venafi.
+  """
+  certificateId: ID!
+  """
+  The Distinguished Name (DN) of the folder that will hold the certificate.
+  """
+  policyDn: String!
+  """
+  The setting to control certificate and corresponding private key replacement. False by default.
+  """
+  reconcile: Boolean
+  clientMutationId: String
+}
+
+input UsersFilter {
+  """
+  List of recursive filters to be applied.
+  """
+  subFilters: [UsersFilter!]
+  """
+  Field name from the model.
+  """
+  field: UsersFilterFields
+  """
+  Value to be used in "operation" on "field".
+  """
+  value: String
+  """
+  Values to be used in "CONTAINS" "operation" on "field" with
+  """
+  values: [String]
+  """
+  Operation to be applied on the "field", defaults to CONTAINS.
+  """
+  operation: OperationEnum
+  """
+  Operator between subFilters, defaults to OR.
+  """
+  operator: OperatorEnum
+}
+
+input UsersSorter {
+  """
+  Field name from the model.
+  """
+  field: UsersSorterFields!
+  """
+  Order of the sorting flow
+  """
+  order: OrderEnum
+}
+
+"""
+The exchange between a server and network client to establish a secure channel.
+"""
+interface Handshake {
+  id: ID!
+  """
+  Client IP
+  """
+  initiatorIp: String!
+  """
+  Client port
+  """
+  initiatorPort: Int
+  """
+  Server IP
+  """
+  targetIp: String!
+  """
+  Server port
+  """
+  targetPort: Int
+  timestamp: Float
+}
+
+interface Node {
+  """
+  The ID of the object
+  """
+  id: ID!
+}
+
+"""
+Parent type for all specific Report types: ReportPending, ReportFailed, ReportDone
+"""
+interface Report {
+  id: ID!
+  name: String!
+  """
+  Creation time for this report (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  project: Project
+  profile: Profile
+  slot: Slot
+  trace: Trace
+  traceType: TraceType
+  ruleset: Ruleset
+}
+
+"""
+Parent type for all specific Trace types: TracePending, TraceFailed, TraceDone
+"""
+interface Trace {
+  id: ID!
+  name: String!
+  """
+  Creation time for this trace (UTC, in ISO8601 format)
+  """
+  createdAt: DateTime!
+  size: BigInt
+  slot: Slot
+  """
+  Only for java traces
+  """
+  jvmName: String
+  """
+  Only for java traces
+  """
+  jvmVendor: String
+  """
+  Only for java traces
+  """
+  jvmArguments: [String]
+  """
+  Only for java traces
+  """
+  javaClassPath: [String]
+  traceType: TraceType
+}
+
+enum Algorithm {
+  DSA
+  ECDSA
+  EDDSA
+  RSA
+}
+
+enum CallSitesFilterFields {
+  """
+  CallSite class and method. Expected format: " . ". Case insensitive. Filterable by EQ, CONTAINS.
+  """
+  callingClassMethod
+  """
+  CallSite called_class and called_method. Expected format: " . ". Case insensitive. Filterable by EQ,
+  CONTAINS.
+  """
+  calledClassMethod
+  """
+  CallSite file and line. Expected format: " : ". Case insensitive. Filterable by EQ, CONTAINS.
+  """
+  location
+  """
+  CallSite status state: "MISSED", "COVERED", "NOT_COVERED". Filterable by EQ, NEQ.
+  """
+  status
+}
+
+enum CallSitesSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  The name of the calling class and calling method
+  """
+  callingClassMethod
+  """
+  The name of the called class and called method
+  """
+  calledClassMethod
+  """
+  The name of the file and line
+  """
+  location
+  """
+  The status of the callsite.
+  """
+  status
+}
+
+enum CertificatesFilterFields {
+  """
+  Is this a used certificate: TRUE or FALSE
+  """
+  isUsed
+  """
+  Is the certificate issuer identical to its subject: TRUE or FALSE
+  """
+  isSelfSigned
+  """
+  Is this a CA certificate: TRUE or FALSE
+  """
+  isCa
+  """
+  Does the certificate have a private key: TRUE or FALSE
+  """
+  hasPrivateKey
+  """
+  The certificate digest algorithm: MD2, MD5, SHA_1, SHA_224, SHA_256, SHA_384, SHA_512, SHAKE_128,
+  SHAKE_256.
+  """
+  digestAlgorithm
+  """
+  The certificate validity length: MORE_THAN_10_YEARS, 5_TO_10_YEARS, 2_TO_5_YEARS, LESS_THAN_2_YEARS.
+  """
+  validityLength
+  """
+  Certificate validity: NOT_VALID_YET, EXPIRING_SOON, EXPIRED, VALID.
+  """
+  validity
+  """
+  Certificate search
+  """
+  search
+  """
+  The key length (in bits).
+  """
+  keyLength
+}
+
+enum CertificatesSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Certificate expiry date.
+  """
+  expiryDate
+  """
+  Certificate digest algorithm.
+  """
+  digestAlgorithm
+  """
+  Certificate fingerprint
+  """
+  fingerprint
+}
+
+enum CiphersuiteTlsVersion {
+  TLS13
+  TLS12
+  NONE
+  UNKNOWN
+}
+
+enum CiphersuitesSorterFields {
+  """
+  Unique id property.
+  """
+  nid
+  """
+  Name given by IETF to a recognized ciphersuite. ('TLS_AES_128_GCM_SHA256',
+  'TLS_NULL_WITH_NULL_NULL', ...)
+  """
+  name
+  """
+  Is Ciphersuite recommended by IETF.
+  """
+  recommended
+  """
+  Key exchange algorithm used. (ECDHE, DHE, RSA, ...).
+  """
+  kex
+  """
+  Ciphersuite version.
+  """
+  version
+  """
+  Authentication algorithm used. (ECDSA, RSA, PSK, ...).
+  """
+  auth
+  """
+  Block/stream cipher algorithm used. (AES, RC4, ...).
+  """
+  algorithmSym
+  """
+  MAC algorithm used. (AEAD for TLS1.3, SHA256, ...).
+  """
+  mac
+  """
+  Mode of operation used by the block cipher. 'null' if stream cipher is used. (GCM, CBC, CCM, ...)
+  """
+  modeOfOperation
+  """
+  Hash algorithm used; serves as HKDF for TLS1.3 and as a MAC for TLS1.2. (SHA-family, MD5, ...)
+  """
+  hashAlg
+}
+
+enum Digest {
+  MD2
+  MD5
+  SHA1
+  SHA224
+  SHA256
+  SHA384
+  SHA512
+  SHAKE128
+  SHAKE256
+}
+
+"""
+An enumeration.
+"""
+enum DisplaySeverity {
+  NA
+  FILTERED
+  DISABLED
+  PASSED
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ExpandedScansFilterFields {
+  """
+  Scan name, unique value per project.
+  """
+  name
+  """
+  Type of the scan, filterable by EQ, NEQ. EQ checks if it is exact type. NEQ checks if it is not
+  provided type.
+  """
+  type
+  """
+  Status of the scan, filterable by EQ, NEQ. EQ checks if it is exact status. NEQ checks if it is not
+  provided status.
+  """
+  status
+  """
+  Start date of the scan.
+  """
+  startedAt
+  """
+  End date, either cancelled or completed, of the scan.
+  """
+  endedAt
+  """
+  Project id, filterable by EQ, NEQ. EQ checks if it is exact status. NEQ checks if it is not provided
+  status.
+  """
+  project
+}
+
+"""
+An enumeration.
+"""
+enum ExportStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+"""
+An enumeration.
+"""
+enum ExportType {
+  SERVICE_NOW
+  JIRA
+}
+
+"""
+An enumeration.
+"""
+enum Filetype {
+  JKS_KEYSTORE
+  JCEKS_KEYSTORE
+  PKCS12_KEYSTORE
+  SST_KEYSTORE
+  CERTIFICATE
+  PGP_KEY
+  PKCS1_KEY
+  PKCS8_KEY
+  SSH_KEY
+  PPK
+  X509_KEY
+  OTHER_KEY
+  JAR
+  SHARED_LIB
+  PKCS7
+  UNKNOWN
+}
+
+"""
+Status of an object with regards to project exceptions
+"""
+enum FilterStatus {
+  """
+  No calls or operations removed by filters.
+  """
+  FULLY_KEPT
+  """
+  Some calls or operations removed by filters.
+  """
+  PARTIALLY_KEPT
+  """
+  All calls or operations removed by filters.
+  """
+  NOT_KEPT
+}
+
+enum GroupClassification {
+  PQC
+  HYBRID
+  IANA
+  UNKNOWN
+}
+
+enum HandshakesFilterFields {
+  """
+  Source IP.
+  """
+  initiator_ip
+  """
+  Target IP.
+  """
+  target_ip
+  """
+  Source port.
+  """
+  initiator_port
+  """
+  Target port.
+  """
+  target_port
+  """
+  Timestamp.
+  """
+  timestamp
+  """
+  Server name.
+  """
+  server_name_indication
+  """
+  Filter by selected or supported ciphersuite.
+  """
+  ciphersuite
+  """
+  Filter by client highest version or client supported versions extension.
+  """
+  client_tls_version
+  """
+  Server chosen version.
+  """
+  server_chosen_version
+}
+
+enum HandshakesSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Source IP.
+  """
+  initiator_ip
+  """
+  Target IP.
+  """
+  target_ip
+  """
+  Source port.
+  """
+  initiator_port
+  """
+  Target port.
+  """
+  target_port
+  """
+  Timestamp.
+  """
+  timestamp
+  """
+  Name of the server.
+  """
+  server_name_indication
+  """
+  Client highest version.
+  """
+  client_highest_version
+  """
+  Client supported versions extension.
+  """
+  client_supported_versions_extension
+  """
+  Server chosen version.
+  """
+  server_chosen_version
+}
+
+"""
+An enumeration.
+"""
+enum HostStatus {
+  PENDING
+  SETTING_UP
+  SCANNING
+  RETRIEVING_TRACE
+  RETRIEVED_TRACE
+  DOWNLOADING_TRACE
+  DOWNLOADED_TRACE
+  SUCCESS
+  FAIL
+  CANCELED
+}
+
+"""
+An enumeration.
+"""
+enum Imagetype {
+  DOCKER
+  VMDK
+}
+
+"""
+Use strings of numbers as the value to allow sorting to work as expected in postgres and sqlite, but
+still allow sqlalchemy type conversion to work
+"""
+enum InstanceSeverity {
+  PASSED
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum InstancesFilterFields {
+  """
+  Severity of the instance: PASSED, LOW, MEDIUM, or HIGH.
+  """
+  severity
+  """
+  The instance number.
+  """
+  number
+  """
+  Number of the instance within instances of the same rule.
+  """
+  numberLocal
+}
+
+enum InstancesSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  The instance number.
+  """
+  number
+  """
+  Severity of the instance: PASSED, LOW, MEDIUM, or HIGH.
+  """
+  severity
+  """
+  Number of the instance within instances of the same rule.
+  """
+  numberLocal
+}
+
+"""
+An enumeration.
+"""
+enum KeyCategory {
+  SYMMETRIC
+  ASYMMETRIC
+}
+
+"""
+An enumeration.
+"""
+enum KeyType {
+  SYMMETRIC
+  PASSWORD_BASED
+  RSA
+  DSA
+  DH
+  EC
+  DILITHIUM
+  FALCON
+  SPHINCS
+}
+
+enum KeysFilterFields {
+  """
+  Is this a used key: TRUE or FALSE.
+  """
+  isUsed
+  """
+  Is this a TLS session key: TRUE or FALSE.
+  """
+  isTlsSession
+  """
+  The key category: SYMMETRIC, PUBLIC, PRIVATE.
+  """
+  category
+  """
+  The key type: RSA, DSA, EC, DH, DILITHIUM, FALCON, SPHINCS, PASSWORD_BASED, SYMMETRIC.
+  """
+  type
+  """
+  The key source: AWS_KMS, AZURE_KEY_VAULT, DERIVED, EXCHANGED, KEYSTORE, CREATED, GENERATED, UNKNOWN.
+  """
+  source
+  """
+  The key operation: MAC_COMPUTATION, LOADED, STORED, GENERATED, KEY_AGREEMENT, EXCHANGED, ENCRYPTION,
+  DECRYPTION, WRAPPING, UNWRAPPING, SIGNATURE, VERIFICATION, KEY_DERIVATION, KEY_DEFINITION,
+  NO_OPERATION.
+  """
+  operation
+  """
+  The key location: JKS_KEYSTORE, JCEKS_KEYSTORE, PKCS12_KEYSTORE, SST_KEYSTORE, CERTIFICATE, PGP,
+  PKCS1_KEY, PKCS8_KEY, SSH_KEY, PPK, X509_KEY, OTHER_KEY, JAR, SHARED_LIBRARY, PKCS7, UNKNOWN.
+  """
+  location
+  """
+  The key length (in bits).
+  """
+  length
+}
+
+"""
+Supported operation algorithms
+"""
+enum OperationAlgorithm {
+  AES
+  AESWRAP
+  BKS
+  BLOWFISH
+  CAMELLIA
+  CAST5
+  DES
+  DES_EDE_2KEY
+  DES_EDE_3KEY
+  DH
+  DSA
+  ECDH
+  ECDSA
+  ECIES
+  ECMQV
+  EVP_BYTESTOKEY
+  IDEA
+  JCEKS
+  JKS
+  KECCAK224
+  KECCAK256
+  KECCAK288
+  KECCAK384
+  KECCAK512
+  MD2
+  MD5
+  PBKDF1
+  PBKDF2
+  PKCS12_PBE
+  RC2
+  RC4
+  RC5
+  RSA
+  SEED
+  SHA1
+  SHA224
+  SHA256
+  SHA384
+  SHA3_224
+  SHA3_256
+  SHA3_384
+  SHA3_512
+  SHA512
+  SHA512_224
+  SHA512_256
+  SUN_JCE_CUSTOM_MD5_TRIPLE_DES
+}
+
+"""
+Supported operation categories
+"""
+enum OperationCategory {
+  asymmetric_key_generation
+  symmetric_key_generation
+  encryption_decryption
+  signature_generation_verification
+  mac
+  hashing
+  key_wrapping_unwrapping
+  key_derivation
+  key_store_access
+  key_store_creation_loading
+  key_agreement
+  cloud_storage
+  key_definition
+  tls_initialization
+  tls_handshake
+  ssh_handshake
+}
+
+"""
+Supported operation contexts
+"""
+enum OperationContext {
+  TLS
+  NON_TLS
+}
+
+"""
+An enumeration.
+"""
+enum OperationEnum {
+  """
+  Applies `{field} CONTAINS {value}` operation. `CONTAINS` will check for string match in the field
+  value. eg., `name` CONTAINS `desc` will select nodes that have word `desc` in their name.
+  `createdAt` CONTAINS `2019` will select nodes that were created in theyear 2019.
+  """
+  CONTAINS
+  """
+  Applies `{field} EQUALS {value}` operation. `EQUALS` will check if the `value` is exactly the same
+  to the field value. eg., `name` EQUALS `Project 1` will select node that has the exact name `Project
+  1`. `createdAt` EQUALS `2019-10-17` will select nodes that were created on the17th Oct, 2019.
+  """
+  EQ
+  """
+  Applies `{field} NOT EQUALS {value}` operation. `NOT EQUALS` will check if the `value` is not the
+  same to the field value. eg., `name` NOT EQUALS `Project 1` will select nodes that do not have the
+  name `Project 1`. `createdAt` NOT EQUALS `2019-10-17` will select nodes that were not created on the
+  17th Oct, 2019.
+  """
+  NEQ
+  """
+  Applies `{field} GREATER THAN {value}` operation. `GREATER THAN` will check if the `value` is
+  greater than the field value. eg., `name` GREATER THAN `Project 1` will select nodes that have names
+  alphabetically after `Project 1`, like `Project 2` or `The project`. `createdAt` GREATER THAN
+  `2019-10-17` will select nodes that were created after 17th Oct, 2019.
+  """
+  GT
+  """
+  Applies `{field} GREATER OR EQUALS THAN {value}` operation. `GREATER OR EQUALS THAN` will check if
+  the `value` is greater or equal to the field value. GE combines GT and EQ operations. eg., `name`
+  GREATER OR EQUALS THAN `Project 1` will select nodes with names alphabetically after `Project 1`
+  (like `Project 2` or `The project`) or have the name `Project 1`. `createdAt` GREATER OR EQUALS THAN
+  `2019-10-17` will select nodes that were created on and after 17th Oct, 2019.
+  """
+  GE
+  """
+  Applies `{field} LESS THAN {value}` operation. `LESS THAN` will check if the `value` is lesser than
+  the field value. eg., `name` LESS THAN `Project 1` will select nodes that have names alphabetically
+  before `Project 1`, like `Project 0` or `My project`. `createdAt` LESS THAN `2019-10-17` will select
+  nodes that were created before 17th Oct, 2019.
+  """
+  LT
+  """
+  Applies `{field} LESS OR EQUALS THAN {value}` operation. `LESS OR EQUALS THAN` will check if the
+  `value` is lesser or equal to the field value. LE combines LT and EQ operations. eg., `name` LESS OR
+  EQUALS THAN `Project 1` will select nodes with names alphabetically before `Project 1` (like
+  `Project 0` or `My project`) or have the name `Project 1`. `createdAt` LESS OR EQUALS THAN
+  `2019-10-17` will select nodes that were created on and before 17th Oct, 2019.
+  """
+  LE
+}
+
+"""
+Supported operation types
+"""
+enum OperationType {
+  ASYMMETRIC_KEY_GENERATION
+  SYMMETRIC_KEY_GENERATION
+  WRAPPING
+  UNWRAPPING
+  ENCRYPTION
+  DECRYPTION
+  DIGEST
+  KEY_AGREEMENT
+  KEY_DEFINITION
+  KEYSTORE_LOAD
+  KEYSTORE_STORE
+  MAC
+  PASSWORD_BASED_DERIVATION
+  SIGNATURE
+  SIGNATURE_VERIFICATION
+  TLS_HANDSHAKE
+  SSH_HANDSHAKE
+  TLS_INITIALIZATION
+}
+
+enum OperationsFilterFields {
+  """
+  The operation type. Filterable by EQ, NEQ. 'value' must be one of `OperationType`.
+  """
+  type
+  """
+  The operation category. Filterable by EQ, NEQ. 'value' must be one of `OperationCategory`.
+  """
+  category
+  """
+  The operation context. Filterable by EQ, NEQ. 'value' must be one of `OperationContext`.
+  """
+  context
+  """
+  The algorithms used in the operation. Filterable by CONTAINS. 'values' must be a non-empty list of
+  `OperationAlgorithm`.
+  """
+  algorithms
+  """
+  The operation timestamp. Filterable by EQ, GE, GT, LE and LT. 'value' must be a valid ISO-8601
+  datetime string.
+  """
+  timestamp
+}
+
+enum OperationsSorterFields {
+  """
+  Unique id property
+  """
+  id
+  """
+  The operation type
+  """
+  type
+  """
+  The operation category
+  """
+  category
+  """
+  The operation context
+  """
+  context
+  """
+  The operation timestamp
+  """
+  timestamp
+}
+
+"""
+An enumeration.
+"""
+enum OperatorEnum {
+  """
+  Provided subFilters will be organized in an `AND` expression where all of the conditions have to be
+  True for the node to be selected. eg., *value_1 AND value_2*, only if both are correct, node will be
+  selected
+  """
+  AND
+  """
+  Provided subFilters will be organized in an `OR` expression where at least one of the conditions
+  have to be True for the node to be selected. eg., *value_1 OR value_2*, if either one is correct,
+  node will be selected
+  """
+  OR
+  """
+  Provided subFilters will be negated and only the first value in `subFilters` will be considered.
+  eg., *NOT value_1*, the result of `value_1` will be negated and used for the selection of a node. If
+  `value_1` is False, it will become True and vice-versa.
+  """
+  NOT
+}
+
+"""
+An enumeration.
+"""
+enum OrderEnum {
+  """
+  Ascending order: returning elements will be organized in lower-high or in an alphabetical order
+  (A-Z).
+  """
+  ASC
+  """
+  Descending order: returning elements will be organized in high-lower or in a reverse alphabetical
+  order (Z-A).
+  """
+  DESC
+}
+
+enum OrganizationCertificatesFilterFields {
+  """
+  Is this a CA certificate: TRUE or FALSE
+  """
+  isCa
+  """
+  Is this certificate's issuer identical to its subject: TRUE or FALSE
+  """
+  isSelfSigned
+  """
+  The certificate digest algorithm: MD2, MD5, SHA_1, SHA_224, SHA_256, SHA_384, SHA_512, SHAKE_128,
+  SHAKE_256.
+  """
+  digestAlgorithm
+  """
+  The certificate validity length: MORE_THAN_10_YEARS, 5_TO_10_YEARS, 2_TO_5_YEARS, LESS_THAN_2_YEARS.
+  """
+  validityLength
+  """
+  Certificate validity: NOT_VALID_YET, EXPIRING_SOON, EXPIRED, VALID.
+  """
+  validity
+  """
+  The key length (in bits).
+  """
+  keyLength
+}
+
+enum OrganizationKeysFilterFields {
+  """
+  The key category: SYMMETRIC, PUBLIC, PRIVATE.
+  """
+  category
+  """
+  The key type: SYMMETRIC, PASSWORD_BASED, RSA, DSA, DH, EC, DILITHIUM, FALCON, SPHINCS.
+  """
+  type
+  """
+  The key length (in bits).
+  """
+  length
+}
+
+"""
+An enumeration.
+"""
+enum Origin {
+  LOCAL
+  OPENID
+  WEB_ACCOUNT
+}
+
+"""
+Type of an overview to link with internal filters.
+"""
+enum OverviewType {
+  APPLICATIONS
+  FILE_SYSTEMS
+  PKCS11_TOKENS
+  NETWORK_ANALYZER
+}
+
+"""
+An enumeration.
+"""
+enum Platform {
+  WINDOWS
+  LINUX
+}
+
+enum ProfileType {
+  TRACER
+  FUZZER
+}
+
+enum ProfilesFilterFields {
+  """
+  Profile name, unique value per organization.
+  """
+  name
+  """
+  Profile type
+  """
+  type
+}
+
+enum ProfilesSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Profile name, unique value.
+  """
+  name
+  """
+  Profile type, TRACER or FUZZER.
+  """
+  type
+  """
+  Whether the profile is a predefined AQtive Guard profile
+  """
+  preset
+}
+
+"""
+An enumeration.
+"""
+enum ProjectExceptionType {
+  BLACKLIST
+  WHITELIST
+}
+
+enum ProjectExceptionsFilterFields {
+  """
+  Exception type: "BLACKLIST" or "WHITELIST". Filterable by EQ, NEQ.
+  """
+  type
+  """
+  Exception term. Filterable by EQ, CONTAINS. Case sensitive.
+  """
+  term
+  """
+  Exception description. Filterable by EQ, CONTAINS. Case insensitive.
+  """
+  description
+  """
+  Exception active state: "TRUE" or "FALSE". Filterable by EQ, NEQ.
+  """
+  active
+  """
+  Exception trace type. Filterable by EQ, NEQ.
+  """
+  traceType
+}
+
+enum ProjectExceptionsSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Exception type: "BLACKLIST" or "WHITELIST"
+  """
+  type
+  """
+  Exception term
+  """
+  term
+  """
+  Exception description
+  """
+  description
+  """
+  Exception active state: "TRUE" or "FALSE"
+  """
+  active
+  """
+  Exception trace type
+  """
+  traceType
+}
+
+"""
+An enumeration.
+"""
+enum ProjectTaniumStatus {
+  QUEUED
+  RUNNING
+  COMPLETED
+  STOPPING
+  STOPPED
+}
+
+enum ProjectsFilterFields {
+  """
+  Project name, unique value per organization.
+  """
+  name
+  """
+  List of project tags, filterable by CONTAINS and EQ. CONTAINS checks if any of the tags matches. EQ
+  checks if all of the tags are present.
+  """
+  tags
+  """
+  Default profile, filterable by EQ only.
+  """
+  defaultProfile
+  """
+  Creation or completion time of the latest report in the project, filterable by EQ, GE, GT, LE and
+  GT.
+  """
+  lastAnalysis
+  """
+  Last update, filterable by EQ, GE, GT, LE and GT.
+  """
+  lastUpdated @deprecated(reason: "This filter is deprecated and will be removed in a future release. Use the `lastAnalysis` filter instead.")
+}
+
+enum ProjectsSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Project name, unique value per organization.
+  """
+  name
+  """
+  Creation or completion time of the latest report in this project.
+  """
+  lastAnalysis
+}
+
+"""
+The status of the cache of a report with respect to the current exceptions of its project
+"""
+enum ReportExceptionsCacheStatus {
+  """
+  The cache reflects the current exceptions of the project
+  """
+  CACHED
+  """
+  The cache does not reflect the current exceptions of the project
+  """
+  NOT_CACHED
+  """
+  The cache is scheduled to be updated
+  """
+  UPDATE_SCHEDULED
+  """
+  The cache is currently being updated
+  """
+  UPDATE_IN_PROGRESS
+}
+
+enum ReportsFilterFields {
+  """
+  Report name, unique value per project.
+  """
+  name
+  """
+  Creation date of the report.
+  """
+  createdAt
+  """
+  Completion date of the report.
+  """
+  completedAt
+  """
+  Type of the trace used to create the report. Filterable by EQ, NEQ
+  """
+  traceType
+}
+
+enum ReportsSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Report name.
+  """
+  name
+}
+
+"""
+An enumeration.
+"""
+enum Role {
+  VIEWER
+  ANALYST
+  UPLOADER
+  AUTH_ADMIN
+  ADMIN
+}
+
+enum RsaPadding {
+  RAW
+  PKCS1
+  PSS
+}
+
+enum RuleCategory {
+  ALGORITHM
+  CRYPTO_USE
+  KEY_LENGTH
+  KEY_MANAGEMENT
+  HOST_SCAN
+  CONFLICTING_KEY_ROLES
+  ILLEGAL_ATTRIBUTE_MODIFICATION_ALLOWED
+  ILLEGAL_OPERATION_ALLOWED_FOR_KEY
+  ILLEGAL_RETURN_VALUE
+  INCORRECT_ATTRIBUTE_CALCULATION
+  INCORRECT_DEFAULT_ATTRIBUTE_VALUE
+  INSECURE_ATTRIBUTE_MODIFICATION
+  INSECURE_DEFAULT_VALUE
+  INSECURE_KEY_DERIVATION
+  INSECURE_KEY_EXPORT
+  INSECURE_KEY_IMPORT
+  INVALID_ATTRIBUTE_GENERATED
+  INVALID_TEMPLATE_ALLOWED
+  KEY_MATERIAL_EXPOSED
+  UNSAFE_CRYPTOGRAPHY_PERMITTED
+}
+
+"""
+An enumeration.
+"""
+enum RuleObjectType {
+  CERTIFICATE
+  KEY
+  KEYSTORE
+  JAVA_CRYPTO_PROVIDER
+  PASSWORD
+}
+
+enum RulesFilterFields {
+  """
+  The rule number.
+  """
+  number
+}
+
+"""
+An enumeration.
+"""
+enum Ruleset {
+  TRACER
+  COMPLIANCE
+  VULNERABILITY
+}
+
+enum ScanHostsFilterFields {
+  """
+  Host name, unique value per project.
+  """
+  name
+  """
+  Status of the host, filterable by EQ, NEQ. EQ checks if it is exact status. NEQ checks if it is not
+  provided status.
+  """
+  status
+  """
+  Host platform, filterable by EQ, NEQ. EQ checks if it is exact platform. NEQ checks if it is not
+  provided platform.
+  """
+  platform
+  """
+  Origin id, format relevant to the origin service.
+  """
+  originId
+}
+
+enum ScanHostsSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Host name.
+  """
+  name
+  """
+  The host status.
+  """
+  status
+  """
+  The host platform.
+  """
+  platform
+  """
+  ID from the origin service.
+  """
+  originId
+}
+
+"""
+An enumeration.
+"""
+enum ScanStatus {
+  PENDING
+  IN_PROGRESS
+  CANCELED
+  COMPLETED
+}
+
+"""
+An enumeration.
+"""
+enum ScanType {
+  CROWDSTRIKE
+}
+
+enum ScansFilterFields {
+  """
+  Scan name, unique value per project.
+  """
+  name
+  """
+  Type of the scan, filterable by EQ, NEQ. EQ checks if it is exact type. NEQ checks if it is not
+  provided type.
+  """
+  type
+  """
+  Status of the scan, filterable by EQ, NEQ. EQ checks if it is exact status. NEQ checks if it is not
+  provided status.
+  """
+  status
+  """
+  Start date of the scan.
+  """
+  startedAt
+  """
+  End date, either cancelled or completed, of the scan.
+  """
+  endedAt
+}
+
+enum ScansSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Scan name.
+  """
+  name
+  """
+  The scan type.
+  """
+  type
+  """
+  The scan status.
+  """
+  status
+  """
+  Start time of the scan.
+  """
+  startedAt
+  """
+  Number of hosts in the scan.
+  """
+  totalHosts
+  """
+  Number of successful hosts in the scan.
+  """
+  successfulHosts
+  """
+  Number of failed hosts in the scan.
+  """
+  failedHosts
+}
+
+enum SlotsFilterFields {
+  """
+  Slot name, unique value per project.
+  """
+  name
+  """
+  Slot tags.
+  """
+  tags
+  """
+  The slot trace type (Enum value).
+  """
+  traceType
+  """
+  The trace name of the last report for the slot.
+  """
+  lastReportTraceName
+  """
+  The creation time of the last report for the slot.
+  """
+  lastReportCreatedAt
+  """
+  The state of the last report for the slot.
+  """
+  lastReportState
+  """
+  Number of reports in a slot.
+  """
+  reportCount
+}
+
+enum SlotsSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Slot name.
+  """
+  name
+  """
+  The slot trace type.
+  """
+  traceType
+  """
+  The trace name of the last report for the slot.
+  """
+  lastReportTraceName
+  """
+  The creation time of the last report for the slot.
+  """
+  lastReportCreatedAt
+  """
+  The state of the last report for the slot.
+  """
+  lastReportState
+  """
+  Number of reports in a slot.
+  """
+  reportCount
+}
+
+"""
+SSH handshake status
+"""
+enum SshHandshakeStatus {
+  SUCCESS
+  INCOMPLETE
+}
+
+enum SshHandshakesFilterFields {
+  """
+  Source IP.
+  """
+  initiator_ip
+  """
+  Target IP.
+  """
+  target_ip
+  """
+  Source port.
+  """
+  initiator_port
+  """
+  Target port.
+  """
+  target_port
+  """
+  Timestamp.
+  """
+  timestamp
+}
+
+enum SshHandshakesSorterFields {
+  """
+  Unique id property.
+  """
+  id
+  """
+  Source IP.
+  """
+  initiator_ip
+  """
+  Target IP.
+  """
+  target_ip
+  """
+  Source port.
+  """
+  initiator_port
+  """
+  Target port.
+  """
+  target_port
+  """
+  Timestamp.
+  """
+  timestamp
+}
+
+"""
+An enumeration.
+"""
+enum State {
+  PENDING
+  PROGRESS
+  DONE
+  FAILED
+}
+
+"""
+TLS handshake status
+"""
+enum TlsHandshakeStatus {
+  SUCCESS
+  INCOMPLETE
+}
+
+"""
+Handshake TLS version
+"""
+enum TlsVersion {
+  TLS13
+  TLS12
+  TLS11
+  TLS10
+  SSL30
+  UNKNOWN
+}
+
+"""
+An enumeration.
+"""
+enum TraceType {
+  JAVA
+  EVP
+  LIBSSL
+  PKCS11_FUZZING
+  PKCS11_USAGE
+  DOTNET
+  HOST_SCANNER
+  NETWORK
+  PYTHON
+}
+
+enum TracesFilterFields {
+  """
+  Report name, unique value per project.
+  """
+  name
+  """
+  Creation date of the report.
+  """
+  createdAt
+  """
+  Trace type. Filterable by EQ, NEQ
+  """
+  traceType
+}
+
+"""
+An enumeration.
+"""
+enum UserLevel {
+  ADMIN
+  ANALYST
+  TESTER
+}
+
+enum UsersFilterFields {
+  """
+  User name, unique value per organization. Filterable by EQ, GE, GT, LE, LT, NEQ, CONTAINS.
+  """
+  name
+  """
+  User preferred name. Filterable by EQ, GE, GT, LE, LT, NEQ, CONTAINS.
+  """
+  preferredName
+  """
+  User permission level. Filterable by CONTAINS, EQ, NEQ: CONTAINS checks if any of the levels
+  matches. EQ checks if level is present. NEQ checks level is not present.
+  """
+  level
+  """
+  User role. Filterable by CONTAINS. Matches users having at least all the provided roles.
+  """
+  role
+  """
+  Account type. Filterable by EQ.
+  """
+  origin
+}
+
+enum UsersSorterFields {
+  """
+  Unique ID property.
+  """
+  id
+  """
+  User level.
+  """
+  level
+  """
+  User name.
+  """
+  name
+  """
+  User preferred name.
+  """
+  preferredName
+  """
+  Account type.
+  """
+  origin
+  """
+  Whether the requesting user is the currently logged in user.
+  """
+  current
+}
+
+"""
+The BigInt scalar type represents non-fractional whole numeric values. BigInt is not constrained to
+32-bit like the Int type and thus is a less compatible type.
+"""
+scalar BigInt
+
+"""
+The DateTime scalar type represents a DateTime value as specified by iso8601 .
+"""
+scalar DateTime
+
+"""
+Allows use of a JSON String for input / output from the GraphQL schema. Use of this type is not
+recommended as you lose the benefits of having a defined, static schema (one of the key benefits of
+GraphQL).
+"""
+scalar JSONString
+
+union Integration = CrowdStrikeIntegration | JiraIntegration | JiraIssueCollectorIntegration | ServiceNowIntegration | TaniumIntegration | VenafiIntegration
+
+schema {
+  query: Query
+  mutation: Mutation
+}

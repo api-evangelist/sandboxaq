@@ -1,0 +1,162 @@
+// Copyright (c) SandboxAQ. All rights reserved.
+// SPDX-License-Identifier: AGPL-3.0-only
+
+syntax = "proto3";
+
+package saq.sandwich.proto.api.v1;
+
+option go_package = "github.com/sandbox-quantum/sandwich/go/proto/sandwich/api/v1";
+
+import "proto/api/v1/certificate.proto";
+import "proto/api/v1/compliance.proto";
+import "proto/api/v1/private_key.proto";
+import "proto/api/v1/verifiers.proto";
+
+// An X.509 identity.
+//
+// It consists of a [certificate](Certificate.md) and its associated
+// [private key](PrivateKey.md).
+message X509Identity {
+  // A certificate or a chain of certificates.
+  //
+  // The leaf certificate is expected to be the first one if the value points
+  // to a chain of certificates.
+  //
+  // See also [Certificate](Certificate.md).
+  Certificate certificate = 1;
+
+  // The private key.
+  //
+  // See also [PrivateKey](PrivateKey.md).
+  PrivateKey private_key = 2;
+
+  // Next id: 3
+}
+
+// A configuration to constrain ciphersuite for TLS version 1.2.
+message TLSv12Config {
+  // Sets TLS 1.2 ciphersuite.
+  //
+  // Ciphersuites must follow IANA names.
+  //
+  // If ciphersuite is **not** set, the default ciphersuites listed here are
+  // used in preference order: | Default 256 bits security ciphersuites        |
+  // |-----------------------------------------------|
+  // | TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384       |
+  // | TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 |
+  // | TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384         |
+  // | TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256   |
+  // | TLS_RSA_WITH_AES_256_GCM_SHA384               |
+  //
+  // | Default 128 bits security ciphersuites        |
+  // |-----------------------------------------------|
+  // | TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256       |
+  // | TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256         |
+  // | TLS_RSA_WITH_AES_128_GCM_SHA256               |
+  repeated string ciphersuite = 1;
+
+  // Next id: 2
+}
+
+// A configuration to constrain [Compliance](Compliance.md), KEX algorithms and
+// ciphersuite for TLS version 1.3.
+message TLSv13Config {
+  // Constraints applied on the choice of algorithms in the configuration.
+  //
+  // See [Compliance](Compliance.md).
+  Compliance compliance = 1;
+
+  // The key establishment algorithm (KE) to enforce.
+  //
+  // If the remote peer does not support at least one KE algorithm specified
+  // in this list, the handshake will fail.
+  // The order of algorithm in KE is in preference order.
+  repeated string ke = 2;
+
+  // Sets TLS 1.3 ciphersuite.
+  //
+  // Ciphersuite name must follow IANA name.
+  //
+  // Does not apply to BoringSSL.
+  // See
+  // https://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#Cipher-suite-configuration
+  //
+  // See [RFC 8447 Appendix
+  // B.4](https://datatracker.ietf.org/doc/html/rfc8446#appendix-B.4) for the
+  // list of supported cipher suites in TLS 1.3.
+  //
+  // If ciphersuite is **not** set, the default ciphersuites listed here are
+  // used in preference order: | Default 256 bits security ciphersuites |
+  // |----------------------------------------|
+  // | TLS_CHACHA20_POLY1305_SHA256           |
+  // | TLS_AES_256_GCM_SHA384                 |
+  //
+  // | Default 128 bits security ciphersuites |
+  // |----------------------------------------|
+  // | TLS_AES_128_GCM_SHA256                 |
+  repeated string ciphersuite = 3;
+
+  // Next id: 4
+}
+
+// TLS options, for both client and server modes.
+message TLSOptions {
+  // TLS 1.2 configuration.
+  //
+  // TLS 1.2 will be disabled if this field is not set.
+  // See [`TLSv12Config`](TLSv12Config.md).
+  TLSv12Config tls12 = 7;
+
+  // TLS 1.3 configuration.
+  //
+  // TLS 1.3 will be disabled if this field is not set.
+  // See [`TLSv13Config`](TLSv13Config.md).
+  TLSv13Config tls13 = 8;
+
+  // The verifier configuration to verify the remote peer.
+  oneof peer_verifier {
+    // Use an X.509 verifier.
+    //
+    // See [X509Verifier](X509Verifier.md).
+    X509Verifier x509_verifier = 3;
+
+    // Use an empty verifier.
+    //
+    // > **Warning**: when used in a context where a certificate
+    // is requested from the remote peer, such as a TLS client or in mTLS,
+    // no signature will be verified!
+    EmptyVerifier empty_verifier = 4;
+  }
+
+  // An identity.
+  //
+  // In server mode, the identity is used to perform the TLS handshake
+  // (the [private key](PrivateKey.md) is used to sign the transcript, and the
+  // [certificate](Certificate.md) is presented to clients).
+  //
+  // See [X509Identity](X509Identity.md).
+  X509Identity identity = 5;
+
+  // Application-Layer Protocol Negotiation.
+  //
+  // This list of strings specifies the different protocols to be negotiated.
+  repeated string alpn_protocols = 6;
+
+  // Next id: 9
+}
+
+// TLS options, specific to the client mode.
+message TLSClientOptions {
+  // Common TLS options.
+  //
+  // See [TLSOptions](TLSOptions.md).
+  TLSOptions common_options = 1;
+}
+
+// TLS options, specific to the server mode.
+message TLSServerOptions {
+  // Common TLS options.
+  //
+  // See [TLSOptions](TLSOptions.md).
+  TLSOptions common_options = 1;
+}

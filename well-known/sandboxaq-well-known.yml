@@ -1,0 +1,73 @@
+generated: '2026-08-02'
+method: probed
+source: live GET probes of /.well-known/* on every SandboxAQ host in apis.yml
+description: 'RFC 8615 well-known discovery surface across every SandboxAQ host. One genuine document
+  was found — the A2A Agent Card on the Flint AI documentation host, plus the agent-skill document it
+  points at. Two hosts (app.flintai.dev and aqtiveguard.sandboxaq.com) are single-page applications
+  whose catch-all route answers HTTP 200 with an HTML shell for EVERY /.well-known/* path; those are
+  recorded as false positives, not as documents.'
+hosts:
+- host: docs.flintai.dev
+  documents:
+  - {path: /.well-known/agent-card.json, status: 200, content_type: application/json, file: ../a2a/sandboxaq-agent-card.json,
+    kind: A2A Agent Card}
+  - {path: /.well-known/agent-skills/flint/skill.md, status: 200, content_type: text/markdown, file: ../skills/sandboxaq-flint.md,
+    kind: Agent Skill, note: 'advertised by the agent card''s skills[0].url'}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: www.sandboxaq.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  note: 'Every /.well-known/* path returns a 404 page reading "Invalid .well-known request".'
+- host: flintai.dev
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+- host: docs.aisim.sandboxaq.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404}
+- host: app.flintai.dev
+  spa_catch_all: true
+  documents:
+  - {path: /.well-known/security.txt, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/openid-configuration, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/oauth-protected-resource, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/api-catalog, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, valid: false}
+  note: 'SPA catch-all — every path returns the Flint AI application HTML shell with HTTP 200. No
+    document exists at any of these paths.'
+- host: aqtiveguard.sandboxaq.com
+  spa_catch_all: true
+  documents:
+  - {path: /.well-known/security.txt, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/openid-configuration, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/oauth-authorization-server, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/oauth-protected-resource, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/api-catalog, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/ai-plugin.json, status: 200, content_type: text/html, valid: false}
+  - {path: /.well-known/agent-card.json, status: 200, content_type: text/html, valid: false}
+  note: 'SPA catch-all — every path (including /openapi.json, /swagger.json and /graphql over GET)
+    returns the AQtive Guard application HTML shell with HTTP 200. No document exists at any of these
+    paths. The real GraphQL endpoint is POST /api/v2.'
+summary:
+  real_documents: 2
+  security_txt: false
+  openid_configuration: false
+  oauth_authorization_server: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: true
+  false_positive_hosts: [app.flintai.dev, aqtiveguard.sandboxaq.com]

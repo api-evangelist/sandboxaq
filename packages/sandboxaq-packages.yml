@@ -1,0 +1,90 @@
+generated: '2026-08-02'
+method: searched
+source: 'PyPI + the sandbox-quantum and cryptosense GitHub organizations + docs.flintai.dev'
+description: 'First-party client libraries and command-line tools published by SandboxAQ. Registries
+  probed: PyPI, npm, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist, crates.io. Only PyPI carries
+  first-party SandboxAQ distributions today.'
+packages:
+- language: python
+  registry: pypi
+  name: flintai-cli
+  version_observed: 1.1.1
+  url: https://pypi.org/project/flintai-cli/
+  install: pip install flintai-cli
+  repository: https://github.com/sandbox-quantum/flintai-cli
+  summary: 'Command-line tool for evaluating agents, offering two features to assess agents via code
+    scanning (flintai scan, whitebox testing) and runtime evaluation (flintai eval, blackbox testing).'
+  official: true
+  product: Flint AI
+- language: python
+  registry: pypi
+  name: flintai-sdk-py
+  version_observed: 1.0.2
+  url: https://pypi.org/project/flintai-sdk-py/
+  install: pip install flintai-sdk-py
+  repository: https://github.com/sandbox-quantum/flintai-sdk-py
+  summary: Lightweight SDK for routing AI agent LLM traffic through the FlintAI guardrails proxy.
+  extras:
+  - {name: openai, install: 'pip install "flintai-sdk-py[openai]"'}
+  - {name: anthropic, install: 'pip install "flintai-sdk-py[anthropic]"'}
+  - {name: genai, install: 'pip install "flintai-sdk-py[genai]"'}
+  - {name: adk, install: 'pip install "flintai-sdk-py[adk]"'}
+  - {name: langchain, install: 'pip install "flintai-sdk-py[langchain]"'}
+  - {name: all, install: 'pip install "flintai-sdk-py[all]"'}
+  official: true
+  product: Flint AI
+- language: python
+  registry: pypi
+  name: pysandwich
+  version_observed: 0.1.0
+  url: https://pypi.org/project/pysandwich/
+  install: pip install pysandwich
+  repository: https://github.com/sandbox-quantum/sandwich
+  summary: Sandwich Python bindings — a unified API over multiple cryptographic libraries.
+  license: AGPL-3.0-only
+  official: true
+  product: Sandwich (open source)
+actions:
+- registry: github-actions
+  name: flintai-codescan-action
+  url: https://github.com/sandbox-quantum/flintai-codescan-action
+  summary: 'Flint AI (by SandboxAQ) GitHub Action to scan and evaluate your code for AI assets. Used by
+    the Flint AI Platform to discover agents in repositories.'
+  official: true
+  product: Flint AI
+source_libraries:
+- name: sandwich
+  language: rust
+  url: https://github.com/sandbox-quantum/sandwich
+  summary: 'Multi-platform, multi-language, open-source library providing a simple unified API for
+    developers to use (multiple) cryptographic libraries in their applications. Bindings for Rust, C,
+    Python and Go; protobuf definitions harvested to grpc/.'
+  official: true
+- name: api-client (cs-api)
+  language: ocaml
+  url: https://github.com/cryptosense/api-client
+  summary: 'Cryptosense Analyzer API client — the cs-api CLI that AQtive Guard documents for uploading
+    and analyzing traces. Cryptosense was acquired by SandboxAQ and became AQtive Guard.'
+  official: true
+  command_surface: cli/sandboxaq-cli.yml
+- name: trace-uploader
+  language: python
+  url: https://github.com/cryptosense/trace-uploader
+  summary: Python script to upload and analyze traces without any Python dependency.
+  official: true
+- name: Tangelo
+  language: python
+  url: https://github.com/sandbox-quantum/Tangelo
+  summary: Python package for exploring end-to-end chemistry workflows on quantum computers and simulators.
+  official: true
+  note: Research/scientific toolkit, not a client for any API in this repo.
+registries_probed:
+- {registry: pypi, result: 'hit — flintai-cli, flintai-sdk-py, pysandwich'}
+- {registry: npm, result: 'miss — no first-party @sandboxaq or flintai package found'}
+- {registry: maven-central, result: 'miss — the Java tracer is distributed from the AQtive Guard product,
+    not a public Maven coordinate'}
+- {registry: nuget, result: miss}
+- {registry: pkg.go.dev, result: 'miss — Sandwich Go bindings are consumed from the GitHub repository'}
+- {registry: rubygems, result: miss}
+- {registry: packagist, result: miss}
+- {registry: crates.io, result: 'miss — Sandwich is published from source, not crates.io'}

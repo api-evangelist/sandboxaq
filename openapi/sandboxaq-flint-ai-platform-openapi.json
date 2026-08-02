@@ -1,0 +1,6093 @@
+{
+  "components": {
+    "schemas": {
+      "api.ActivitySummary": {
+        "properties": {
+          "currentActiveScans": {
+            "type": "integer"
+          },
+          "errorCount": {
+            "type": "integer"
+          },
+          "totalErrorsInLast24Hours": {
+            "type": "integer"
+          },
+          "totalScansInLast24Hours": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "api.AispmDetailResponse": {
+        "properties": {
+          "burn_rate": {
+            "$ref": "#/components/schemas/cost.BurnRate"
+          },
+          "cost_history": {
+            "$ref": "#/components/schemas/cost.CostHistory"
+          },
+          "cost_per_session_history": {
+            "items": {
+              "$ref": "#/components/schemas/cost.PeriodCostPerSession"
+            },
+            "type": "array"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "header": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "input_guardrails": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "locations": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedLocationSection"
+          },
+          "mcp_servers": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "models": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "output_guardrails": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "sub_agents": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "tools": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "total_sampling": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "cursor",
+          "header",
+          "rows"
+        ],
+        "type": "object"
+      },
+      "api.AispmMcpServerDetailResponse": {
+        "properties": {
+          "agents": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "header": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "locations": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedLocationSection"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "total_sampling": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "cursor",
+          "header",
+          "rows"
+        ],
+        "type": "object"
+      },
+      "api.AispmModelDetailResponse": {
+        "properties": {
+          "agents": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "header": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "locations": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedLocationSection"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "total_sampling": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "cursor",
+          "header",
+          "rows"
+        ],
+        "type": "object"
+      },
+      "api.AispmToolDetailResponse": {
+        "properties": {
+          "agents": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "cursor": {
+            "type": "string"
+          },
+          "header": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "issues": {
+            "$ref": "#/components/schemas/engine_output.EngineDataPage"
+          },
+          "locations": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedLocationSection"
+          },
+          "mcp_servers": {
+            "$ref": "#/components/schemas/engine_output.EmbeddedSection"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "total_sampling": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "cursor",
+          "header",
+          "rows"
+        ],
+        "type": "object"
+      },
+      "api.ExportStatusType": {
+        "enum": [
+          "completed",
+          "failed",
+          "running",
+          "retry_pending",
+          "scheduled"
+        ],
+        "type": "string",
+        "x-enum-varnames": [
+          "Completed",
+          "Failed",
+          "Running",
+          "RetryPending",
+          "Scheduled"
+        ]
+      },
+      "api.FiltersDescription": {
+        "properties": {
+          "filters": {
+            "$ref": "#/components/schemas/api.UserFilter"
+          }
+        },
+        "type": "object"
+      },
+      "api.IncludeExclude": {
+        "properties": {
+          "exclude": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "include": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "api.IssuesHistogram": {
+        "properties": {
+          "counts": {
+            "items": {
+              "properties": {
+                "critical": {
+                  "type": "integer"
+                },
+                "high": {
+                  "type": "integer"
+                },
+                "other": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "api.IssuesHistogramResponse": {
+        "properties": {
+          "issues_histogram": {
+            "$ref": "#/components/schemas/api.IssuesHistogram"
+          }
+        },
+        "type": "object"
+      },
+      "api.RemoteLoggingConfig": {
+        "properties": {
+          "api_key": {
+            "type": "string"
+          },
+          "level": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "api.ScheduledViewExportDescriptionType": {
+        "properties": {
+          "export_path": {
+            "type": "string"
+          },
+          "export_status": {
+            "$ref": "#/components/schemas/api.ExportStatusType"
+          },
+          "export_workflow_id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "api.SensorConfiguration": {
+        "properties": {
+          "remote_logging": {
+            "$ref": "#/components/schemas/api.RemoteLoggingConfig"
+          }
+        },
+        "type": "object"
+      },
+      "api.SingleViewDescriptionType": {
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "entity": {
+            "type": "string"
+          },
+          "export_path": {
+            "type": "string"
+          },
+          "export_status": {
+            "$ref": "#/components/schemas/api.ExportStatusType"
+          },
+          "id": {
+            "type": "string"
+          },
+          "last_exported": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "saved_filters": {
+            "$ref": "#/components/schemas/api.UserFilter"
+          }
+        },
+        "type": "object"
+      },
+      "api.UserFilter": {
+        "properties": {
+          "application": {
+            "$ref": "#/components/schemas/api.IncludeExclude"
+          },
+          "distribution": {
+            "$ref": "#/components/schemas/api.IncludeExclude"
+          },
+          "known": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/api.IncludeExclude"
+              }
+            ],
+            "description": "Enrichments"
+          },
+          "lastSeen": {
+            "description": "formatted as eg 2006-01-02T15:04:05",
+            "type": "string"
+          },
+          "package": {
+            "$ref": "#/components/schemas/api.IncludeExclude"
+          },
+          "path": {
+            "$ref": "#/components/schemas/api.IncludeExclude"
+          },
+          "profiles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "severities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "showExcluded": {
+            "type": "boolean"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "tags": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "api.aispmDashboardType": {
+        "properties": {
+          "aispm_objects_counts": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.AispmObjectsCounts"
+            },
+            "type": "array"
+          },
+          "aispm_objects_top_issues": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.AispmObjectsTopIssue"
+            },
+            "type": "array"
+          },
+          "aispm_top_at_risk_agents": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.AispmTopObjectAtRisk"
+            },
+            "type": "array"
+          },
+          "aispm_top_at_risk_mcp_servers": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.AispmTopObjectAtRisk"
+            },
+            "type": "array"
+          },
+          "aispm_top_at_risk_models": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.AispmTopObjectAtRisk"
+            },
+            "type": "array"
+          },
+          "issues_histogram": {
+            "$ref": "#/components/schemas/api.IssuesHistogram"
+          },
+          "scans_counts": {
+            "$ref": "#/components/schemas/engine_output.AispmScansCounts"
+          }
+        },
+        "type": "object"
+      },
+      "api.clientStorageEntry": {
+        "properties": {
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          },
+          "value": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "api.clientStoragePutRequest": {
+        "properties": {
+          "value": {
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "api.dashboardType": {
+        "properties": {
+          "apps_scanned": {
+            "type": "integer"
+          },
+          "apps_scanned_last_week": {
+            "type": "integer"
+          },
+          "certificate_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object"
+          },
+          "endpoints_scanned": {
+            "type": "integer"
+          },
+          "endpoints_scanned_last_week": {
+            "type": "integer"
+          },
+          "files_scanned": {
+            "type": "integer"
+          },
+          "files_scanned_last_week": {
+            "type": "integer"
+          },
+          "images_scanned": {
+            "type": "integer"
+          },
+          "images_scanned_last_week": {
+            "type": "integer"
+          },
+          "key_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object"
+          },
+          "networks_scanned": {
+            "type": "integer"
+          },
+          "networks_scanned_last_week": {
+            "type": "integer"
+          },
+          "newest_session": {
+            "type": "string"
+          },
+          "oldest_session": {
+            "type": "string"
+          },
+          "operation_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "api.deleteViewDescriptionType": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "api.viewExportDescriptionType": {
+        "properties": {
+          "export_date": {
+            "type": "string"
+          },
+          "export_path": {
+            "type": "string"
+          },
+          "export_status": {
+            "$ref": "#/components/schemas/api.ExportStatusType"
+          },
+          "id": {
+            "type": "string"
+          },
+          "view_id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "api.viewExportItemsPageType": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/api.viewExportDescriptionType"
+            },
+            "type": "array"
+          },
+          "page_hrefs": {
+            "properties": {
+              "next": {
+                "type": "string"
+              },
+              "prev": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "api.viewsItemsPageType": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/api.SingleViewDescriptionType"
+            },
+            "type": "array"
+          },
+          "page_hrefs": {
+            "properties": {
+              "next": {
+                "type": "string"
+              },
+              "prev": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "common.RequestError": {
+        "description": "Error responses returned by the API",
+        "properties": {
+          "code": {
+            "example": 400,
+            "type": "integer"
+          },
+          "message": {
+            "example": "Invalid request",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "type": "object"
+      },
+      "cost.BurnRate": {
+        "properties": {
+          "daily_spend_rate": {
+            "type": "number"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "cost.CostHistory": {
+        "properties": {
+          "current_month": {
+            "type": "number"
+          },
+          "current_quarter": {
+            "type": "number"
+          },
+          "monthly": {
+            "items": {
+              "$ref": "#/components/schemas/cost.PeriodCost"
+            },
+            "type": "array"
+          },
+          "ytd": {
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "cost.PeriodCost": {
+        "properties": {
+          "cost": {
+            "type": "number"
+          },
+          "period": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "cost.PeriodCostPerSession": {
+        "properties": {
+          "cost_per_session": {
+            "type": "number"
+          },
+          "period": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmGuardrailCategoriesResponse": {
+        "properties": {
+          "categories": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.AispmGuardrailCategoryCount"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmGuardrailCategoryCount": {
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmGuardrailInteractionCountsResponse": {
+        "properties": {
+          "alerted": {
+            "type": "integer"
+          },
+          "blocked": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "integer"
+          },
+          "redacted": {
+            "type": "integer"
+          },
+          "results": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionsBucket"
+            },
+            "type": "object"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmGuardrailInteractionsBucket": {
+        "properties": {
+          "alerted": {
+            "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry"
+          },
+          "blocked": {
+            "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry"
+          },
+          "ok": {
+            "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry"
+          },
+          "redacted": {
+            "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry"
+          },
+          "total": {
+            "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmGuardrailInteractionsBucketEntry": {
+        "properties": {
+          "count": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmGuardrailOutcomesResponse": {
+        "properties": {
+          "alerted": {
+            "type": "integer"
+          },
+          "blocked": {
+            "type": "integer"
+          },
+          "ok": {
+            "type": "integer"
+          },
+          "redacted": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmObjectsCounts": {
+        "properties": {
+          "critical_issues_count": {
+            "type": "integer"
+          },
+          "high_issues_count": {
+            "type": "integer"
+          },
+          "object_type": {
+            "type": "string"
+          },
+          "total_inventory_count": {
+            "type": "integer"
+          },
+          "total_issues_count": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmObjectsTopIssue": {
+        "properties": {
+          "critical_element_count": {
+            "type": "integer"
+          },
+          "definitive_severity": {
+            "type": "string"
+          },
+          "high_element_count": {
+            "type": "integer"
+          },
+          "issue_id": {
+            "type": "string"
+          },
+          "rule_description": {
+            "description": "To be filled in after fetching",
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "rule_name": {
+            "description": "To be filled in after fetching",
+            "type": "string"
+          },
+          "total_priority_affected_elements": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmScansCounts": {
+        "properties": {
+          "percent_scans_with_ai_objects": {
+            "type": "number"
+          },
+          "scans_with_ai_objects_count": {
+            "type": "integer"
+          },
+          "total_current_aispm_scans": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.AispmTopObjectAtRisk": {
+        "properties": {
+          "aispm_friendly_name": {
+            "type": "string"
+          },
+          "aispm_object_id": {
+            "type": "string"
+          },
+          "critical_count": {
+            "type": "integer"
+          },
+          "high_count": {
+            "type": "integer"
+          },
+          "total_critical_high_occurrences": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.CountResult": {
+        "properties": {
+          "totalValues": {
+            "type": "integer"
+          },
+          "values": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.TagRowCount"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.CountResults": {
+        "properties": {
+          "counts": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/engine_output.CountResult"
+            },
+            "type": "object"
+          },
+          "totalEnriched": {
+            "type": "integer"
+          },
+          "totalFiltered": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.EmbeddedItem": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.EmbeddedLocationItem": {
+        "properties": {
+          "codeLocation": {
+            "type": "object"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.EmbeddedLocationSection": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.EmbeddedLocationItem"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.EmbeddedSection": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.EmbeddedItem"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.EngineDataPage": {
+        "properties": {
+          "cursor": {
+            "type": "string"
+          },
+          "header": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rows": {
+            "items": {
+              "items": {},
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "total_sampling": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "cursor",
+          "header",
+          "rows"
+        ],
+        "type": "object"
+      },
+      "engine_output.Link": {
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.Node": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.RuleInfo": {
+        "properties": {
+          "object_types": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rule_description": {
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "rule_name": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.SankeyResponse": {
+        "properties": {
+          "cursor": {
+            "type": "string"
+          },
+          "links": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.Link"
+            },
+            "type": "array"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/engine_output.Node"
+            },
+            "type": "array"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "engine_output.TagRowCount": {
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "settings.SettingsDescriptionType": {
+        "properties": {
+          "is_organization_key": {
+            "description": "If true, then it belongs to the organization level, and we validate it as such",
+            "type": "boolean"
+          },
+          "key": {
+            "type": "string"
+          },
+          "last_edited": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "description": "Use this header with a Bearer token to authenticate requests.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "contact": {},
+    "description": "Flint AI Platform API",
+    "license": {
+      "name": "Flint AI",
+      "url": "https://www.sandboxaq.com/legal/eula"
+    },
+    "title": "Flint AI Platform API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/aispm-agents/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all AI-SPM agents for a tenant workspace, ordered by last_seen descending",
+        "operationId": "GetAllAispmAgents",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all AI-SPM agents",
+        "tags": [
+          "aispm-agents"
+        ]
+      }
+    },
+    "/aispm-agents/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Get AI-SPM agent by ID with embedded models, MCP servers, tools, sub-agents, guardrails, and locations",
+        "operationId": "GetAispmAgentDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "AISPM agent Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.AispmDetailResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single AI-SPM agent",
+        "tags": [
+          "aispm-agents"
+        ]
+      }
+    },
+    "/aispm-agents/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}": {
+      "get": {
+        "description": "Get all 'edges' associated with an AISPM Agent. An 'edge' is a type of object that is related to an AISPM Agent.",
+        "operationId": "GetAISPMAgentEdges",
+        "parameters": [
+          {
+            "description": "AISPM agent Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Edge type",
+            "in": "path",
+            "name": "edge",
+            "required": true,
+            "schema": {
+              "enum": [
+                "assets",
+                "sessions",
+                "instances",
+                "issues",
+                "locations",
+                "aispm_tools",
+                "aispm_input_guardrails",
+                "aispm_output_guardrails",
+                "aispm_agent_dependencies",
+                "aispm_model_dependencies",
+                "aispm_mcp_server_dependencies"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve inventory"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all objects associated with an AISPM Agent",
+        "tags": [
+          "aispm-agents"
+        ]
+      }
+    },
+    "/aispm-dashboard": {
+      "get": {
+        "description": "Get summary data from AISPM Dashboard",
+        "operationId": "GetSummaryAispmDashboard",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.aispmDashboardType"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get AISPM Dashboard summary info",
+        "tags": [
+          "aispm-dashboard"
+        ]
+      }
+    },
+    "/aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/categories": {
+      "get": {
+        "description": "Returns counts per guardrail category from BLOCKED or REDACTED prompt and response guardrail results in a time range",
+        "operationId": "GetAispmGuardrailCategories",
+        "parameters": [
+          {
+            "description": "Beginning of time window (inclusive) in RFC3339 format",
+            "in": "query",
+            "name": "start_time",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "End of time window (inclusive) in RFC3339 format",
+            "in": "query",
+            "name": "end_time",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.AispmGuardrailCategoriesResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get AISPM guardrail category counts",
+        "tags": [
+          "aispm-guardrails"
+        ]
+      }
+    },
+    "/aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/counts": {
+      "get": {
+        "description": "Returns total counts and hourly bucketed results for LLM interactions in a time range, categorized by guardrail outcome (OK, BLOCKED, REDACTED)",
+        "operationId": "GetAispmGuardrailInteractionCounts",
+        "parameters": [
+          {
+            "description": "Beginning of time window (inclusive) in RFC3339 format",
+            "in": "query",
+            "name": "start_time",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "End of time window (inclusive) in RFC3339 format",
+            "in": "query",
+            "name": "end_time",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.AispmGuardrailInteractionCountsResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get AISPM guardrail interaction counts bucketed by hour",
+        "tags": [
+          "aispm-guardrails"
+        ]
+      }
+    },
+    "/aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/outcomes": {
+      "get": {
+        "description": "Returns aggregate totals of OK, BLOCKED, and REDACTED guardrail outcomes for LLM interactions in a time range",
+        "operationId": "GetAispmGuardrailOutcomes",
+        "parameters": [
+          {
+            "description": "Beginning of time window (inclusive) in RFC3339 format",
+            "in": "query",
+            "name": "start_time",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "End of time window (inclusive) in RFC3339 format",
+            "in": "query",
+            "name": "end_time",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.AispmGuardrailOutcomesResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get AISPM guardrail outcome totals",
+        "tags": [
+          "aispm-guardrails"
+        ]
+      }
+    },
+    "/aispm-llm-interactions/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all AI-SPM LLM interactions for a tenant workspace, ordered by interaction_time descending",
+        "operationId": "GetAllAispmLlmInteractions",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all AI-SPM LLM interactions",
+        "tags": [
+          "aispm-llm-interactions"
+        ]
+      }
+    },
+    "/aispm-llm-interactions/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Get AI-SPM LLM interaction by ID",
+        "operationId": "GetAispmLlmInteractionDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "AISPM LLM interaction Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single AI-SPM LLM interaction",
+        "tags": [
+          "aispm-llm-interactions"
+        ]
+      }
+    },
+    "/aispm-llm-sessions/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "Returns paginated LLM sessions aggregated by session_id with tokens, cost, turns, duration, and guardrail results",
+        "operationId": "GetAispmLlmSessions",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Agent ID to filter sessions",
+            "in": "query",
+            "name": "agent_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Column to sort by (session_id, time, tokens, cost, turns, duration_ms)",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort direction: asc or desc",
+            "in": "query",
+            "name": "sort_dir",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Pagination cursor from previous response",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Number of results per page (default 10, max 10000)",
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List LLM sessions grouped by session_id for an agent",
+        "tags": [
+          "aispm-llm-sessions"
+        ]
+      }
+    },
+    "/aispm-mcp-servers/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all AI-SPM MCP servers for a tenant workspace, ordered by last_seen descending",
+        "operationId": "GetAllAispmMcpServers",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all AI-SPM MCP servers",
+        "tags": [
+          "aispm-mcp-servers"
+        ]
+      }
+    },
+    "/aispm-mcp-servers/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Get AI-SPM MCP server by ID with embedded agents and locations",
+        "operationId": "GetAispmMcpServerDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "AISPM MCP server Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.AispmMcpServerDetailResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single AI-SPM MCP server",
+        "tags": [
+          "aispm-mcp-servers"
+        ]
+      }
+    },
+    "/aispm-mcp-servers/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}": {
+      "get": {
+        "description": "Get all 'edges' associated with an AISPM MCP Server. An 'edge' is a type of object that is related to an AISPM MCP Server.",
+        "operationId": "GetAISPMMcpServerEdges",
+        "parameters": [
+          {
+            "description": "AISPM MCP server Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Edge type",
+            "in": "path",
+            "name": "edge",
+            "required": true,
+            "schema": {
+              "enum": [
+                "assets",
+                "sessions",
+                "instances",
+                "issues",
+                "locations",
+                "aispm_tools",
+                "aispm_mcp_prompts",
+                "aispm_mcp_resources"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve inventory"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all objects associated with an AISPM MCP Server",
+        "tags": [
+          "aispm-mcp-servers"
+        ]
+      }
+    },
+    "/aispm-models/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all AI-SPM models for a tenant workspace, ordered by last_seen descending",
+        "operationId": "GetAllAispmModels",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all AI-SPM models",
+        "tags": [
+          "aispm-models"
+        ]
+      }
+    },
+    "/aispm-models/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Get AI-SPM model by ID with embedded agents and locations",
+        "operationId": "GetAispmModelDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "AISPM model Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.AispmModelDetailResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single AI-SPM model",
+        "tags": [
+          "aispm-models"
+        ]
+      }
+    },
+    "/aispm-models/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}": {
+      "get": {
+        "description": "Get all 'edges' associated with an AISPM Model. An 'edge' is a type of object that is related to an AISPM Model.",
+        "operationId": "GetAISPMModelEdges",
+        "parameters": [
+          {
+            "description": "AISPM model Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Edge type",
+            "in": "path",
+            "name": "edge",
+            "required": true,
+            "schema": {
+              "enum": [
+                "assets",
+                "sessions",
+                "instances",
+                "issues",
+                "locations",
+                "garak-info"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve inventory"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all objects associated with an AISPM Model",
+        "tags": [
+          "aispm-models"
+        ]
+      }
+    },
+    "/aispm-tools/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all AI-SPM tools for a tenant workspace, ordered by last_seen descending",
+        "operationId": "GetAllAispmTools",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all AI-SPM tools",
+        "tags": [
+          "aispm-tools"
+        ]
+      }
+    },
+    "/aispm-tools/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Get AI-SPM tool by ID with embedded agents, MCP servers, issues, and locations",
+        "operationId": "GetAispmToolDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "AISPM tool Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.AispmToolDetailResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single AI-SPM tool",
+        "tags": [
+          "aispm-tools"
+        ]
+      }
+    },
+    "/aispm-tools/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}": {
+      "get": {
+        "description": "Get all 'edges' associated with an AISPM Tool. An 'edge' is a type of object that is related to an AISPM Tool.",
+        "operationId": "GetAISPMToolEdges",
+        "parameters": [
+          {
+            "description": "AISPM tool Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Edge type",
+            "in": "path",
+            "name": "edge",
+            "required": true,
+            "schema": {
+              "enum": [
+                "agents",
+                "mcp_servers",
+                "issues",
+                "locations"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve inventory"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all objects associated with an AISPM Tool",
+        "tags": [
+          "aispm-tools"
+        ]
+      }
+    },
+    "/assets/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all assets for a tenant workspace",
+        "operationId": "GetAllAssets",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all assets",
+        "tags": [
+          "assets"
+        ]
+      }
+    },
+    "/assets/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Get asset by ID",
+        "operationId": "GetAssetDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Asset Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single asset",
+        "tags": [
+          "assets"
+        ]
+      }
+    },
+    "/assets/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}": {
+      "get": {
+        "description": "Get all 'edges' associated with a Asset. An 'edge' is a type of cryptographic object that is related to a Asset.",
+        "operationId": "GetAssetEdges",
+        "parameters": [
+          {
+            "description": "Asset Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Edge type",
+            "in": "path",
+            "name": "edge",
+            "required": true,
+            "schema": {
+              "enum": [
+                "certs",
+                "keys",
+                "sessions",
+                "operations",
+                "qualys-secrets",
+                "tls-configs",
+                "secrets",
+                "aispm_models",
+                "aispm_agents",
+                "aispm_mcp_servers",
+                "assets"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve inventory"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all cryptographic objects associated with a Asset",
+        "tags": [
+          "assets"
+        ]
+      }
+    },
+    "/client-storage/tenants/{tenant_id}/users/{client_id}/{namespace}/{key}": {
+      "delete": {
+        "description": "Delete an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token.",
+        "operationId": "DeleteClientStorageTenantUser",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete tenant+user-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "get": {
+        "description": "Retrieve an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token.",
+        "operationId": "GetClientStorageTenantUser",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.clientStorageEntry"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get tenant+user-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "put": {
+        "description": "Upsert an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token.",
+        "operationId": "PutClientStorageTenantUser",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.clientStoragePutRequest"
+              }
+            }
+          },
+          "description": "Value to store",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create or update tenant+user-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      }
+    },
+    "/client-storage/tenants/{tenant_id}/workspaces/{workspace_id}/{client_id}/{namespace}/{key}": {
+      "delete": {
+        "description": "Delete an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key",
+        "operationId": "DeleteClientStorageTenantWorkspace",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete tenant+workspace-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "get": {
+        "description": "Retrieve an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key",
+        "operationId": "GetClientStorageTenantWorkspace",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.clientStorageEntry"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get tenant+workspace-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "put": {
+        "description": "Upsert an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key",
+        "operationId": "PutClientStorageTenantWorkspace",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.clientStoragePutRequest"
+              }
+            }
+          },
+          "description": "Value to store",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create or update tenant+workspace-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      }
+    },
+    "/client-storage/tenants/{tenant_id}/{client_id}/{namespace}/{key}": {
+      "delete": {
+        "description": "Delete an opaque key-value entry scoped to a tenant, client, namespace, and key",
+        "operationId": "DeleteClientStorageTenant",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete tenant-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "get": {
+        "description": "Retrieve an opaque key-value entry scoped to a tenant, client, namespace, and key",
+        "operationId": "GetClientStorageTenant",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.clientStorageEntry"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get tenant-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "put": {
+        "description": "Upsert an opaque key-value entry scoped to a tenant, client, namespace, and key",
+        "operationId": "PutClientStorageTenant",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.clientStoragePutRequest"
+              }
+            }
+          },
+          "description": "Value to store",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create or update tenant-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      }
+    },
+    "/client-storage/users/{client_id}/{namespace}/{key}": {
+      "delete": {
+        "description": "Delete an opaque key-value entry scoped to the authenticated user. User ID is derived from the auth token.",
+        "operationId": "DeleteClientStorageUser",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Delete user-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "get": {
+        "description": "Retrieve an opaque key-value entry scoped to the authenticated user (no tenant association). User ID is derived from the auth token.",
+        "operationId": "GetClientStorageUser",
+        "parameters": [
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.clientStorageEntry"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get user-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      },
+      "put": {
+        "description": "Upsert an opaque key-value entry scoped to the authenticated user. User ID is derived from the auth token.",
+        "operationId": "PutClientStorageUser",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "Client ID",
+            "in": "path",
+            "name": "client_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Namespace",
+            "in": "path",
+            "name": "namespace",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Key",
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/api.clientStoragePutRequest"
+              }
+            }
+          },
+          "description": "Value to store",
+          "required": true,
+          "x-originalParamName": "body"
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Create or update user-scoped client storage entry",
+        "tags": [
+          "client-storage"
+        ]
+      }
+    },
+    "/external-rules": {
+      "get": {
+        "description": "List externally-sourced rules with optional name filtering",
+        "operationId": "GetExternalRules",
+        "parameters": [
+          {
+            "description": "Filter by rule name (case-insensitive like)",
+            "in": "query",
+            "name": "name__ilk",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "List of external rules"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List external rules",
+        "tags": [
+          "rules"
+        ]
+      }
+    },
+    "/histograms/aispm": {
+      "get": {
+        "description": "Get time-series issues histogram data for AISPM related inventory objects",
+        "operationId": "GetHistogramsAispm",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.IssuesHistogramResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get the past 12 months of scan issue counts for AISPM related inventory objects",
+        "tags": [
+          "issues aispm histograms"
+        ]
+      }
+    },
+    "/instances/tenants/{tenant_id}/workspaces/{workspace_id}/{instanceId}": {
+      "get": {
+        "description": "Retrieve full details for a single instance by its ID, including rule metadata when available",
+        "operationId": "GetInstanceDetailsV2",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Instance ID",
+            "in": "path",
+            "name": "instanceId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Instance details"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get full details for a single instance",
+        "tags": [
+          "fine-issues"
+        ]
+      }
+    },
+    "/issues": {
+      "get": {
+        "description": "Get all issues",
+        "operationId": "GetAllIssues",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve issues"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all issues",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List issues grouped by rule_id and severity with filtering, sorting, and pagination",
+        "operationId": "GetIssuesIndex",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Comma-separated group-by columns (default: rule_id,severity)",
+            "in": "query",
+            "name": "group_by",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Sort expression (e.g. severity:asc)",
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page size",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Pagination cursor (offset)",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Paginated issues list"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List issues",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}": {
+      "get": {
+        "description": "Retrieve a single issue by its ID",
+        "operationId": "GetIssueSingle",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Issue ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Issue details"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get a single issue",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects": {
+      "get": {
+        "description": "List objects (e.g. assets, models) affected by a specific issue with pagination",
+        "operationId": "GetIssueObjects",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Issue ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page size",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Pagination cursor (offset)",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Paginated list of issue objects"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List objects for an issue",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details": {
+      "get": {
+        "description": "List instance-level details for a specific object within an issue, with pagination",
+        "operationId": "GetIssueObjectDetails",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Issue ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object ID",
+            "in": "path",
+            "name": "objectId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page size",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Pagination cursor (offset)",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Paginated list of instance details"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List details (instances) for an issue object",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details/{detailId}": {
+      "get": {
+        "description": "Retrieve a single instance record for a specific issue, object, and detail ID",
+        "operationId": "GetIssueObjectDetail",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Issue ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Object ID",
+            "in": "path",
+            "name": "objectId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Detail ID (instance ID)",
+            "in": "path",
+            "name": "detailId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Instance detail"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get a single issue object detail (instance)",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/{id}": {
+      "get": {
+        "description": "Get single issue",
+        "operationId": "GetIssueDetails",
+        "parameters": [
+          {
+            "description": "Issue Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "items": {},
+                    "type": "array"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve issues"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get single issue",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/issues/{id}/instances": {
+      "get": {
+        "description": "Get all issues",
+        "operationId": "GetIssueInstances",
+        "parameters": [
+          {
+            "description": "Issue Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve instances"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all instances associated with Issue",
+        "tags": [
+          "issues"
+        ]
+      }
+    },
+    "/locations/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all locations for a tenant workspace",
+        "operationId": "GetAllLocations",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all locations",
+        "tags": [
+          "locations"
+        ]
+      }
+    },
+    "/locations/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}": {
+      "get": {
+        "description": "Get all 'edges' associated with a Location. An 'edge' is a type of cryptographic object that is related to a Location.",
+        "operationId": "GetLocationEdges",
+        "parameters": [
+          {
+            "description": "Location Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Edge type",
+            "in": "path",
+            "name": "edge",
+            "required": true,
+            "schema": {
+              "enum": [
+                "certs",
+                "qualys-secrets",
+                "secrets"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to retrieve inventory"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all cryptographic objects associated with a Location",
+        "tags": [
+          "locations"
+        ]
+      }
+    },
+    "/rules/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "description": "List all rules (static + external) for a tenant workspace with optional filtering and pagination",
+        "operationId": "GetAllRules",
+        "parameters": [
+          {
+            "description": "Tenant ID",
+            "in": "path",
+            "name": "tenant_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Workspace ID",
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter by rule name (case-insensitive like)",
+            "in": "query",
+            "name": "name__ilk",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Page size",
+            "in": "query",
+            "name": "page_size",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Pagination cursor",
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Paginated list of rules"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List all rules for a workspace",
+        "tags": [
+          "rules"
+        ]
+      }
+    },
+    "/rules/tenants/{tenant_id}/workspaces/{workspace_id}/{rule_id}": {
+      "get": {
+        "description": "Get a single rule by its rule_id from the unified rules table (static + external)",
+        "operationId": "GetRule",
+        "parameters": [
+          {
+            "description": "Rule ID (e.g. SR-aispm_missing_input_guardrails)",
+            "in": "path",
+            "name": "rule_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.RuleInfo"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get a single rule by ID",
+        "tags": [
+          "rules"
+        ]
+      }
+    },
+    "/rules/{id}/results": {
+      "get": {
+        "description": "Get results from single rule",
+        "operationId": "GetRuleInstances",
+        "parameters": [
+          {
+            "description": "Rule Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get results from single rule",
+        "tags": [
+          "rules"
+        ]
+      }
+    },
+    "/scans/asset/{id}": {
+      "get": {
+        "description": "Get all scans (active or not) linked to the given asset",
+        "operationId": "GetAllScansForAsset",
+        "parameters": [
+          {
+            "description": "Asset Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all scans associated with an asset",
+        "tags": [
+          "scans assets"
+        ]
+      }
+    },
+    "/scans/tenants/{tenant_id}/workspaces/{workspace_id}/current": {
+      "get": {
+        "description": "Get all scans marked current for a specific sensor type",
+        "operationId": "GetAllCurrentScans",
+        "parameters": [
+          {
+            "description": "Sensor Type (at least one of sensorType or cicdType is required)",
+            "in": "query",
+            "name": "sensorType",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "CI/CD Type: CICD_TYPE_GITHUB_ACTION, CICD_TYPE_GITLAB_CI (at least one of sensorType or cicdType is required)",
+            "in": "query",
+            "name": "cicdType",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/engine_output.EngineDataPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all current scans for a sensor type",
+        "tags": [
+          "scans"
+        ]
+      }
+    },
+    "/sensors-used/tenants/{tenant_id}/workspaces/{workspace_id}": {
+      "get": {
+        "operationId": "GetSensorsUsed",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to fetch sensors used"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Get all sensor types that have ever been used",
+        "tags": [
+          "inventory"
+        ]
+      }
+    },
+    "/static-rules": {
+      "get": {
+        "description": "List built-in static rules with optional name filtering",
+        "operationId": "GetStaticRules",
+        "parameters": [
+          {
+            "description": "Filter by rule name (case-insensitive like)",
+            "in": "query",
+            "name": "name__ilk",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "List of static rules"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "List static rules",
+        "tags": [
+          "rules"
+        ]
+      }
+    },
+    "/views/{id}/export": {
+      "post": {
+        "operationId": "ExportView",
+        "x-mint": {
+          "metadata": {
+            "playground": "simple"
+          }
+        },
+        "parameters": [
+          {
+            "description": "View Id",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/api.ScheduledViewExportDescriptionType"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Bad request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/common.RequestError"
+                }
+              }
+            },
+            "description": "Failed to schedule the view export."
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "summary": "Schedule a View to be exported",
+        "tags": [
+          "viewExports"
+        ]
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Flint AI Platform (per-tenant instance)",
+      "url": "https://{instance}.flintai.dev/api/v1",
+      "variables": {
+        "instance": {
+          "default": "your-instance",
+          "description": "Your Flint AI instance subdomain"
+        }
+      }
+    }
+  ]
+}

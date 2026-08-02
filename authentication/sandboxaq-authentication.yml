@@ -1,0 +1,81 @@
+generated: '2026-08-02'
+method: searched
+source: openapi/sandboxaq-flint-ai-platform-openapi.json
+docs:
+  flint_ai: https://docs.flintai.dev/flintai/api-reference/index
+  aqtive_guard: https://aqtiveguard.sandboxaq.com/docs/api/api-client/manual/
+  mcp: https://docs.aisim.sandboxaq.com/mcp
+description: 'Authentication profile across all three SandboxAQ API surfaces. The OpenAPI-derived
+  baseline covered only the Flint AI Platform API; this file upgrades it with the AQtive Guard and MCP
+  schemes read from the provider''s own documentation and, for AQtive Guard, confirmed by a live probe.'
+summary:
+  types: [apiKey, oauth2]
+  api_key_in: [header]
+  oauth2_flows: [authorizationCode]
+  oauth2_flows_note: 'The MCP server is documented as OAuth-based with an interactive browser handshake;
+    the exact grant is not named in the docs and no authorization-server metadata document is served, so
+    authorizationCode is recorded as the observed shape, not as a provider claim.'
+schemes:
+- name: BearerAuth
+  surface: Flint AI Platform API
+  type: apiKey
+  in: header
+  parameter: Authorization
+  format: 'Bearer <token>'
+  description: Use this header with a Bearer token to authenticate requests.
+  issuance: Platform console, Settings > API Keys. The token is displayed once at creation.
+  applied: 'declared in components.securitySchemes but NOT applied by any root-level or operation-level
+    security requirement — yet all 55 operations declare a 401 Unauthorized response, so it is required
+    in practice.'
+  sources:
+  - openapi/sandboxaq-flint-ai-platform-openapi.json
+  - https://docs.flintai.dev/flintai/api-reference/index
+- name: API-KEY
+  surface: AQtive Guard API
+  type: apiKey
+  in: header
+  parameter: API-KEY
+  description: 'API key sent in a custom API-KEY header on every GraphQL request to
+    https://aqtiveguard.sandboxaq.com/api/v2.'
+  cli_flag: -k, --api-key <string>
+  cli_env: CRYPTOSENSE_API_KEY
+  evidence: 'Live probe — POST https://aqtiveguard.sandboxaq.com/api/v2 with an introspection query and
+    no header returned HTTP 400 {"errors":["You must supply an `API-KEY` header in your request"]}
+    (probed 2026-08-02).'
+  sources:
+  - https://aqtiveguard.sandboxaq.com/docs/api/api-client/manual/
+  - live probe of https://aqtiveguard.sandboxaq.com/api/v2
+- name: SandboxAQ MCP OAuth
+  surface: SandboxAQ MCP Server
+  type: oauth2
+  description: 'OAuth-based sign-in completed in the browser during the MCP client handshake. Supported
+    identities are a SandboxAQ email + password issued at sign-up, Google social login, or enterprise SSO
+    through the customer''s own identity provider (configured from the platform console).'
+  static_api_keys: false
+  static_api_keys_note: 'SandboxAQ explicitly states no API keys are issued or accepted for the MCP
+    server.'
+  handshake_note: 'In MCP clients, adding the server entry wires up the transport only — the OAuth
+    handshake is a separate step (e.g. /mcp then Authenticate in Claude Code). Skipping it presents as
+    Unauthorized errors or missing tools.'
+  discovery_documents:
+    oauth_authorization_server: not served (404 on every host probed)
+    oauth_protected_resource: not served (404 on every host probed)
+    openid_configuration: not served (404 on every host probed)
+  sources:
+  - https://docs.aisim.sandboxaq.com/mcp
+scopes:
+  published: false
+  note: 'No OAuth scope or permission reference is published for any surface, and the Flint AI OpenAPI
+    declares no oauth2 securityScheme — so this repo carries no scopes/ artifact. Access control on the
+    Flint AI Platform API is enforced by tenant + workspace path scoping and by what the token has access
+    to (403 Forbidden), not by scopes.'
+authorization_model:
+  flint_ai:
+    style: path-scoped multi-tenancy
+    parameters: [tenant_id, workspace_id]
+    denial: 403 Forbidden when the token is valid but lacks access to the named tenant or workspace
+  aqtive_guard:
+    style: 'role-based — the schema declares Role, UserLevel, Permission and Permissions types and a
+      viewer query returning the logged-in User'
+  mcp:
+    style: per-tenant server instance (https://mcp.{tenant}.aisim.sandboxaq.com)

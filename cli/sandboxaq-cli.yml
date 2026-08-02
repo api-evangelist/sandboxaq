@@ -1,0 +1,109 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.flintai.dev/flintai/cli/reference/commands
+description: 'SandboxAQ ships two first-party command-line tools across two products: flintai, the Flint
+  AI agent-security CLI (scan + eval), and cs-api, the AQtive Guard API client that wraps trace upload
+  and analysis. The binaries themselves are catalogued in packages/sandboxaq-packages.yml; this file is
+  their command surface.'
+clis:
+- name: flintai
+  product: Flint AI
+  package: flintai-cli
+  docs: https://docs.flintai.dev/flintai/cli/index
+  reference: https://docs.flintai.dev/flintai/cli/reference/commands
+  repository: https://github.com/sandbox-quantum/flintai-cli
+  changelog: https://docs.flintai.dev/flintai/cli/resources/changelog
+  requirements:
+  - Python 3.11 or later
+  - OpenGrep (required for Flint AI Scan)
+  - A running agent accessible over HTTP (required for Flint AI Eval)
+  install:
+  - method: pip
+    command: pip install flintai-cli
+  config_files:
+  - path: ~/.flintai/config.json
+    purpose: Eval models, evaluations and model-evaluation assignments
+  - path: ~/.flintai/.env
+    purpose: LLM provider API keys
+  global_options:
+  - {flag: --version, description: Print the installed version and exit}
+  commands:
+  - name: flintai init
+    description: 'Interactive setup — select an LLM provider (Gemini, OpenAI, Anthropic or LiteLLM),
+      choose a model and enter an API key. Creates ~/.flintai/.env and ~/.flintai/config.json.'
+  - name: flintai scan
+    description: 'AI-powered static security analysis of agent code (whitebox testing). Findings are
+      mapped to the OWASP Top 10 for Agentic Applications with CVSS severity scores.'
+    arguments:
+    - {name: path, required: true, description: Path to a file or folder to scan}
+    flags:
+    - {flag: --output/-o, default: 'scan_<timestamp>.<format>', description: Output file for results}
+    - {flag: --format/-f, default: json, values: [json, sarif], description: 'Output format; SARIF for
+        GitHub code scanning'}
+  - name: flintai eval
+    description: Runtime behavioural evaluation with adversarial prompts (blackbox testing). Scores 0-100%
+      mapped to the OWASP Top 10.
+    flags:
+    - {flag: --config, default: ~/.flintai/config.json, description: Path to the JSON config file}
+    - {flag: --log, default: 'flintai_<timestamp>.log', description: Log file path}
+    subcommands:
+    - {name: flintai eval models list, description: 'List configured models/agents (supports --tag)'}
+    - {name: flintai eval models show, description: Show details for a model by full ID or unique prefix}
+    - {name: flintai eval evaluations list, description: 'List all evaluations, builtin plus user
+        (supports --tag)'}
+    - {name: flintai eval evaluations show, description: Show evaluation details and connected models}
+    - {name: flintai eval model-evaluations list, description: List model-evaluation assignments}
+    - {name: flintai eval model-evaluations attach, description: 'Attach evaluations to models by ID or
+        by tag (--model, --eval, --model-tag, --eval-tag)'}
+    - {name: flintai eval model-evaluations detach, description: Remove assignments by ID or by tag}
+    - name: flintai eval run
+      description: Run evaluations for a model or a specific model-evaluation ID.
+      flags:
+      - {flag: model_evaluation_id, description: 'Optional positional; omit and select with --model or
+          tag filters instead'}
+      - {flag: --model, description: Run all evaluations assigned to this model ID}
+      - {flag: --output/-o, default: 'eval_<timestamp>.<format>'}
+      - {flag: --format/-f, default: json, values: [json, sarif]}
+      - {flag: --concurrency/-c, default: 20, description: Max concurrent evaluation tasks}
+      - {flag: --model-tag, description: Filter by model tag (repeatable)}
+      - {flag: --eval-tag, description: Filter by evaluation tag (repeatable)}
+  key_flows:
+  - name: Scan quickstart
+    steps: [pip install flintai-cli, flintai init, flintai scan /path/to/agent/code]
+    docs: https://docs.flintai.dev/flintai/cli/guides/scan-quickstart
+  - name: CI/CD integration
+    description: 'Emit SARIF (--format sarif) from scan or eval and upload to GitHub code scanning;
+      documented for GitHub Actions, GitLab CI and CircleCI.'
+    docs: https://docs.flintai.dev/flintai/cli/guides/ci-cd-integration
+  supported_agent_frameworks:
+  - Google ADK
+  - Google GenAI
+  - Anthropic
+  - OpenAI
+  - OpenAI Agents SDK
+  - LangGraph
+  - CrewAI
+  - AutoGen
+  - HuggingFace Transformers
+  - HuggingFace smolagents
+- name: cs-api
+  product: AQtive Guard
+  docs: https://aqtiveguard.sandboxaq.com/docs/api/api-client/
+  reference: https://aqtiveguard.sandboxaq.com/docs/api/api-client/manual/
+  installation: https://aqtiveguard.sandboxaq.com/docs/api/api-client/installation/
+  repository: https://github.com/cryptosense/api-client
+  description: CLI program that interfaces with AQtive Guard through its GraphQL API — uploads trace
+    files and runs analysis without hand-writing GraphQL.
+  authentication:
+    flag: -k, --api-key <string>
+    env: CRYPTOSENSE_API_KEY
+  commands:
+  - {name: cs-api --analyze, description: Upload and analyze traces}
+  - {name: list-profiles, description: Retrieve available profile IDs}
+  - {name: upload-trace, description: Upload trace files}
+  flags:
+  - {flag: -u, --api-base-url <url>, default: 'https://aqtiveguard.sandboxaq.com', description: 'API base
+      URL; change it for on-premise deployments'}
+  - {flag: --ca-file <path>, description: PEM certificate bundle for certificate validation}
+  - {flag: --no-check-certificate, description: Disable certificate checking}
+  proxy_support: http_proxy / https_proxy environment variables
