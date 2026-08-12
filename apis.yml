@@ -35,46 +35,16 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 apis:
-- aid: sandboxaq:flint-ai-platform-api
-  name: Flint AI Platform API
-  description: 'The Flint AI Platform API gives programmatic access to everything the Flint AI Platform
-    discovers about an organization''s AI estate: the agents found in code, the models, tools and MCP
-    servers they use, the assets and locations behind them, and the issues and rules that apply. The
-    inventory is modelled as a graph, and every entity exposes an edge endpoint so callers can traverse
-    from an agent to its models, or from a model back to the agents that call it. Authentication is a
-    bearer token created under Settings > API Keys; most paths are scoped to a tenant and a workspace.'
-  humanURL: https://docs.flintai.dev/flintai/api-reference/index
-  baseURL: https://your-instance.flintai.dev/api/v1
-  tags:
-  - AI Security
-  - Agents
-  - Inventory
-  - Governance
-  - Model Context Protocol
-  properties:
-  - type: OpenAPI
-    url: openapi/sandboxaq-flint-ai-platform-openapi.json
-  - type: Documentation
-    url: https://docs.flintai.dev/
-  - type: APIReference
-    url: https://docs.flintai.dev/flintai/api-reference/index
-  - type: Authentication
-    url: authentication/sandboxaq-authentication.yml
-  - type: Overlay
-    url: overlays/sandboxaq-flint-ai-platform-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/sandboxaq-problem-types.yml
-  - type: DataModel
-    url: data-model/sandboxaq-data-model.yml
 - aid: sandboxaq:aqtive-guard-api
   name: AQtive Guard API
-  description: 'AQtive Guard is SandboxAQ''s cryptography and non-human-identity management platform,
-    built on the Cryptosense analyzer it acquired. Its API is GraphQL, served at /api/v2 and authenticated
-    with an API-KEY header. The published schema covers projects, traces, analysis reports, cryptographic
-    instances, keys, certificates, ciphersuites, TLS and SSH handshakes, scans, rules, vulnerabilities and
-    slots, plus mutations for the Jira, ServiceNow, CrowdStrike, Tanium and Venafi integrations. Sensors
-    (Java, Python, .NET, OpenSSL and PKCS#11 tracers, filesystem and bytecode scanners, a network analyzer)
-    feed traces into it, and the cs-api CLI wraps the upload-and-analyze flow.'
+  description: >-
+    AQtive Guard is SandboxAQ's cryptography and non-human-identity management platform, built on the
+    Cryptosense analyzer it acquired. Its API is GraphQL, served at /api/v2 and authenticated with an
+    API-KEY header. The published schema covers projects, traces, analysis reports, cryptographic instances,
+    keys, certificates, ciphersuites, TLS and SSH handshakes, scans, rules, vulnerabilities and slots,
+    plus mutations for the Jira, ServiceNow, CrowdStrike, Tanium and Venafi integrations. Sensors (Java,
+    Python, .NET, OpenSSL and PKCS#11 tracers, filesystem and bytecode scanners, a network analyzer) feed
+    traces into it, and the cs-api CLI wraps the upload-and-analyze flow.
   humanURL: https://aqtiveguard.sandboxaq.com/docs/api/
   baseURL: https://aqtiveguard.sandboxaq.com/api/v2
   tags:
@@ -98,12 +68,13 @@ apis:
     url: cli/sandboxaq-cli.yml
 - aid: sandboxaq:mcp-server
   name: SandboxAQ MCP Server
-  description: 'A fully managed, per-tenant Model Context Protocol server that exposes SandboxAQ''s
-    proprietary scientific AI models as callable tools inside Claude and other MCP clients. It carries
-    the aqcat tool (dense adsorption energy screening powered by the AQCat25-EV2 machine-learning
-    potential) and the four AQPotency tools (single-pair potency prediction, library screening, panel
-    scanning and selectivity) built on a proteochemometric model. Transport is Streamable HTTP;
-    authentication is OAuth only — no static API keys are issued or accepted.'
+  description: >-
+    A fully managed, per-tenant Model Context Protocol server that exposes SandboxAQ's proprietary scientific
+    AI models as callable tools inside Claude and other MCP clients. It carries the aqcat tool (dense
+    adsorption energy screening powered by the AQCat25-EV2 machine-learning potential) and the four AQPotency
+    tools (single-pair potency prediction, library screening, panel scanning and selectivity) built on
+    a proteochemometric model. Transport is Streamable HTTP; authentication is OAuth only — no static
+    API keys are issued or accepted.
   humanURL: https://docs.aisim.sandboxaq.com/mcp
   baseURL: https://mcp.{tenant}.aisim.sandboxaq.com
   tags:
@@ -119,6 +90,388 @@ apis:
     url: mcp/sandboxaq-tool-crosswalk.yml
   - type: Documentation
     url: https://docs.aisim.sandboxaq.com/mcp
+- aid: sandboxaq:sandboxaq-aispm-agents-api
+  name: SandboxAQ Aispm Agents API
+  description: The aispm-agents API from SandboxAQ — 3 operation(s) for aispm-agents.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-agents
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-agents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-dashboard-api
+  name: SandboxAQ Aispm Dashboard API
+  description: The aispm-dashboard API from SandboxAQ — 1 operation(s) for aispm-dashboard.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-dashboard
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-dashboard-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-guardrails-api
+  name: SandboxAQ Aispm Guardrails API
+  description: The aispm-guardrails API from SandboxAQ — 3 operation(s) for aispm-guardrails.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-guardrails
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-guardrails-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-llm-interactions-api
+  name: SandboxAQ Aispm Llm Interactions API
+  description: >-
+    The aispm-llm-interactions API from SandboxAQ — 2 operation(s) for aispm-llm-interactions.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-llm-interactions
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-llm-interactions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-llm-sessions-api
+  name: SandboxAQ Aispm Llm Sessions API
+  description: The aispm-llm-sessions API from SandboxAQ — 1 operation(s) for aispm-llm-sessions.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-llm-sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-llm-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-mcp-servers-api
+  name: SandboxAQ Aispm MCP Servers API
+  description: The aispm-mcp-servers API from SandboxAQ — 3 operation(s) for aispm-mcp-servers.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-mcp-servers
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-mcp-servers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-models-api
+  name: SandboxAQ Aispm Models API
+  description: The aispm-models API from SandboxAQ — 3 operation(s) for aispm-models.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-models
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-models-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-aispm-tools-api
+  name: SandboxAQ Aispm Tools API
+  description: The aispm-tools API from SandboxAQ — 3 operation(s) for aispm-tools.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - aispm-tools
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-aispm-tools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-assets-api
+  name: SandboxAQ Assets API
+  description: The assets API from SandboxAQ — 3 operation(s) for assets.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - assets
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-client-storage-api
+  name: SandboxAQ Client Storage API
+  description: The client-storage API from SandboxAQ — 4 operation(s) for client-storage.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - client-storage
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-client-storage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-fine-issues-api
+  name: SandboxAQ Fine Issues API
+  description: The fine-issues API from SandboxAQ — 1 operation(s) for fine-issues.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - fine-issues
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-fine-issues-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-inventory-api
+  name: SandboxAQ Inventory API
+  description: The inventory API from SandboxAQ — 1 operation(s) for inventory.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - inventory
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-inventory-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-issues-aispm-histograms-api
+  name: SandboxAQ issues aispm histograms API
+  description: >-
+    The issues aispm histograms API from SandboxAQ — 1 operation(s) for issues aispm histograms.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - issues aispm histograms
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-issues-aispm-histograms-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-issues-api
+  name: SandboxAQ Issues API
+  description: The issues API from SandboxAQ — 8 operation(s) for issues.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - issues
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-issues-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-locations-api
+  name: SandboxAQ Locations API
+  description: The locations API from SandboxAQ — 2 operation(s) for locations.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - locations
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-locations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-rules-api
+  name: SandboxAQ Rules API
+  description: The rules API from SandboxAQ — 5 operation(s) for rules.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - rules
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-rules-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-scans-api
+  name: SandboxAQ Scans API
+  description: The scans API from SandboxAQ — 1 operation(s) for scans.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - scans
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-scans-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-scans-assets-api
+  name: SandboxAQ scans assets API
+  description: The scans assets API from SandboxAQ — 1 operation(s) for scans assets.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - scans assets
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-scans-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
+- aid: sandboxaq:sandboxaq-viewexports-api
+  name: SandboxAQ View Exports API
+  description: The viewExports API from SandboxAQ — 1 operation(s) for viewexports.
+  humanURL: https://docs.flintai.dev/flintai/api-reference/index
+  baseURL: https://your-instance.flintai.dev/api/v1
+  tags:
+  - viewExports
+  properties:
+  - type: OpenAPI
+    url: openapi/sandboxaq-viewexports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.flintai.dev/
+  - type: APIReference
+    url: https://docs.flintai.dev/flintai/api-reference/index
+  - type: Authentication
+    url: authentication/sandboxaq-authentication.yml
+  - type: ErrorCatalog
+    url: errors/sandboxaq-problem-types.yml
+  - type: DataModel
+    url: data-model/sandboxaq-data-model.yml
 common:
 - type: AgenticAccess
   url: agentic-access/sandboxaq-agentic-access.yml
@@ -151,7 +504,7 @@ common:
 - type: SecondaryMarket
   url: https://www.hiive.com/securities/sandboxaq-stock
 - type: OpenAPI
-  url: openapi/sandboxaq-flint-ai-platform-openapi.json
+  url: openapi/_original/sandboxaq-flint-ai-platform-openapi.json
 - type: GraphQL
   url: graphql/sandboxaq-aqtive-guard.graphql
 - type: Protobuf
