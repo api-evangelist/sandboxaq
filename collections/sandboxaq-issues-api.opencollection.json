@@ -1,0 +1,330 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Issues API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "issues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all issues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all issues"
+        },
+        {
+          "info": {
+            "name": "List issues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/tenants/:tenant_id/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated group-by columns (default: rule_id,severity)"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort expression (e.g. severity:asc)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor (offset)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List issues grouped by rule_id and severity with filtering, sorting, and pagination"
+        },
+        {
+          "info": {
+            "name": "Get a single issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/tenants/:tenant_id/workspaces/:workspace_id/:id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Issue ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a single issue by its ID"
+        },
+        {
+          "info": {
+            "name": "List objects for an issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/tenants/:tenant_id/workspaces/:workspace_id/:id/objects",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Issue ID"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor (offset)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List objects (e.g. assets, models) affected by a specific issue with pagination"
+        },
+        {
+          "info": {
+            "name": "List details (instances) for an issue object",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/tenants/:tenant_id/workspaces/:workspace_id/:id/objects/:objectId/details",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Issue ID"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor (offset)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List instance-level details for a specific object within an issue, with pagination"
+        },
+        {
+          "info": {
+            "name": "Get a single issue object detail (instance)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/tenants/:tenant_id/workspaces/:workspace_id/:id/objects/:objectId/details/:detailId",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Issue ID"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "Object ID"
+              },
+              {
+                "name": "detailId",
+                "value": "",
+                "type": "path",
+                "description": "Detail ID (instance ID)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a single instance record for a specific issue, object, and detail ID"
+        },
+        {
+          "info": {
+            "name": "Get single issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Issue Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get single issue"
+        },
+        {
+          "info": {
+            "name": "Get all instances associated with Issue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/issues/:id/instances",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Issue Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all issues"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

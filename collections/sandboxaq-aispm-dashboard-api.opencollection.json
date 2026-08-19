@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Aispm Dashboard API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aispm-dashboard",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get AISPM Dashboard summary info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-dashboard",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get summary data from AISPM Dashboard"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

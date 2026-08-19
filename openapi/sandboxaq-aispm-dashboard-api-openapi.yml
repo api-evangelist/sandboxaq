@@ -1,0 +1,165 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform Aispm Dashboard API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: aispm-dashboard
+paths:
+  /aispm-dashboard:
+    get:
+      description: Get summary data from AISPM Dashboard
+      operationId: GetSummaryAispmDashboard
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.aispmDashboardType'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get AISPM Dashboard summary info
+      tags:
+      - aispm-dashboard
+components:
+  schemas:
+    api.IssuesHistogram:
+      properties:
+        counts:
+          items:
+            properties:
+              critical:
+                type: integer
+              high:
+                type: integer
+              other:
+                type: integer
+            type: object
+          type: array
+      type: object
+    api.aispmDashboardType:
+      properties:
+        aispm_objects_counts:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmObjectsCounts'
+          type: array
+        aispm_objects_top_issues:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmObjectsTopIssue'
+          type: array
+        aispm_top_at_risk_agents:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmTopObjectAtRisk'
+          type: array
+        aispm_top_at_risk_mcp_servers:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmTopObjectAtRisk'
+          type: array
+        aispm_top_at_risk_models:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmTopObjectAtRisk'
+          type: array
+        issues_histogram:
+          $ref: '#/components/schemas/api.IssuesHistogram'
+        scans_counts:
+          $ref: '#/components/schemas/engine_output.AispmScansCounts'
+      type: object
+    engine_output.AispmObjectsCounts:
+      properties:
+        critical_issues_count:
+          type: integer
+        high_issues_count:
+          type: integer
+        object_type:
+          type: string
+        total_inventory_count:
+          type: integer
+        total_issues_count:
+          type: integer
+      type: object
+    engine_output.AispmScansCounts:
+      properties:
+        percent_scans_with_ai_objects:
+          type: number
+        scans_with_ai_objects_count:
+          type: integer
+        total_current_aispm_scans:
+          type: integer
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.AispmTopObjectAtRisk:
+      properties:
+        aispm_friendly_name:
+          type: string
+        aispm_object_id:
+          type: string
+        critical_count:
+          type: integer
+        high_count:
+          type: integer
+        total_critical_high_occurrences:
+          type: integer
+      type: object
+    engine_output.AispmObjectsTopIssue:
+      properties:
+        critical_element_count:
+          type: integer
+        definitive_severity:
+          type: string
+        high_element_count:
+          type: integer
+        issue_id:
+          type: string
+        rule_description:
+          description: To be filled in after fetching
+          type: string
+        rule_id:
+          type: string
+        rule_name:
+          description: To be filled in after fetching
+          type: string
+        total_priority_affected_elements:
+          type: integer
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey

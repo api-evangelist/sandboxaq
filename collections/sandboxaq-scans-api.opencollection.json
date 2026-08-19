@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Scans API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "scans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all current scans for a sensor type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/scans/tenants/:tenant_id/workspaces/:workspace_id/current",
+            "params": [
+              {
+                "name": "sensorType",
+                "value": "",
+                "type": "query",
+                "description": "Sensor Type (at least one of sensorType or cicdType is required)"
+              },
+              {
+                "name": "cicdType",
+                "value": "",
+                "type": "query",
+                "description": "CI/CD Type: CICD_TYPE_GITHUB_ACTION, CICD_TYPE_GITLAB_CI (at least one of sensorType or cicdType is required)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all scans marked current for a specific sensor type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

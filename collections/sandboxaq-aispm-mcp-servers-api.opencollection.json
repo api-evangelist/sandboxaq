@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Aispm MCP Servers API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aispm-mcp-servers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all AI-SPM MCP servers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-mcp-servers/tenants/:tenant_id/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all AI-SPM MCP servers for a tenant workspace, ordered by last_seen descending"
+        },
+        {
+          "info": {
+            "name": "Get single AI-SPM MCP server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-mcp-servers/tenants/:tenant_id/workspaces/:workspace_id/:id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "AISPM MCP server Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get AI-SPM MCP server by ID with embedded agents and locations"
+        },
+        {
+          "info": {
+            "name": "Get all objects associated with an AISPM MCP Server",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-mcp-servers/tenants/:tenant_id/workspaces/:workspace_id/:id/:edge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "AISPM MCP server Id"
+              },
+              {
+                "name": "edge",
+                "value": "",
+                "type": "path",
+                "description": "Edge type"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all 'edges' associated with an AISPM MCP Server. An 'edge' is a type of object that is related to an AISPM MCP Server."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

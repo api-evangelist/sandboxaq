@@ -1,0 +1,540 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform Issues API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: issues
+paths:
+  /issues:
+    get:
+      description: Get all issues
+      operationId: GetAllIssues
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.EngineDataPage'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Failed to retrieve issues
+      security:
+      - BearerAuth: []
+      summary: Get all issues
+      tags:
+      - issues
+  /issues/tenants/{tenant_id}/workspaces/{workspace_id}:
+    get:
+      description: List issues grouped by rule_id and severity with filtering, sorting, and pagination
+      operationId: GetIssuesIndex
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenant_id
+        required: true
+        schema:
+          type: string
+      - description: Workspace ID
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: 'Comma-separated group-by columns (default: rule_id,severity)'
+        in: query
+        name: group_by
+        schema:
+          type: string
+      - description: Sort expression (e.g. severity:asc)
+        in: query
+        name: sort
+        schema:
+          type: string
+      - description: Page size
+        in: query
+        name: page_size
+        schema:
+          type: integer
+      - description: Pagination cursor (offset)
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Paginated issues list
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: List issues
+      tags:
+      - issues
+  /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}:
+    get:
+      description: Retrieve a single issue by its ID
+      operationId: GetIssueSingle
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenant_id
+        required: true
+        schema:
+          type: string
+      - description: Workspace ID
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: Issue ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Issue details
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get a single issue
+      tags:
+      - issues
+  /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects:
+    get:
+      description: List objects (e.g. assets, models) affected by a specific issue with pagination
+      operationId: GetIssueObjects
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenant_id
+        required: true
+        schema:
+          type: string
+      - description: Workspace ID
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: Issue ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Page size
+        in: query
+        name: page_size
+        schema:
+          type: integer
+      - description: Pagination cursor (offset)
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Paginated list of issue objects
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: List objects for an issue
+      tags:
+      - issues
+  /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details:
+    get:
+      description: List instance-level details for a specific object within an issue, with pagination
+      operationId: GetIssueObjectDetails
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenant_id
+        required: true
+        schema:
+          type: string
+      - description: Workspace ID
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: Issue ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: objectId
+        required: true
+        schema:
+          type: string
+      - description: Page size
+        in: query
+        name: page_size
+        schema:
+          type: integer
+      - description: Pagination cursor (offset)
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Paginated list of instance details
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: List details (instances) for an issue object
+      tags:
+      - issues
+  /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details/{detailId}:
+    get:
+      description: Retrieve a single instance record for a specific issue, object, and detail ID
+      operationId: GetIssueObjectDetail
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenant_id
+        required: true
+        schema:
+          type: string
+      - description: Workspace ID
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      - description: Issue ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Object ID
+        in: path
+        name: objectId
+        required: true
+        schema:
+          type: string
+      - description: Detail ID (instance ID)
+        in: path
+        name: detailId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Instance detail
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get a single issue object detail (instance)
+      tags:
+      - issues
+  /issues/{id}:
+    get:
+      description: Get single issue
+      operationId: GetIssueDetails
+      parameters:
+      - description: Issue Id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  items: {}
+                  type: array
+                type: array
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Failed to retrieve issues
+      security:
+      - BearerAuth: []
+      summary: Get single issue
+      tags:
+      - issues
+  /issues/{id}/instances:
+    get:
+      description: Get all issues
+      operationId: GetIssueInstances
+      parameters:
+      - description: Issue Id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.EngineDataPage'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Failed to retrieve instances
+      security:
+      - BearerAuth: []
+      summary: Get all instances associated with Issue
+      tags:
+      - issues
+components:
+  schemas:
+    engine_output.EngineDataPage:
+      properties:
+        cursor:
+          type: string
+        header:
+          items:
+            type: string
+          type: array
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        total:
+          type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey

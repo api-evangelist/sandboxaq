@@ -1,0 +1,239 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform Aispm Guardrails API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: aispm-guardrails
+paths:
+  /aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/categories:
+    get:
+      description: Returns counts per guardrail category from BLOCKED or REDACTED prompt and response guardrail results in a time range
+      operationId: GetAispmGuardrailCategories
+      parameters:
+      - description: Beginning of time window (inclusive) in RFC3339 format
+        in: query
+        name: start_time
+        schema:
+          type: string
+      - description: End of time window (inclusive) in RFC3339 format
+        in: query
+        name: end_time
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.AispmGuardrailCategoriesResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get AISPM guardrail category counts
+      tags:
+      - aispm-guardrails
+  /aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/counts:
+    get:
+      description: Returns total counts and hourly bucketed results for LLM interactions in a time range, categorized by guardrail outcome (OK, BLOCKED, REDACTED)
+      operationId: GetAispmGuardrailInteractionCounts
+      parameters:
+      - description: Beginning of time window (inclusive) in RFC3339 format
+        in: query
+        name: start_time
+        schema:
+          type: string
+      - description: End of time window (inclusive) in RFC3339 format
+        in: query
+        name: end_time
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionCountsResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get AISPM guardrail interaction counts bucketed by hour
+      tags:
+      - aispm-guardrails
+  /aispm-llm-interactions-dash/tenants/{tenant_id}/workspaces/{workspace_id}/outcomes:
+    get:
+      description: Returns aggregate totals of OK, BLOCKED, and REDACTED guardrail outcomes for LLM interactions in a time range
+      operationId: GetAispmGuardrailOutcomes
+      parameters:
+      - description: Beginning of time window (inclusive) in RFC3339 format
+        in: query
+        name: start_time
+        schema:
+          type: string
+      - description: End of time window (inclusive) in RFC3339 format
+        in: query
+        name: end_time
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.AispmGuardrailOutcomesResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get AISPM guardrail outcome totals
+      tags:
+      - aispm-guardrails
+components:
+  schemas:
+    engine_output.AispmGuardrailCategoriesResponse:
+      properties:
+        categories:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmGuardrailCategoryCount'
+          type: array
+        total:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailInteractionsBucket:
+      properties:
+        alerted:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        blocked:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        ok:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        redacted:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        total:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.AispmGuardrailInteractionsBucketEntry:
+      properties:
+        count:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailCategoryCount:
+      properties:
+        category:
+          type: string
+        count:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailInteractionCountsResponse:
+      properties:
+        alerted:
+          type: integer
+        blocked:
+          type: integer
+        ok:
+          type: integer
+        redacted:
+          type: integer
+        results:
+          additionalProperties:
+            $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucket'
+          type: object
+        total:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailOutcomesResponse:
+      properties:
+        alerted:
+          type: integer
+        blocked:
+          type: integer
+        ok:
+          type: integer
+        redacted:
+          type: integer
+        total:
+          type: integer
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey

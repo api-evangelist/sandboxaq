@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Assets API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/assets/tenants/:tenant_id/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all assets for a tenant workspace"
+        },
+        {
+          "info": {
+            "name": "Get single asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/assets/tenants/:tenant_id/workspaces/:workspace_id/:id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Asset Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get asset by ID"
+        },
+        {
+          "info": {
+            "name": "Get all cryptographic objects associated with a Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/assets/tenants/:tenant_id/workspaces/:workspace_id/:id/:edge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Asset Id"
+              },
+              {
+                "name": "edge",
+                "value": "",
+                "type": "path",
+                "description": "Edge type"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all 'edges' associated with a Asset. An 'edge' is a type of cryptographic object that is related to a Asset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

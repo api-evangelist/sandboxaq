@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Rules API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List external rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/external-rules",
+            "params": [
+              {
+                "name": "name__ilk",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule name (case-insensitive like)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List externally-sourced rules with optional name filtering"
+        },
+        {
+          "info": {
+            "name": "List all rules for a workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/rules/tenants/:tenant_id/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "name__ilk",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule name (case-insensitive like)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Page size"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all rules (static + external) for a tenant workspace with optional filtering and pagination"
+        },
+        {
+          "info": {
+            "name": "Get a single rule by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/rules/tenants/:tenant_id/workspaces/:workspace_id/:rule_id",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Rule ID (e.g. SR-aispm_missing_input_guardrails)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single rule by its rule_id from the unified rules table (static + external)"
+        },
+        {
+          "info": {
+            "name": "Get results from single rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/rules/:id/results",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Rule Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get results from single rule"
+        },
+        {
+          "info": {
+            "name": "List static rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/static-rules",
+            "params": [
+              {
+                "name": "name__ilk",
+                "value": "",
+                "type": "query",
+                "description": "Filter by rule name (case-insensitive like)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List built-in static rules with optional name filtering"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

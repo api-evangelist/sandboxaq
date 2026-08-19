@@ -1,0 +1,249 @@
+{
+  "item": [
+    {
+      "id": "11c00b6d-9eed-4cc9-a189-559c86d0d3e7",
+      "name": "aispm-dashboard",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d523fac7-3f24-4246-b97e-1801e2b06434",
+          "name": "Get AISPM Dashboard summary info",
+          "request": {
+            "name": "Get AISPM Dashboard summary info",
+            "description": {
+              "content": "Get summary data from AISPM Dashboard",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "aispm-dashboard"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Flint AI instance subdomain",
+                  "type": "any",
+                  "value": "{{instance}}",
+                  "key": "instance"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "57b47a0a-937c-42b1-9609-1948f396a3ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aispm-dashboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Flint AI instance subdomain",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"aispm_objects_counts\": [\n    {\n      \"critical_issues_count\": 9821,\n      \"high_issues_count\": 4072,\n      \"object_type\": \"string\",\n      \"total_inventory_count\": 1886,\n      \"total_issues_count\": 7342\n    },\n    {\n      \"critical_issues_count\": 5134,\n      \"high_issues_count\": 9417,\n      \"object_type\": \"string\",\n      \"total_inventory_count\": 6035,\n      \"total_issues_count\": 5818\n    }\n  ],\n  \"aispm_objects_top_issues\": [\n    {\n      \"critical_element_count\": 6668,\n      \"definitive_severity\": \"string\",\n      \"high_element_count\": 3948,\n      \"issue_id\": \"string\",\n      \"rule_description\": \"string\",\n      \"rule_id\": \"string\",\n      \"rule_name\": \"string\",\n      \"total_priority_affected_elements\": 750\n    },\n    {\n      \"critical_element_count\": 8403,\n      \"definitive_severity\": \"string\",\n      \"high_element_count\": 6756,\n      \"issue_id\": \"string\",\n      \"rule_description\": \"string\",\n      \"rule_id\": \"string\",\n      \"rule_name\": \"string\",\n      \"total_priority_affected_elements\": 1904\n    }\n  ],\n  \"aispm_top_at_risk_agents\": [\n    {\n      \"aispm_friendly_name\": \"string\",\n      \"aispm_object_id\": \"string\",\n      \"critical_count\": 6371,\n      \"high_count\": 9383,\n      \"total_critical_high_occurrences\": 9438\n    },\n    {\n      \"aispm_friendly_name\": \"string\",\n      \"aispm_object_id\": \"string\",\n      \"critical_count\": 7920,\n      \"high_count\": 8694,\n      \"total_critical_high_occurrences\": 3055\n    }\n  ],\n  \"aispm_top_at_risk_mcp_servers\": [\n    {\n      \"aispm_friendly_name\": \"string\",\n      \"aispm_object_id\": \"string\",\n      \"critical_count\": 8824,\n      \"high_count\": 6495,\n      \"total_critical_high_occurrences\": 8671\n    },\n    {\n      \"aispm_friendly_name\": \"string\",\n      \"aispm_object_id\": \"string\",\n      \"critical_count\": 5244,\n      \"high_count\": 3361,\n      \"total_critical_high_occurrences\": 2125\n    }\n  ],\n  \"aispm_top_at_risk_models\": [\n    {\n      \"aispm_friendly_name\": \"string\",\n      \"aispm_object_id\": \"string\",\n      \"critical_count\": 1537,\n      \"high_count\": 3064,\n      \"total_critical_high_occurrences\": 8864\n    },\n    {\n      \"aispm_friendly_name\": \"string\",\n      \"aispm_object_id\": \"string\",\n      \"critical_count\": 7859,\n      \"high_count\": 7635,\n      \"total_critical_high_occurrences\": 1840\n    }\n  ],\n  \"issues_histogram\": {\n    \"counts\": [\n      {\n        \"critical\": 3004,\n        \"high\": 2077,\n        \"other\": 8332\n      },\n      {\n        \"critical\": 3288,\n        \"high\": 579,\n        \"other\": 1077\n      }\n    ]\n  },\n  \"scans_counts\": {\n    \"percent_scans_with_ai_objects\": 7333.90051390722,\n    \"scans_with_ai_objects_count\": 5828,\n    \"total_current_aispm_scans\": 2918\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f34d9d77-e179-4a72-886e-ad7f7d91f8a7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aispm-dashboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Flint AI instance subdomain",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "54e417a1-44ab-4e76-85f7-4640db73916e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "aispm-dashboard"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Flint AI instance subdomain",
+                      "type": "any",
+                      "value": "{{instance}}",
+                      "key": "instance"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": 400,\n  \"message\": \"Invalid request\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Flint AI instance subdomain",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-instance",
+      "key": "instance"
+    },
+    {
+      "type": "string",
+      "value": "https://{{instance}}.flintai.dev/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1c0553d8-a104-4877-b1a4-52fecfc34941",
+    "name": "Flint AI Platform Aispm Dashboard API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Flint AI Platform API",
+      "type": "text/plain"
+    }
+  }
+}

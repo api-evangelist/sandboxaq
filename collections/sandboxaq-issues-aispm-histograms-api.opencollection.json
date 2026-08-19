@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform issues aispm histograms API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "issues aispm histograms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the past 12 months of scan issue counts for AISPM related inventory objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/histograms/aispm",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get time-series issues histogram data for AISPM related inventory objects"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

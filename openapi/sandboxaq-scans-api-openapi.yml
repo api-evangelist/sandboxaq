@@ -1,0 +1,107 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform Scans API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: scans
+paths:
+  /scans/tenants/{tenant_id}/workspaces/{workspace_id}/current:
+    get:
+      description: Get all scans marked current for a specific sensor type
+      operationId: GetAllCurrentScans
+      parameters:
+      - description: Sensor Type (at least one of sensorType or cicdType is required)
+        in: query
+        name: sensorType
+        schema:
+          type: string
+      - description: 'CI/CD Type: CICD_TYPE_GITHUB_ACTION, CICD_TYPE_GITLAB_CI (at least one of sensorType or cicdType is required)'
+        in: query
+        name: cicdType
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.EngineDataPage'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+      security:
+      - BearerAuth: []
+      summary: Get all current scans for a sensor type
+      tags:
+      - scans
+components:
+  schemas:
+    engine_output.EngineDataPage:
+      properties:
+        cursor:
+          type: string
+        header:
+          items:
+            type: string
+          type: array
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        total:
+          type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey

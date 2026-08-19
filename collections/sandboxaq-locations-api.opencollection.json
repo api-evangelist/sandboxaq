@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Locations API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/locations/tenants/:tenant_id/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all locations for a tenant workspace"
+        },
+        {
+          "info": {
+            "name": "Get all cryptographic objects associated with a Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/locations/tenants/:tenant_id/workspaces/:workspace_id/:id/:edge",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Location Id"
+              },
+              {
+                "name": "edge",
+                "value": "",
+                "type": "path",
+                "description": "Edge type"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all 'edges' associated with a Location. An 'edge' is a type of cryptographic object that is related to a Location."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

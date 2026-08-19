@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Aispm Llm Sessions API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aispm-llm-sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List LLM sessions grouped by session_id for an agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-llm-sessions/tenants/:tenant_id/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "Agent ID to filter sessions"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Column to sort by (session_id, time, tokens, cost, turns, duration_ms)"
+              },
+              {
+                "name": "sort_dir",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction: asc or desc"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor from previous response"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (default 10, max 10000)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns paginated LLM sessions aggregated by session_id with tokens, cost, turns, duration, and guardrail results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

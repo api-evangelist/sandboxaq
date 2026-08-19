@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Fine Issues API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "fine-issues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get full details for a single instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/instances/tenants/:tenant_id/workspaces/:workspace_id/:instanceId",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "instanceId",
+                "value": "",
+                "type": "path",
+                "description": "Instance ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve full details for a single instance by its ID, including rule metadata when available"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

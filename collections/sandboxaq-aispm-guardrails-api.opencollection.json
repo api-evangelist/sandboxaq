@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Aispm Guardrails API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aispm-guardrails",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get AISPM guardrail category counts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-llm-interactions-dash/tenants/:tenant_id/workspaces/:workspace_id/categories",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Beginning of time window (inclusive) in RFC3339 format"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (inclusive) in RFC3339 format"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns counts per guardrail category from BLOCKED or REDACTED prompt and response guardrail results in a time range"
+        },
+        {
+          "info": {
+            "name": "Get AISPM guardrail interaction counts bucketed by hour",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-llm-interactions-dash/tenants/:tenant_id/workspaces/:workspace_id/counts",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Beginning of time window (inclusive) in RFC3339 format"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (inclusive) in RFC3339 format"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns total counts and hourly bucketed results for LLM interactions in a time range, categorized by guardrail outcome (OK, BLOCKED, REDACTED)"
+        },
+        {
+          "info": {
+            "name": "Get AISPM guardrail outcome totals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/aispm-llm-interactions-dash/tenants/:tenant_id/workspaces/:workspace_id/outcomes",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Beginning of time window (inclusive) in RFC3339 format"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End of time window (inclusive) in RFC3339 format"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns aggregate totals of OK, BLOCKED, and REDACTED guardrail outcomes for LLM interactions in a time range"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

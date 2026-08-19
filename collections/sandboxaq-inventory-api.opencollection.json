@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Inventory API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "inventory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all sensor types that have ever been used",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/sensors-used/tenants/:tenant_id/workspaces/:workspace_id",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all sensor types that have ever been used"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

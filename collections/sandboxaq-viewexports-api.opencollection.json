@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform View Exports API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "viewExports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Schedule a View to be exported",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{instance}.flintai.dev/api/v1/views/:id/export",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "View Id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Schedule a View to be exported"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

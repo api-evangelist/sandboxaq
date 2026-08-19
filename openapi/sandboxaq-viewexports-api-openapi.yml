@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform View Exports API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: viewExports
+paths:
+  /views/{id}/export:
+    post:
+      operationId: ExportView
+      x-mint:
+        metadata:
+          playground: simple
+      parameters:
+      - description: View Id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ScheduledViewExportDescriptionType'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Failed to schedule the view export.
+      security:
+      - BearerAuth: []
+      summary: Schedule a View to be exported
+      tags:
+      - viewExports
+components:
+  schemas:
+    api.ScheduledViewExportDescriptionType:
+      properties:
+        export_path:
+          type: string
+        export_status:
+          $ref: '#/components/schemas/api.ExportStatusType'
+        export_workflow_id:
+          type: string
+      type: object
+    api.ExportStatusType:
+      enum:
+      - completed
+      - failed
+      - running
+      - retry_pending
+      - scheduled
+      type: string
+      x-enum-varnames:
+      - Completed
+      - Failed
+      - Running
+      - RetryPending
+      - Scheduled
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey

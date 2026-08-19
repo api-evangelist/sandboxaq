@@ -1,0 +1,550 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Flint AI Platform Client Storage API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "client-storage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tenant+user-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/users/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token."
+        },
+        {
+          "info": {
+            "name": "Create or update tenant+user-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/users/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token."
+        },
+        {
+          "info": {
+            "name": "Delete tenant+user-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/users/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an opaque key-value entry scoped to a tenant and the authenticated user. User ID is derived from the auth token."
+        },
+        {
+          "info": {
+            "name": "Get tenant+workspace-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/workspaces/:workspace_id/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key"
+        },
+        {
+          "info": {
+            "name": "Create or update tenant+workspace-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/workspaces/:workspace_id/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key"
+        },
+        {
+          "info": {
+            "name": "Delete tenant+workspace-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/workspaces/:workspace_id/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path",
+                "description": "Workspace ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an opaque key-value entry scoped to a tenant, workspace, client, namespace, and key"
+        },
+        {
+          "info": {
+            "name": "Get tenant-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve an opaque key-value entry scoped to a tenant, client, namespace, and key"
+        },
+        {
+          "info": {
+            "name": "Create or update tenant-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert an opaque key-value entry scoped to a tenant, client, namespace, and key"
+        },
+        {
+          "info": {
+            "name": "Delete tenant-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/tenants/:tenant_id/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "path",
+                "description": "Tenant ID"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an opaque key-value entry scoped to a tenant, client, namespace, and key"
+        },
+        {
+          "info": {
+            "name": "Get user-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/users/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve an opaque key-value entry scoped to the authenticated user (no tenant association). User ID is derived from the auth token."
+        },
+        {
+          "info": {
+            "name": "Create or update user-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/users/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert an opaque key-value entry scoped to the authenticated user. User ID is derived from the auth token."
+        },
+        {
+          "info": {
+            "name": "Delete user-scoped client storage entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{instance}.flintai.dev/api/v1/client-storage/users/:client_id/:namespace/:key",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "path",
+                "description": "Client ID"
+              },
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "Namespace"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an opaque key-value entry scoped to the authenticated user. User ID is derived from the auth token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

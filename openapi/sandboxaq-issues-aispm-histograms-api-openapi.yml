@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform issues aispm histograms API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: issues aispm histograms
+paths:
+  /histograms/aispm:
+    get:
+      description: Get time-series issues histogram data for AISPM related inventory objects
+      operationId: GetHistogramsAispm
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.IssuesHistogramResponse'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+      security:
+      - BearerAuth: []
+      summary: Get the past 12 months of scan issue counts for AISPM related inventory objects
+      tags:
+      - issues aispm histograms
+components:
+  schemas:
+    api.IssuesHistogram:
+      properties:
+        counts:
+          items:
+            properties:
+              critical:
+                type: integer
+              high:
+                type: integer
+              other:
+                type: integer
+            type: object
+          type: array
+      type: object
+    api.IssuesHistogramResponse:
+      properties:
+        issues_histogram:
+          $ref: '#/components/schemas/api.IssuesHistogram'
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey

@@ -1,0 +1,166 @@
+openapi: 3.2.0
+info:
+  contact: {}
+  description: Flint AI Platform API
+  license:
+    name: Flint AI
+    url: https://www.sandboxaq.com/legal/eula
+  title: Flint AI Platform Locations API
+  version: 1.0.0
+servers:
+- description: Flint AI Platform (per-tenant instance)
+  url: https://{instance}.flintai.dev/api/v1
+  variables:
+    instance:
+      default: your-instance
+      description: Your Flint AI instance subdomain
+tags:
+- name: locations
+paths:
+  /locations/tenants/{tenant_id}/workspaces/{workspace_id}:
+    get:
+      description: List all locations for a tenant workspace
+      operationId: GetAllLocations
+      parameters:
+      - description: Tenant ID
+        in: path
+        name: tenant_id
+        required: true
+        schema:
+          type: string
+      - description: Workspace ID
+        in: path
+        name: workspace_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.EngineDataPage'
+          description: OK
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+      security:
+      - BearerAuth: []
+      summary: Get all locations
+      tags:
+      - locations
+  /locations/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/{edge}:
+    get:
+      description: Get all 'edges' associated with a Location. An 'edge' is a type of cryptographic object that is related to a Location.
+      operationId: GetLocationEdges
+      parameters:
+      - description: Location Id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: Edge type
+        in: path
+        name: edge
+        required: true
+        schema:
+          enum:
+          - certs
+          - qualys-secrets
+          - secrets
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/engine_output.EngineDataPage'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Bad request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Unauthorized
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Not Found
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/common.RequestError'
+          description: Failed to retrieve inventory
+      security:
+      - BearerAuth: []
+      summary: Get all cryptographic objects associated with a Location
+      tags:
+      - locations
+components:
+  schemas:
+    engine_output.EngineDataPage:
+      properties:
+        cursor:
+          type: string
+        header:
+          items:
+            type: string
+          type: array
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        total:
+          type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+  securitySchemes:
+    BearerAuth:
+      description: Use this header with a Bearer token to authenticate requests.
+      in: header
+      name: Authorization
+      type: apiKey
