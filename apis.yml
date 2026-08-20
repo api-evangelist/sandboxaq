@@ -23,6 +23,19 @@ tags:
 - Cryptography
 - Post-Quantum Cryptography
 - Agents
+- MCP
+- Simulation
+- Drug Discovery
+- Materials Science
+- AI Security
+- Quantum
+tags_raw:
+- Company
+- Artificial Intelligence
+- Security
+- Cryptography
+- Post-Quantum Cryptography
+- Agents
 - Model Context Protocol
 - Simulation
 - Drug Discovery
@@ -78,6 +91,12 @@ apis:
   humanURL: https://docs.aisim.sandboxaq.com/mcp
   baseURL: https://mcp.{tenant}.aisim.sandboxaq.com
   tags:
+  - MCP
+  - Agents
+  - Simulation
+  - Drug Discovery
+  - Materials Science
+  tags_raw:
   - Model Context Protocol
   - Agents
   - Simulation
@@ -257,6 +276,8 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
+  - Assets
+  tags_raw:
   - assets
   properties:
   - type: OpenAPI
@@ -317,6 +338,8 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
+  - Inventory
+  tags_raw:
   - inventory
   properties:
   - type: OpenAPI
@@ -358,6 +381,8 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
+  - Issues
+  tags_raw:
   - issues
   properties:
   - type: OpenAPI
@@ -378,6 +403,8 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
+  - Locations
+  tags_raw:
   - locations
   properties:
   - type: OpenAPI
@@ -398,6 +425,8 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
+  - Rules
+  tags_raw:
   - rules
   properties:
   - type: OpenAPI
@@ -418,6 +447,8 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
+  - Scans
+  tags_raw:
   - scans
   properties:
   - type: OpenAPI
@@ -457,7 +488,8 @@ apis:
   description: The viewExports API from SandboxAQ — 1 operation(s) for viewexports.
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
-  tags:
+  tags: []
+  tags_raw:
   - viewExports
   properties:
   - type: OpenAPI
