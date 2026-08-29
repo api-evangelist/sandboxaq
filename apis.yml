@@ -9,6 +9,18 @@ description: 'SandboxAQ (SB Technology, Inc.) builds Large Quantitative Models (
   tools and MCP servers, paired with the flintai CLI and a Python guardrails SDK; and the SandboxAQ MCP
   Server, a per-tenant OAuth-protected Model Context Protocol endpoint that exposes the AQCat adsorption
   and AQPotency proteochemometric potency models as tools for LLM clients.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/622a3cfaa89636b753810f04/623911fca65004cb868ec3ec_SandboxAQ-social-share.jpg
 url: https://raw.githubusercontent.com/api-evangelist/sandboxaq/refs/heads/main/apis.yml
 x-type: company
