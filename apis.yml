@@ -517,6 +517,9 @@ apis:
   - type: DataModel
     url: data-model/sandboxaq-data-model.yml
 common:
+- type: CapabilityMap
+  url: capabilities/sandboxaq-capability-edges.yml
+  name: SandboxAQ Business Capability Map
 - type: AgenticAccess
   url: agentic-access/sandboxaq-agentic-access.yml
 - type: DomainSecurity

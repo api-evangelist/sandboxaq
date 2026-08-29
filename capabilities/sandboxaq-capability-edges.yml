@@ -1,0 +1,52 @@
+slug: sandboxaq
+provider: SandboxAQ
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Pharmaceuticals & Life Sciences
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: aispm-mcp-servers
+  spec_file: sandboxaq-aispm-mcp-servers-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: GetAllAispmMcpServers  Get all AI-SPM MCP servers
+  reason: AI-SPM (AI security posture management) inventory of MCP servers within the AQtive Guard/Flint
+    posture-management platform — a cybersecurity discipline. Which L2 (governance vs. architecture) is
+    unclear, so only L1 is asserted.
+- tag: aispm-models
+  spec_file: sandboxaq-aispm-models-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: GetAllAispmModels  Get all AI-SPM models
+  reason: Read-only inventory of AI models tracked for security posture management; a security-posture
+    surface, not AI model lifecycle/MLOps, so Cybersecurity Management at L1 only.
+- tag: aispm-tools
+  spec_file: sandboxaq-aispm-tools-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: GetAllAispmTools  Get all AI-SPM tools
+  reason: AI security posture management inventory of tools and their associated objects — cybersecurity
+    posture surface; sub-capability ambiguous.
+- tag: assets
+  spec_file: sandboxaq-assets-api-openapi.yml
+  capability_id: BC-620
+  capability_id_l1: BC-620
+  capability_name: Cybersecurity Management
+  confidence: 0.7
+  evidence: GetAssetEdges  Get all cryptographic objects associated with a Asset
+  reason: '''Assets'' here are IT assets linked to cryptographic objects in a cryptography posture-management
+    platform — cybersecurity, not physical asset management. Homograph avoided; L1 only.'
