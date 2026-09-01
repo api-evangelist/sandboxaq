@@ -437,7 +437,7 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
-  - rules
+  - Rules
   tags_raw:
   - rules
   properties:
@@ -459,7 +459,7 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
-  - scans
+  - Scans
   tags_raw:
   - scans
   properties:
