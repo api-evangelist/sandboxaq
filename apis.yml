@@ -428,7 +428,7 @@ apis:
   humanURL: https://docs.flintai.dev/flintai/api-reference/index
   baseURL: https://your-instance.flintai.dev/api/v1
   tags:
-  - Locations
+  - Location
   tags_raw:
   - locations
   properties:
