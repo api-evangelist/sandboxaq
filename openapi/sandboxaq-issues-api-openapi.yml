@@ -15,11 +15,10 @@ servers:
       default: your-instance
       description: Your Flint AI instance subdomain
 tags:
-- name: issues
+- name: Issues
 paths:
   /issues:
     get:
-      description: Get all issues
       operationId: GetAllIssues
       responses:
         '200':
@@ -50,7 +49,7 @@ paths:
       - BearerAuth: []
       summary: Get all issues
       tags:
-      - issues
+      - Issues
   /issues/tenants/{tenant_id}/workspaces/{workspace_id}:
     get:
       description: List issues grouped by rule_id and severity with filtering, sorting, and pagination
@@ -123,7 +122,7 @@ paths:
       - BearerAuth: []
       summary: List issues
       tags:
-      - issues
+      - Issues
   /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}:
     get:
       description: Retrieve a single issue by its ID
@@ -188,7 +187,7 @@ paths:
       - BearerAuth: []
       summary: Get a single issue
       tags:
-      - issues
+      - Issues
   /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects:
     get:
       description: List objects (e.g. assets, models) affected by a specific issue with pagination
@@ -257,7 +256,7 @@ paths:
       - BearerAuth: []
       summary: List objects for an issue
       tags:
-      - issues
+      - Issues
   /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details:
     get:
       description: List instance-level details for a specific object within an issue, with pagination
@@ -332,7 +331,7 @@ paths:
       - BearerAuth: []
       summary: List details (instances) for an issue object
       tags:
-      - issues
+      - Issues
   /issues/tenants/{tenant_id}/workspaces/{workspace_id}/{id}/objects/{objectId}/details/{detailId}:
     get:
       description: Retrieve a single instance record for a specific issue, object, and detail ID
@@ -409,10 +408,9 @@ paths:
       - BearerAuth: []
       summary: Get a single issue object detail (instance)
       tags:
-      - issues
+      - Issues
   /issues/{id}:
     get:
-      description: Get single issue
       operationId: GetIssueDetails
       parameters:
       - description: Issue Id
@@ -453,7 +451,7 @@ paths:
       - BearerAuth: []
       summary: Get single issue
       tags:
-      - issues
+      - Issues
   /issues/{id}/instances:
     get:
       description: Get all issues
@@ -494,9 +492,22 @@ paths:
       - BearerAuth: []
       summary: Get all instances associated with Issue
       tags:
-      - issues
+      - Issues
 components:
   schemas:
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
     engine_output.EngineDataPage:
       properties:
         cursor:
@@ -518,19 +529,6 @@ components:
       - cursor
       - header
       - rows
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
       type: object
   securitySchemes:
     BearerAuth:

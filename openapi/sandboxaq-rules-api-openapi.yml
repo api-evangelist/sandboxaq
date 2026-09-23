@@ -15,7 +15,7 @@ servers:
       default: your-instance
       description: Your Flint AI instance subdomain
 tags:
-- name: rules
+- name: Rules
 paths:
   /external-rules:
     get:
@@ -50,7 +50,7 @@ paths:
       - BearerAuth: []
       summary: List external rules
       tags:
-      - rules
+      - Rules
   /rules/tenants/{tenant_id}/workspaces/{workspace_id}:
     get:
       description: List all rules (static + external) for a tenant workspace with optional filtering and pagination
@@ -118,7 +118,7 @@ paths:
       - BearerAuth: []
       summary: List all rules for a workspace
       tags:
-      - rules
+      - Rules
   /rules/tenants/{tenant_id}/workspaces/{workspace_id}/{rule_id}:
     get:
       description: Get a single rule by its rule_id from the unified rules table (static + external)
@@ -159,10 +159,9 @@ paths:
       - BearerAuth: []
       summary: Get a single rule by ID
       tags:
-      - rules
+      - Rules
   /rules/{id}/results:
     get:
-      description: Get results from single rule
       operationId: GetRuleInstances
       parameters:
       - description: Rule Id
@@ -200,7 +199,7 @@ paths:
       - BearerAuth: []
       summary: Get results from single rule
       tags:
-      - rules
+      - Rules
   /static-rules:
     get:
       description: List built-in static rules with optional name filtering
@@ -234,31 +233,9 @@ paths:
       - BearerAuth: []
       summary: List static rules
       tags:
-      - rules
+      - Rules
 components:
   schemas:
-    engine_output.EngineDataPage:
-      properties:
-        cursor:
-          type: string
-        header:
-          items:
-            type: string
-          type: array
-        rows:
-          items:
-            items: {}
-            type: array
-          type: array
-        total:
-          type: integer
-        total_sampling:
-          type: number
-      required:
-      - cursor
-      - header
-      - rows
-      type: object
     engine_output.RuleInfo:
       properties:
         object_types:
@@ -286,6 +263,28 @@ components:
       required:
       - code
       - message
+      type: object
+    engine_output.EngineDataPage:
+      properties:
+        cursor:
+          type: string
+        header:
+          items:
+            type: string
+          type: array
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        total:
+          type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
       type: object
   securitySchemes:
     BearerAuth:

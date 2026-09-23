@@ -183,12 +183,27 @@ paths:
       - aispm-tools
 components:
   schemas:
-    engine_output.EmbeddedLocationItem:
+    common.RequestError:
+      description: Error responses returned by the API
       properties:
-        codeLocation:
-          type: object
-        id:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
           type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.EmbeddedLocationSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+          type: array
+        total:
+          type: integer
       type: object
     engine_output.EngineDataPage:
       properties:
@@ -212,6 +227,20 @@ components:
       - header
       - rows
       type: object
+    engine_output.EmbeddedItem:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    engine_output.EmbeddedLocationItem:
+      properties:
+        codeLocation:
+          type: object
+        id:
+          type: string
+      type: object
     engine_output.EmbeddedSection:
       properties:
         items:
@@ -220,19 +249,6 @@ components:
           type: array
         total:
           type: integer
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
       type: object
     api.AispmToolDetailResponse:
       properties:
@@ -263,22 +279,6 @@ components:
       - cursor
       - header
       - rows
-      type: object
-    engine_output.EmbeddedItem:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-    engine_output.EmbeddedLocationSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
-          type: array
-        total:
-          type: integer
       type: object
   securitySchemes:
     BearerAuth:

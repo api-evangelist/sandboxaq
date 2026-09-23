@@ -185,12 +185,18 @@ paths:
       - aispm-models
 components:
   schemas:
-    engine_output.EmbeddedLocationItem:
+    common.RequestError:
+      description: Error responses returned by the API
       properties:
-        codeLocation:
-          type: object
-        id:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
           type: string
+      required:
+      - code
+      - message
       type: object
     engine_output.EngineDataPage:
       properties:
@@ -214,14 +220,21 @@ components:
       - header
       - rows
       type: object
-    engine_output.EmbeddedSection:
+    engine_output.EmbeddedLocationSection:
       properties:
         items:
           items:
-            $ref: '#/components/schemas/engine_output.EmbeddedItem'
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
           type: array
         total:
           type: integer
+      type: object
+    engine_output.EmbeddedItem:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
       type: object
     api.AispmModelDetailResponse:
       properties:
@@ -249,31 +262,18 @@ components:
       - header
       - rows
       type: object
-    common.RequestError:
-      description: Error responses returned by the API
+    engine_output.EmbeddedLocationItem:
       properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    engine_output.EmbeddedItem:
-      properties:
+        codeLocation:
+          type: object
         id:
           type: string
-        name:
-          type: string
       type: object
-    engine_output.EmbeddedLocationSection:
+    engine_output.EmbeddedSection:
       properties:
         items:
           items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+            $ref: '#/components/schemas/engine_output.EmbeddedItem'
           type: array
         total:
           type: integer

@@ -845,11 +845,6 @@ paths:
       - client-storage
 components:
   schemas:
-    api.clientStoragePutRequest:
-      properties:
-        value:
-          type: object
-      type: object
     api.clientStorageEntry:
       properties:
         created_at:
@@ -871,6 +866,11 @@ components:
       required:
       - code
       - message
+      type: object
+    api.clientStoragePutRequest:
+      properties:
+        value:
+          type: object
       type: object
   securitySchemes:
     BearerAuth:

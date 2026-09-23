@@ -15,7 +15,7 @@ servers:
       default: your-instance
       description: Your Flint AI instance subdomain
 tags:
-- name: inventory
+- name: Inventory
 paths:
   /sensors-used/tenants/{tenant_id}/workspaces/{workspace_id}:
     get:
@@ -45,7 +45,7 @@ paths:
       - BearerAuth: []
       summary: Get all sensor types that have ever been used
       tags:
-      - inventory
+      - Inventory
 components:
   schemas:
     common.RequestError:

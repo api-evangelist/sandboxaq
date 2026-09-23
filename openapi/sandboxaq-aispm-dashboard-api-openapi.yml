@@ -47,19 +47,44 @@ paths:
       - aispm-dashboard
 components:
   schemas:
-    api.IssuesHistogram:
+    engine_output.AispmTopObjectAtRisk:
       properties:
-        counts:
-          items:
-            properties:
-              critical:
-                type: integer
-              high:
-                type: integer
-              other:
-                type: integer
-            type: object
-          type: array
+        aispm_friendly_name:
+          type: string
+        aispm_object_id:
+          type: string
+        critical_count:
+          type: integer
+        high_count:
+          type: integer
+        total_critical_high_occurrences:
+          type: integer
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.AispmObjectsCounts:
+      properties:
+        critical_issues_count:
+          type: integer
+        high_issues_count:
+          type: integer
+        object_type:
+          type: string
+        total_inventory_count:
+          type: integer
+        total_issues_count:
+          type: integer
       type: object
     api.aispmDashboardType:
       properties:
@@ -88,54 +113,6 @@ components:
         scans_counts:
           $ref: '#/components/schemas/engine_output.AispmScansCounts'
       type: object
-    engine_output.AispmObjectsCounts:
-      properties:
-        critical_issues_count:
-          type: integer
-        high_issues_count:
-          type: integer
-        object_type:
-          type: string
-        total_inventory_count:
-          type: integer
-        total_issues_count:
-          type: integer
-      type: object
-    engine_output.AispmScansCounts:
-      properties:
-        percent_scans_with_ai_objects:
-          type: number
-        scans_with_ai_objects_count:
-          type: integer
-        total_current_aispm_scans:
-          type: integer
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    engine_output.AispmTopObjectAtRisk:
-      properties:
-        aispm_friendly_name:
-          type: string
-        aispm_object_id:
-          type: string
-        critical_count:
-          type: integer
-        high_count:
-          type: integer
-        total_critical_high_occurrences:
-          type: integer
-      type: object
     engine_output.AispmObjectsTopIssue:
       properties:
         critical_element_count:
@@ -156,6 +133,29 @@ components:
           type: string
         total_priority_affected_elements:
           type: integer
+      type: object
+    engine_output.AispmScansCounts:
+      properties:
+        percent_scans_with_ai_objects:
+          type: number
+        scans_with_ai_objects_count:
+          type: integer
+        total_current_aispm_scans:
+          type: integer
+      type: object
+    api.IssuesHistogram:
+      properties:
+        counts:
+          items:
+            properties:
+              critical:
+                type: integer
+              high:
+                type: integer
+              other:
+                type: integer
+            type: object
+          type: array
       type: object
   securitySchemes:
     BearerAuth:

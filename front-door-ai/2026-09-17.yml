@@ -1,0 +1,32 @@
+# Front Door AI Index — sandboxaq — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: sandboxaq
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.sandboxaq.com
+  final_host: www.sandboxaq.com
+  ownership: own
+  owner: sandboxaq
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 30
+  host_score: 30
+  density: 36.59
+  words: 820
+  tiers:
+    agentic: 2
+    core: 27
+    model: 1
+  ambiguous: 0
+  top_terms:
+    AI: 21
+    LLMs: 3
+    Anthropic: 1
+    RAG: 1
+    deep learning: 1
+    foundation model: 1
+    machine learning: 1
+    prompts: 1

@@ -68,6 +68,19 @@ paths:
       - viewExports
 components:
   schemas:
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
     api.ScheduledViewExportDescriptionType:
       properties:
         export_path:
@@ -91,19 +104,6 @@ components:
       - Running
       - RetryPending
       - Scheduled
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
   securitySchemes:
     BearerAuth:
       description: Use this header with a Bearer token to authenticate requests.

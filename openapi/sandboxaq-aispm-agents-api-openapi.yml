@@ -190,12 +190,27 @@ paths:
       - aispm-agents
 components:
   schemas:
-    engine_output.EmbeddedLocationItem:
+    common.RequestError:
+      description: Error responses returned by the API
       properties:
-        codeLocation:
-          type: object
-        id:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
           type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.EmbeddedLocationSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+          type: array
+        total:
+          type: integer
       type: object
     engine_output.EngineDataPage:
       properties:
@@ -226,48 +241,6 @@ components:
         period:
           type: string
       type: object
-    cost.CostHistory:
-      properties:
-        current_month:
-          type: number
-        current_quarter:
-          type: number
-        monthly:
-          items:
-            $ref: '#/components/schemas/cost.PeriodCost'
-          type: array
-        ytd:
-          type: number
-      type: object
-    engine_output.EmbeddedSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedItem'
-          type: array
-        total:
-          type: integer
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    cost.BurnRate:
-      properties:
-        daily_spend_rate:
-          type: number
-        status:
-          type: string
-      type: object
     engine_output.EmbeddedItem:
       properties:
         id:
@@ -281,15 +254,6 @@ components:
           type: number
         period:
           type: string
-      type: object
-    engine_output.EmbeddedLocationSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
-          type: array
-        total:
-          type: integer
       type: object
     api.AispmDetailResponse:
       properties:
@@ -334,6 +298,42 @@ components:
       - cursor
       - header
       - rows
+      type: object
+    cost.BurnRate:
+      properties:
+        daily_spend_rate:
+          type: number
+        status:
+          type: string
+      type: object
+    cost.CostHistory:
+      properties:
+        current_month:
+          type: number
+        current_quarter:
+          type: number
+        monthly:
+          items:
+            $ref: '#/components/schemas/cost.PeriodCost'
+          type: array
+        ytd:
+          type: number
+      type: object
+    engine_output.EmbeddedLocationItem:
+      properties:
+        codeLocation:
+          type: object
+        id:
+          type: string
+      type: object
+    engine_output.EmbeddedSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedItem'
+          type: array
+        total:
+          type: integer
       type: object
   securitySchemes:
     BearerAuth:
