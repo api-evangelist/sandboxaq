@@ -154,18 +154,21 @@ paths:
       - aispm-guardrails
 components:
   schemas:
-    common.RequestError:
-      description: Error responses returned by the API
+    engine_output.AispmGuardrailCategoryCount:
       properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
+        category:
           type: string
-      required:
-      - code
-      - message
+        count:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailCategoriesResponse:
+      properties:
+        categories:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmGuardrailCategoryCount'
+          type: array
+        total:
+          type: integer
       type: object
     engine_output.AispmGuardrailOutcomesResponse:
       properties:
@@ -179,6 +182,37 @@ components:
           type: integer
         total:
           type: integer
+      type: object
+    engine_output.AispmGuardrailInteractionsBucketEntry:
+      properties:
+        count:
+          type: integer
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.AispmGuardrailInteractionsBucket:
+      properties:
+        alerted:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        blocked:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        ok:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        redacted:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+        total:
+          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
       type: object
     engine_output.AispmGuardrailInteractionCountsResponse:
       properties:
@@ -195,40 +229,6 @@ components:
             $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucket'
           type: object
         total:
-          type: integer
-      type: object
-    engine_output.AispmGuardrailCategoriesResponse:
-      properties:
-        categories:
-          items:
-            $ref: '#/components/schemas/engine_output.AispmGuardrailCategoryCount'
-          type: array
-        total:
-          type: integer
-      type: object
-    engine_output.AispmGuardrailInteractionsBucket:
-      properties:
-        alerted:
-          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
-        blocked:
-          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
-        ok:
-          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
-        redacted:
-          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
-        total:
-          $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
-      type: object
-    engine_output.AispmGuardrailCategoryCount:
-      properties:
-        category:
-          type: string
-        count:
-          type: integer
-      type: object
-    engine_output.AispmGuardrailInteractionsBucketEntry:
-      properties:
-        count:
           type: integer
       type: object
   securitySchemes:

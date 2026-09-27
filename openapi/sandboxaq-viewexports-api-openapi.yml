@@ -68,28 +68,6 @@ paths:
       - viewExports
 components:
   schemas:
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    api.ScheduledViewExportDescriptionType:
-      properties:
-        export_path:
-          type: string
-        export_status:
-          $ref: '#/components/schemas/api.ExportStatusType'
-        export_workflow_id:
-          type: string
-      type: object
     api.ExportStatusType:
       enum:
       - completed
@@ -104,6 +82,28 @@ components:
       - Running
       - RetryPending
       - Scheduled
+    api.ScheduledViewExportDescriptionType:
+      properties:
+        export_path:
+          type: string
+        export_status:
+          $ref: '#/components/schemas/api.ExportStatusType'
+        export_workflow_id:
+          type: string
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
   securitySchemes:
     BearerAuth:
       description: Use this header with a Bearer token to authenticate requests.

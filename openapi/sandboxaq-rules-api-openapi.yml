@@ -236,34 +236,6 @@ paths:
       - Rules
 components:
   schemas:
-    engine_output.RuleInfo:
-      properties:
-        object_types:
-          items:
-            type: string
-          type: array
-        rule_description:
-          type: string
-        rule_id:
-          type: string
-        rule_name:
-          type: string
-        source:
-          type: string
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
     engine_output.EngineDataPage:
       properties:
         cursor:
@@ -285,6 +257,34 @@ components:
       - cursor
       - header
       - rows
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.RuleInfo:
+      properties:
+        object_types:
+          items:
+            type: string
+          type: array
+        rule_description:
+          type: string
+        rule_id:
+          type: string
+        rule_name:
+          type: string
+        source:
+          type: string
       type: object
   securitySchemes:
     BearerAuth:

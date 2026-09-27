@@ -54,6 +54,7 @@ tags:
 - Materials Science
 - AI Security
 - Quantum
+- A2A
 tags_raw:
 - Company
 - Artificial Intelligence
@@ -67,6 +68,7 @@ tags_raw:
 - Materials Science
 - AI Security
 - Quantum
+- A2A
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -608,3 +610,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 39
   pass: local-v1
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.flintai.dev/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404

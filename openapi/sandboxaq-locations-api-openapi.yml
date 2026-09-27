@@ -123,19 +123,6 @@ paths:
       - Locations
 components:
   schemas:
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
     engine_output.EngineDataPage:
       properties:
         cursor:
@@ -157,6 +144,19 @@ components:
       - cursor
       - header
       - rows
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
       type: object
   securitySchemes:
     BearerAuth:
