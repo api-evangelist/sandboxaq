@@ -183,68 +183,6 @@ paths:
       - aispm-tools
 components:
   schemas:
-    api.AispmToolDetailResponse:
-      properties:
-        agents:
-          $ref: '#/components/schemas/engine_output.EmbeddedSection'
-        cursor:
-          type: string
-        header:
-          items:
-            type: string
-          type: array
-        issues:
-          $ref: '#/components/schemas/engine_output.EngineDataPage'
-        locations:
-          $ref: '#/components/schemas/engine_output.EmbeddedLocationSection'
-        mcp_servers:
-          $ref: '#/components/schemas/engine_output.EmbeddedSection'
-        rows:
-          items:
-            items: {}
-            type: array
-          type: array
-        total:
-          type: integer
-        total_sampling:
-          type: number
-      required:
-      - cursor
-      - header
-      - rows
-      type: object
-    engine_output.EmbeddedItem:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-    engine_output.EmbeddedLocationItem:
-      properties:
-        codeLocation:
-          type: object
-        id:
-          type: string
-      type: object
-    engine_output.EmbeddedLocationSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
-          type: array
-        total:
-          type: integer
-      type: object
-    engine_output.EmbeddedSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedItem'
-          type: array
-        total:
-          type: integer
-      type: object
     engine_output.EngineDataPage:
       properties:
         cursor:
@@ -279,6 +217,68 @@ components:
       required:
       - code
       - message
+      type: object
+    engine_output.EmbeddedLocationSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+          type: array
+        total:
+          type: integer
+      type: object
+    engine_output.EmbeddedItem:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    engine_output.EmbeddedSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedItem'
+          type: array
+        total:
+          type: integer
+      type: object
+    engine_output.EmbeddedLocationItem:
+      properties:
+        codeLocation:
+          type: object
+        id:
+          type: string
+      type: object
+    api.AispmToolDetailResponse:
+      properties:
+        agents:
+          $ref: '#/components/schemas/engine_output.EmbeddedSection'
+        cursor:
+          type: string
+        header:
+          items:
+            type: string
+          type: array
+        issues:
+          $ref: '#/components/schemas/engine_output.EngineDataPage'
+        locations:
+          $ref: '#/components/schemas/engine_output.EmbeddedLocationSection'
+        mcp_servers:
+          $ref: '#/components/schemas/engine_output.EmbeddedSection'
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        total:
+          type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
       type: object
   securitySchemes:
     BearerAuth:

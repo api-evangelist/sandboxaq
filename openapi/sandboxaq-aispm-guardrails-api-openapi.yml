@@ -154,40 +154,6 @@ paths:
       - aispm-guardrails
 components:
   schemas:
-    engine_output.AispmGuardrailCategoryCount:
-      properties:
-        category:
-          type: string
-        count:
-          type: integer
-      type: object
-    engine_output.AispmGuardrailCategoriesResponse:
-      properties:
-        categories:
-          items:
-            $ref: '#/components/schemas/engine_output.AispmGuardrailCategoryCount'
-          type: array
-        total:
-          type: integer
-      type: object
-    engine_output.AispmGuardrailOutcomesResponse:
-      properties:
-        alerted:
-          type: integer
-        blocked:
-          type: integer
-        ok:
-          type: integer
-        redacted:
-          type: integer
-        total:
-          type: integer
-      type: object
-    engine_output.AispmGuardrailInteractionsBucketEntry:
-      properties:
-        count:
-          type: integer
-      type: object
     common.RequestError:
       description: Error responses returned by the API
       properties:
@@ -213,6 +179,40 @@ components:
           $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
         total:
           $ref: '#/components/schemas/engine_output.AispmGuardrailInteractionsBucketEntry'
+      type: object
+    engine_output.AispmGuardrailCategoryCount:
+      properties:
+        category:
+          type: string
+        count:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailOutcomesResponse:
+      properties:
+        alerted:
+          type: integer
+        blocked:
+          type: integer
+        ok:
+          type: integer
+        redacted:
+          type: integer
+        total:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailInteractionsBucketEntry:
+      properties:
+        count:
+          type: integer
+      type: object
+    engine_output.AispmGuardrailCategoriesResponse:
+      properties:
+        categories:
+          items:
+            $ref: '#/components/schemas/engine_output.AispmGuardrailCategoryCount'
+          type: array
+        total:
+          type: integer
       type: object
     engine_output.AispmGuardrailInteractionCountsResponse:
       properties:

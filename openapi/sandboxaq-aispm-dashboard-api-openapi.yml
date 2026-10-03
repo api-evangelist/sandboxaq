@@ -47,14 +47,31 @@ paths:
       - aispm-dashboard
 components:
   schemas:
-    engine_output.AispmScansCounts:
+    engine_output.AispmObjectsCounts:
       properties:
-        percent_scans_with_ai_objects:
-          type: number
-        scans_with_ai_objects_count:
+        critical_issues_count:
           type: integer
-        total_current_aispm_scans:
+        high_issues_count:
           type: integer
+        object_type:
+          type: string
+        total_inventory_count:
+          type: integer
+        total_issues_count:
+          type: integer
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
       type: object
     api.aispmDashboardType:
       properties:
@@ -83,17 +100,13 @@ components:
         scans_counts:
           $ref: '#/components/schemas/engine_output.AispmScansCounts'
       type: object
-    engine_output.AispmObjectsCounts:
+    engine_output.AispmScansCounts:
       properties:
-        critical_issues_count:
+        percent_scans_with_ai_objects:
+          type: number
+        scans_with_ai_objects_count:
           type: integer
-        high_issues_count:
-          type: integer
-        object_type:
-          type: string
-        total_inventory_count:
-          type: integer
-        total_issues_count:
+        total_current_aispm_scans:
           type: integer
       type: object
     api.IssuesHistogram:
@@ -143,19 +156,6 @@ components:
           type: string
         total_priority_affected_elements:
           type: integer
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
       type: object
   securitySchemes:
     BearerAuth:
