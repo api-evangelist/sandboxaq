@@ -187,14 +187,18 @@ paths:
       - aispm-mcp-servers
 components:
   schemas:
-    engine_output.EngineDataPage:
+    api.AispmMcpServerDetailResponse:
       properties:
+        agents:
+          $ref: '#/components/schemas/engine_output.EmbeddedSection'
         cursor:
           type: string
         header:
           items:
             type: string
           type: array
+        locations:
+          $ref: '#/components/schemas/engine_output.EmbeddedLocationSection'
         rows:
           items:
             items: {}
@@ -208,19 +212,6 @@ components:
       - cursor
       - header
       - rows
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
       type: object
     engine_output.EmbeddedLocationSection:
       properties:
@@ -247,25 +238,27 @@ components:
         total:
           type: integer
       type: object
-    engine_output.EmbeddedLocationItem:
+    common.RequestError:
+      description: Error responses returned by the API
       properties:
-        codeLocation:
-          type: object
-        id:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
           type: string
+      required:
+      - code
+      - message
       type: object
-    api.AispmMcpServerDetailResponse:
+    engine_output.EngineDataPage:
       properties:
-        agents:
-          $ref: '#/components/schemas/engine_output.EmbeddedSection'
         cursor:
           type: string
         header:
           items:
             type: string
           type: array
-        locations:
-          $ref: '#/components/schemas/engine_output.EmbeddedLocationSection'
         rows:
           items:
             items: {}
@@ -279,6 +272,13 @@ components:
       - cursor
       - header
       - rows
+      type: object
+    engine_output.EmbeddedLocationItem:
+      properties:
+        codeLocation:
+          type: object
+        id:
+          type: string
       type: object
   securitySchemes:
     BearerAuth:

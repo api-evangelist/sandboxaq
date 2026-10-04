@@ -68,6 +68,15 @@ paths:
       - viewExports
 components:
   schemas:
+    api.ScheduledViewExportDescriptionType:
+      properties:
+        export_path:
+          type: string
+        export_status:
+          $ref: '#/components/schemas/api.ExportStatusType'
+        export_workflow_id:
+          type: string
+      type: object
     api.ExportStatusType:
       enum:
       - completed
@@ -82,15 +91,6 @@ components:
       - Running
       - RetryPending
       - Scheduled
-    api.ScheduledViewExportDescriptionType:
-      properties:
-        export_path:
-          type: string
-        export_status:
-          $ref: '#/components/schemas/api.ExportStatusType'
-        export_workflow_id:
-          type: string
-      type: object
     common.RequestError:
       description: Error responses returned by the API
       properties:

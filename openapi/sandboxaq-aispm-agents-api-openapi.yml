@@ -190,54 +190,18 @@ paths:
       - aispm-agents
 components:
   schemas:
-    cost.BurnRate:
+    cost.CostHistory:
       properties:
-        daily_spend_rate:
+        current_month:
           type: number
-        status:
-          type: string
-      type: object
-    common.RequestError:
-      description: Error responses returned by the API
-      properties:
-        code:
-          example: 400
-          type: integer
-        message:
-          example: Invalid request
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    engine_output.EngineDataPage:
-      properties:
-        cursor:
-          type: string
-        header:
+        current_quarter:
+          type: number
+        monthly:
           items:
-            type: string
+            $ref: '#/components/schemas/cost.PeriodCost'
           type: array
-        rows:
-          items:
-            items: {}
-            type: array
-          type: array
-        total:
-          type: integer
-        total_sampling:
+        ytd:
           type: number
-      required:
-      - cursor
-      - header
-      - rows
-      type: object
-    cost.PeriodCost:
-      properties:
-        cost:
-          type: number
-        period:
-          type: string
       type: object
     api.AispmDetailResponse:
       properties:
@@ -283,11 +247,27 @@ components:
       - header
       - rows
       type: object
+    engine_output.EmbeddedLocationSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+          type: array
+        total:
+          type: integer
+      type: object
     engine_output.EmbeddedItem:
       properties:
         id:
           type: string
         name:
+          type: string
+      type: object
+    cost.PeriodCostPerSession:
+      properties:
+        cost_per_session:
+          type: number
+        period:
           type: string
       type: object
     engine_output.EmbeddedSection:
@@ -299,14 +279,47 @@ components:
         total:
           type: integer
       type: object
-    engine_output.EmbeddedLocationSection:
+    cost.PeriodCost:
       properties:
-        items:
+        cost:
+          type: number
+        period:
+          type: string
+      type: object
+    common.RequestError:
+      description: Error responses returned by the API
+      properties:
+        code:
+          example: 400
+          type: integer
+        message:
+          example: Invalid request
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    engine_output.EngineDataPage:
+      properties:
+        cursor:
+          type: string
+        header:
           items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+            type: string
+          type: array
+        rows:
+          items:
+            items: {}
+            type: array
           type: array
         total:
           type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
       type: object
     engine_output.EmbeddedLocationItem:
       properties:
@@ -315,24 +328,11 @@ components:
         id:
           type: string
       type: object
-    cost.CostHistory:
+    cost.BurnRate:
       properties:
-        current_month:
+        daily_spend_rate:
           type: number
-        current_quarter:
-          type: number
-        monthly:
-          items:
-            $ref: '#/components/schemas/cost.PeriodCost'
-          type: array
-        ytd:
-          type: number
-      type: object
-    cost.PeriodCostPerSession:
-      properties:
-        cost_per_session:
-          type: number
-        period:
+        status:
           type: string
       type: object
   securitySchemes:
