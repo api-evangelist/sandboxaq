@@ -190,19 +190,6 @@ paths:
       - aispm-agents
 components:
   schemas:
-    cost.CostHistory:
-      properties:
-        current_month:
-          type: number
-        current_quarter:
-          type: number
-        monthly:
-          items:
-            $ref: '#/components/schemas/cost.PeriodCost'
-          type: array
-        ytd:
-          type: number
-      type: object
     api.AispmDetailResponse:
       properties:
         burn_rate:
@@ -247,45 +234,6 @@ components:
       - header
       - rows
       type: object
-    engine_output.EmbeddedLocationSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
-          type: array
-        total:
-          type: integer
-      type: object
-    engine_output.EmbeddedItem:
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-      type: object
-    cost.PeriodCostPerSession:
-      properties:
-        cost_per_session:
-          type: number
-        period:
-          type: string
-      type: object
-    engine_output.EmbeddedSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedItem'
-          type: array
-        total:
-          type: integer
-      type: object
-    cost.PeriodCost:
-      properties:
-        cost:
-          type: number
-        period:
-          type: string
-      type: object
     common.RequestError:
       description: Error responses returned by the API
       properties:
@@ -321,6 +269,37 @@ components:
       - header
       - rows
       type: object
+    engine_output.EmbeddedSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedItem'
+          type: array
+        total:
+          type: integer
+      type: object
+    cost.CostHistory:
+      properties:
+        current_month:
+          type: number
+        current_quarter:
+          type: number
+        monthly:
+          items:
+            $ref: '#/components/schemas/cost.PeriodCost'
+          type: array
+        ytd:
+          type: number
+      type: object
+    engine_output.EmbeddedLocationSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+          type: array
+        total:
+          type: integer
+      type: object
     engine_output.EmbeddedLocationItem:
       properties:
         codeLocation:
@@ -333,6 +312,27 @@ components:
         daily_spend_rate:
           type: number
         status:
+          type: string
+      type: object
+    engine_output.EmbeddedItem:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      type: object
+    cost.PeriodCost:
+      properties:
+        cost:
+          type: number
+        period:
+          type: string
+      type: object
+    cost.PeriodCostPerSession:
+      properties:
+        cost_per_session:
+          type: number
+        period:
           type: string
       type: object
   securitySchemes:

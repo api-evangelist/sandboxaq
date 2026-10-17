@@ -845,11 +845,6 @@ paths:
       - client-storage
 components:
   schemas:
-    api.clientStoragePutRequest:
-      properties:
-        value:
-          type: object
-      type: object
     common.RequestError:
       description: Error responses returned by the API
       properties:
@@ -869,6 +864,11 @@ components:
           type: string
         updated_at:
           type: string
+        value:
+          type: object
+      type: object
+    api.clientStoragePutRequest:
+      properties:
         value:
           type: object
       type: object

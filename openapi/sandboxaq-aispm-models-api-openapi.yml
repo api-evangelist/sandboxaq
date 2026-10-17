@@ -185,56 +185,12 @@ paths:
       - aispm-models
 components:
   schemas:
-    api.AispmModelDetailResponse:
+    engine_output.EmbeddedLocationItem:
       properties:
-        agents:
-          $ref: '#/components/schemas/engine_output.EmbeddedSection'
-        cursor:
-          type: string
-        header:
-          items:
-            type: string
-          type: array
-        locations:
-          $ref: '#/components/schemas/engine_output.EmbeddedLocationSection'
-        rows:
-          items:
-            items: {}
-            type: array
-          type: array
-        total:
-          type: integer
-        total_sampling:
-          type: number
-      required:
-      - cursor
-      - header
-      - rows
-      type: object
-    engine_output.EmbeddedLocationSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
-          type: array
-        total:
-          type: integer
-      type: object
-    engine_output.EmbeddedItem:
-      properties:
+        codeLocation:
+          type: object
         id:
           type: string
-        name:
-          type: string
-      type: object
-    engine_output.EmbeddedSection:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/engine_output.EmbeddedItem'
-          type: array
-        total:
-          type: integer
       type: object
     common.RequestError:
       description: Error responses returned by the API
@@ -271,11 +227,55 @@ components:
       - header
       - rows
       type: object
-    engine_output.EmbeddedLocationItem:
+    engine_output.EmbeddedLocationSection:
       properties:
-        codeLocation:
-          type: object
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedLocationItem'
+          type: array
+        total:
+          type: integer
+      type: object
+    engine_output.EmbeddedSection:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/engine_output.EmbeddedItem'
+          type: array
+        total:
+          type: integer
+      type: object
+    api.AispmModelDetailResponse:
+      properties:
+        agents:
+          $ref: '#/components/schemas/engine_output.EmbeddedSection'
+        cursor:
+          type: string
+        header:
+          items:
+            type: string
+          type: array
+        locations:
+          $ref: '#/components/schemas/engine_output.EmbeddedLocationSection'
+        rows:
+          items:
+            items: {}
+            type: array
+          type: array
+        total:
+          type: integer
+        total_sampling:
+          type: number
+      required:
+      - cursor
+      - header
+      - rows
+      type: object
+    engine_output.EmbeddedItem:
+      properties:
         id:
+          type: string
+        name:
           type: string
       type: object
   securitySchemes:
