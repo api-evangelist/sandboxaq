@@ -64,41 +64,157 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-SandboxAQ (SB Technology, Inc.) builds Large Quantitative Models (LQMs) — AI systems that fuse physics,
-chemistry and proprietary scientific data — and ships them as commercial platforms. Three product lines
-carry public developer surfaces, and they do not share a data core.
+SandboxAQ (SB Technology, Inc.) builds Large Quantitative Models (LQMs) — AI systems that fuse physics, chemistry and proprietary scientific data — and ships them as commercial platforms with public developer surfaces. Three product lines carry callable APIs: AQtive Guard, a cryptography and non-human-identity posture-management platform (built on the Cryptosense analyzer) exposing a GraphQL API at /api/v2 plus a fleet of language and network sensors; Flint AI, an AI-agent security platform whose Platform API is a documented OpenAPI 3.0.3 contract over an inventory graph of agents, models, tools and MCP servers, paired with the flintai CLI and a Python guardrails SDK; and the SandboxAQ MCP Server, a per-tenant OAuth-protected Model Context Protocol endpoint that exposes the AQCat adsorption and AQPotency proteochemometric potency models as tools for LLM clients.
 
-## APIs
+**Areas:** Company · Artificial Intelligence · Security · Cryptography · Post-Quantum Cryptography · Agents · MCP · Simulation · Drug Discovery · Materials Science · AI Security · Quantum
 
-| API | Style | Contract | Base |
-|---|---|---|---|
-| [Flint AI Platform API](https://docs.flintai.dev/flintai/api-reference/index) | REST | OpenAPI 3.0.3, 55 operations | `https://{instance}.flintai.dev/api/v1` |
-| [AQtive Guard API](https://aqtiveguard.sandboxaq.com/docs/api/) | GraphQL | 414 types, 6 queries, 73 mutations | `https://aqtiveguard.sandboxaq.com/api/v2` |
-| [SandboxAQ MCP Server](https://docs.aisim.sandboxaq.com/mcp) | Model Context Protocol | 5 tools + 4 job-lifecycle helpers | `https://mcp.{tenant}.aisim.sandboxaq.com` |
+## SandboxAQ on APIs.io
 
-## Artifacts
+Everything profiled for SandboxAQ is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/sandboxaq/](https://apis.io/providers/sandboxaq/)** — or go straight to one of the APIs or properties below.
 
-- `openapi/` — the Flint AI Platform API spec, harvested verbatim from
-  `https://docs.flintai.dev/flintai/api-reference/openapi.json`
-- `graphql/` — the AQtive Guard SDL, transcribed from the provider's published schema reference
-  (live introspection is API-KEY gated) and validated with `graphql-core`
-- `grpc/` — Protobuf definitions from the open-source [Sandwich](https://github.com/sandbox-quantum/sandwich)
-  cryptography library
-- `a2a/` — A2A Agent Card served at `https://docs.flintai.dev/.well-known/agent-card.json`, graded
-- `mcp/` — MCP server manifest with published tool schemas, plus the tool crosswalk recording the hard
-  split between the three surfaces
-- `skills/` — the provider-published Flint agent skill (verbatim) plus one generated skill grounded in
-  real operationIds
-- `llms/` — `llms.txt` harvested verbatim from the Flint AI docs host
-- `packages/`, `cli/` — the `flintai-cli` / `flintai-sdk-py` / `pysandwich` distributions and the
-  `flintai` + `cs-api` command surfaces
-- `authentication/`, `conventions/`, `errors/`, `data-model/`, `lifecycle/`, `changelog/`,
-  `conformance/`, `well-known/`, `security/`, `agentic-access/`, `overlays/`
+### APIs (21)
 
-## Links
+- [AQtive Guard API](https://apis.io/apis/sandboxaq/aqtive-guard-api/) — AQtive Guard is SandboxAQ's cryptography and non-human-identity management platform, built on the Cryptosense analyzer it acquired. Its API is GraphQL,…
+- [SandboxAQ MCP Server](https://apis.io/apis/sandboxaq/mcp-server/) — A fully managed, per-tenant Model Context Protocol server that exposes SandboxAQ's proprietary scientific AI models as callable tools inside Claude and…
+- [SandboxAQ Aispm Agents API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-agents-api/) — The aispm-agents API from SandboxAQ — 3 operation(s) for aispm-agents.
+- [SandboxAQ Aispm Dashboard API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-dashboard-api/) — The aispm-dashboard API from SandboxAQ — 1 operation(s) for aispm-dashboard.
+- [SandboxAQ Aispm Guardrails API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-guardrails-api/) — The aispm-guardrails API from SandboxAQ — 3 operation(s) for aispm-guardrails.
+- [SandboxAQ Aispm Llm Interactions API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-llm-interactions-api/) — The aispm-llm-interactions API from SandboxAQ — 2 operation(s) for aispm-llm-interactions.
+- [SandboxAQ Aispm Llm Sessions API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-llm-sessions-api/) — The aispm-llm-sessions API from SandboxAQ — 1 operation(s) for aispm-llm-sessions.
+- [SandboxAQ Aispm MCP Servers API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-mcp-servers-api/) — The aispm-mcp-servers API from SandboxAQ — 3 operation(s) for aispm-mcp-servers.
+- [SandboxAQ Aispm Models API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-models-api/) — The aispm-models API from SandboxAQ — 3 operation(s) for aispm-models.
+- [SandboxAQ Aispm Tools API](https://apis.io/apis/sandboxaq/sandboxaq-aispm-tools-api/) — The aispm-tools API from SandboxAQ — 3 operation(s) for aispm-tools.
+- [SandboxAQ Assets API](https://apis.io/apis/sandboxaq/sandboxaq-assets-api/) — The assets API from SandboxAQ — 3 operation(s) for assets.
+- [SandboxAQ Client Storage API](https://apis.io/apis/sandboxaq/sandboxaq-client-storage-api/) — The client-storage API from SandboxAQ — 4 operation(s) for client-storage.
+- [SandboxAQ Fine Issues API](https://apis.io/apis/sandboxaq/sandboxaq-fine-issues-api/) — The fine-issues API from SandboxAQ — 1 operation(s) for fine-issues.
+- [SandboxAQ Inventory API](https://apis.io/apis/sandboxaq/sandboxaq-inventory-api/) — The inventory API from SandboxAQ — 1 operation(s) for inventory.
+- [SandboxAQ issues aispm histograms API](https://apis.io/apis/sandboxaq/sandboxaq-issues-aispm-histograms-api/) — The issues aispm histograms API from SandboxAQ — 1 operation(s) for issues aispm histograms.
+- [SandboxAQ Issues API](https://apis.io/apis/sandboxaq/sandboxaq-issues-api/) — The issues API from SandboxAQ — 8 operation(s) for issues.
+- [SandboxAQ Locations API](https://apis.io/apis/sandboxaq/sandboxaq-locations-api/) — The locations API from SandboxAQ — 2 operation(s) for locations.
+- [SandboxAQ Rules API](https://apis.io/apis/sandboxaq/sandboxaq-rules-api/) — The rules API from SandboxAQ — 5 operation(s) for rules.
+- [SandboxAQ Scans API](https://apis.io/apis/sandboxaq/sandboxaq-scans-api/) — The scans API from SandboxAQ — 1 operation(s) for scans.
+- [SandboxAQ scans assets API](https://apis.io/apis/sandboxaq/sandboxaq-scans-assets-api/) — The scans assets API from SandboxAQ — 1 operation(s) for scans assets.
+- [SandboxAQ View Exports API](https://apis.io/apis/sandboxaq/sandboxaq-viewexports-api/) — The viewExports API from SandboxAQ — 1 operation(s) for viewexports.
 
-- Website — https://www.sandboxaq.com/
-- Products — https://www.sandboxaq.com/products
-- Blog — https://www.sandboxaq.com/blog
-- GitHub — https://github.com/sandbox-quantum
-- Secondary market listing — https://www.hiive.com/securities/sandboxaq-stock
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [sandboxaq-mcp](https://apis.io/servers/sandboxaq/sandboxaq-mcp/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Sandboxaq Agentic Access](https://apis.io/agentic-access/sandboxaq/sandboxaq-agentic-access/)
+
+#### Collections (19)
+
+Postman and Open Collection request collections.
+
+- [Flint AI Platform Aispm Agents API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-agents-api/)
+- [Flint AI Platform Aispm Dashboard API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-dashboard-api/)
+- [Flint AI Platform Aispm Guardrails API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-guardrails-api/)
+- [Flint AI Platform Aispm Llm Interactions API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-llm-interactions-api/)
+- [Flint AI Platform Aispm Llm Sessions API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-llm-sessions-api/)
+- [Flint AI Platform Aispm MCP Servers API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-mcp-servers-api/)
+- [Flint AI Platform Aispm Models API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-models-api/)
+- [Flint AI Platform Aispm Tools API](https://apis.io/collections/sandboxaq/open-sandboxaq-aispm-tools-api/)
+- [Flint AI Platform Assets API](https://apis.io/collections/sandboxaq/open-sandboxaq-assets-api/)
+- [Flint AI Platform Client Storage API](https://apis.io/collections/sandboxaq/open-sandboxaq-client-storage-api/)
+- [Flint AI Platform Fine Issues API](https://apis.io/collections/sandboxaq/open-sandboxaq-fine-issues-api/)
+- [Flint AI Platform Inventory API](https://apis.io/collections/sandboxaq/open-sandboxaq-inventory-api/)
+- [Flint AI Platform issues aispm histograms API](https://apis.io/collections/sandboxaq/open-sandboxaq-issues-aispm-histograms-api/)
+- [Flint AI Platform Issues API](https://apis.io/collections/sandboxaq/open-sandboxaq-issues-api/)
+- [Flint AI Platform Locations API](https://apis.io/collections/sandboxaq/open-sandboxaq-locations-api/)
+- [Flint AI Platform Rules API](https://apis.io/collections/sandboxaq/open-sandboxaq-rules-api/)
+- [Flint AI Platform Scans API](https://apis.io/collections/sandboxaq/open-sandboxaq-scans-api/)
+- [Flint AI Platform scans assets API](https://apis.io/collections/sandboxaq/open-sandboxaq-scans-assets-api/)
+- [Flint AI Platform View Exports API](https://apis.io/collections/sandboxaq/open-sandboxaq-viewexports-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Sandboxaq Flint Ai Platform Overlay](https://apis.io/overlays/sandboxaq/sandboxaq-flint-ai-platform-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Sandboxaq Authentication](https://apis.io/security/sandboxaq/sandboxaq-authentication/)
+- [Sandboxaq Domain Security](https://apis.io/security/sandboxaq/sandboxaq-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.sandboxaq.com/)
+- [Documentation](https://docs.flintai.dev/)
+- [Getting started](https://docs.flintai.dev/flintai/cli/guides/scan-quickstart)
+- [API reference](https://docs.flintai.dev/flintai/api-reference/index)
+- [Sign up](https://www.sandboxaq.com/)
+- [Support](https://docs.aisim.sandboxaq.com/contact)
+- [Blog](https://www.sandboxaq.com/blog)
+- [Terms of service](https://www.sandboxaq.com/legal/terms-conditions)
+- [Privacy policy](https://www.sandboxaq.com/legal/privacy-policy)
+- [GitHub](https://github.com/sandbox-quantum)
+
+## API Evangelist rating
+
+**Kin Score 49.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 54.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 73.8 |
+| Access clarity | 34.2 |
+
+**Agent readiness 29.6** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | mostly (partial credit) |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/sandboxaq/](https://apis.io/providers/sandboxaq/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for SandboxAQ: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/sandboxaq/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
